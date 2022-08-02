@@ -1,0 +1,92 @@
+[tool.poetry]
+name = "py-printlinter"
+version = "0.1.0"
+description = "print linter to know where is the test print"
+authors = ["ulysse <ulysse.chosson@obspm.fr>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+rich = "^12.5.1"
+
+[tool.poetry.dev-dependencies]
+pydocstyle = "^6.1.1"
+pylint = "^2.14.5"
+flake8 = "^3.9"
+flakehell = "^0.9.0"
+codespell = "^2.1.0"
+pytest = "^7.1.2"
+pytest-sugar = "^0.9.5"
+pytest-pudb = "^0.7.0"
+pre-commit = "^2.20.0"
+blask = "^0.2.3"
+isort = "^5.10.1"
+xdoctest = "^1.0.1"
+flake8-eradicate = "^1.2.1"
+mypy = "^0.971"
+plerr = "^3.0.0"
+flake8-bandit = "^3.0.0"
+flake8-commas = "^2.1.0"
+flake8-quotes = "^3.3.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = "--xdoctest -xl"
+
+[tool.black]
+target-version = ['py310']
+
+[tool.isort]
+py_version = "310"
+profile = "black"
+known_pytest = ["pytest", "pytest_postgresql"]
+sections = ["FUTURE", "PYTEST", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+import_heading_future = "Future imports"
+import_heading_pytest = "Pytest imports"
+import_heading_stdlib = "Standard imports"
+import_heading_thirdparty = "Third party imports"
+import_heading_firstparty = "First party imports"
+import_heading_localfolder = "Local imports"
+
+[tool.pydocstyle]
+match = '((?!test_).)*\.py'
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+
+# mypy per-module options:
+
+[[tool.mypy.overrides]]
+module = []
+ignore_missing_imports = true
+
+[tool.pylint.message_control]
+output-format = "colorized"
+msg-template = "'{msg_id}: in the file: {path}, at line: {line:}, at column: {column}, in objects: {obj} -> {msg}' py_linq_sql/"
+
+[tool.pylint.miscellaneous]
+notes = ["FIXME","XXX"]
+
+
+[tool.flakehell]
+exclude = ["example.py", "setup.py", "README.rst"]
+max_line_length = 88
+show_source = true
+format = "grouped"
+
+[tool.flakehell.plugins]
+pyflakes = ["+*"]
+flake8-bandit = ["-*", "+S1??"]
+"flake8-*" = ["+*", "-Q000"]
+flake8-commas = ["+*"]
+mccabe = ["+*"]
+pep8-naming = ["+*", "-N812"]
+dlint = ["+*"]

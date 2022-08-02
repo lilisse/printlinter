@@ -1,0 +1,93 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  # Precommit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: no-commit-to-branch
+      - id: check-merge-conflict
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: debug-statements
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      # TODO: rehabilitated this hook
+      # - id: check-added-large-files
+      - id: check-shebang-scripts-are-executable
+  # Formater
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        name: isort (python)
+  - repo: https://github.com/ambv/black
+    rev: 22.6.0
+    hooks:
+      - id: black
+        language_version: python3.10
+        args: [--target-version, py310]
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.1.0
+    hooks:
+      - id: codespell
+        language_version: python3.10
+        args: [-wi, "3"]
+  - repo: local
+    hooks:
+      - id: pydocstyle
+        name: pydocstyle
+        entry: pydocstyle
+        language: system
+  # Linter
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: mypy -p py_linq_sql --config-file pyproject.toml
+        language: system
+        pass_filenames: false
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: pylint --rcfile=pyproject.toml py_linq_sql/
+        language: system
+        pass_filenames: false
+  - repo: https://github.com/pycqa/flake8
+    rev: 5.0.3
+    hooks:
+      - id: flake8
+  - repo: local
+    hooks:
+      - id: flakehell
+        name: flakehell
+        entry: flakehell lint py_linq_sql/
+        language: system
+        pass_filenames: false
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.5.0
+    hooks:
+      - id: markdownlint-cli2
+        args: ["**/*.md", "#node_modules"]
+  # Tests
+  - repo: local
+    hooks:
+      - id: doctest_md
+        name: doctest in md
+        entry: python3 -m doctest -o ELLIPSIS -o NORMALIZE_WHITESPACE
+        language: system
+        types: [markdown]
+        pass_filenames: true
+  - repo: local
+    hooks:
+      - id: alltest
+        name: pytest and xdoctest
+        entry: python3 -m pytest -v
+        exclude: docs/api
+        language: system
+        types: [python]
+        pass_filenames: false
