@@ -3,16 +3,20 @@ name = "py-printlinter"
 version = "0.1.0"
 description = "print linter to know where is the test print"
 authors = ["ulysse <ulysse.chosson@obspm.fr>"]
+license = "EUPL v1.2"
+readme = "README.md"
+# packages = [{include = "cli_app"}, {include = "py_printlinter"}]
+
+# [tool.poetry.scripts]
+# py-printlinter = "py_printlinter.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.10"
 rich = "^12.5.1"
+typer = "^0.7.0"
+mypy = "^1.4.1"
 
 [tool.poetry.dev-dependencies]
-pydocstyle = "^6.1.1"
-pylint = "^2.14.5"
-flake8 = "^3.9"
-flakehell = "^0.9.0"
 codespell = "^2.1.0"
 pytest = "^7.1.2"
 pytest-sugar = "^0.9.5"
@@ -21,12 +25,11 @@ pre-commit = "^2.20.0"
 blask = "^0.2.3"
 isort = "^5.10.1"
 xdoctest = "^1.0.1"
-flake8-eradicate = "^1.2.1"
-mypy = "^0.971"
-plerr = "^3.0.0"
-flake8-bandit = "^3.0.0"
-flake8-commas = "^2.1.0"
-flake8-quotes = "^3.3.1"
+mypy = "^1.4.1"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.0.262"
+pytest-cov = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -50,9 +53,6 @@ import_heading_thirdparty = "Third party imports"
 import_heading_firstparty = "First party imports"
 import_heading_localfolder = "Local imports"
 
-[tool.pydocstyle]
-match = '((?!test_).)*\.py'
-
 [tool.mypy]
 python_version = "3.10"
 warn_return_any = true
@@ -68,25 +68,83 @@ disallow_untyped_decorators = true
 module = []
 ignore_missing_imports = true
 
-[tool.pylint.message_control]
-output-format = "colorized"
-msg-template = "'{msg_id}: in the file: {path}, at line: {line:}, at column: {column}, in objects: {obj} -> {msg}' py_linq_sql/"
+[tool.ruff]
+line-length = 88
 
-[tool.pylint.miscellaneous]
-notes = ["FIXME","XXX"]
+select = [
+    "F", # Pyflakes: generic
+    "E", # pycodestyle: generic
+    "I", # isort and flake8-tidy-imports: import order and correctness
+    "D", # pydocstyle: docstrings convention
+    "UP", # pyupgrade: python changes due to python version upgrade
+    "N", # pep8-naming: naming convention
+    "ERA", # eradicate: commented-out code
+    "C", # flake8-comprehensions: comprehension error/issues
+    "T100", # flake8-debugger: debuging issues
+    "B", # flake8-bugbear: common bugs and design problems
+    "A", # flake8-builtins: builtins shadowing
+    "ANN", # flake8-annotations: annotation problems
+    "YTT", # flake8-2020: checks for misuse of sys.version or sys.version_info
+    "BLE", # flake8-blind-except: no blind except
+    "C901", # mccabe: code complexity
+    "PGH", # pygrep-hooks: no eval allowed
+    "RUF", # Ruff-specific rules
+    "RUF100", # Meta rules
+    "PLC", # Pylint
+    "PLE", # Pylint
+    "PLR", # Pylint
+    "PLW", # Pylint
+]
+ignore = [
+    "I001",
+    "D212", # Doc not on the same line ass tripl quotes
+    # pydocstyle: Google style convention
+    "D203", "D204", "D213", "D215", "D400", "D404", "D406", "D407", "D408", "D409", "D413",
+    "S101", # assert in code --> needed for pytest
+    "E999", # syntax error -> does not support pattern matching yet https://github.com/charliermarsh/ruff/issues/282
+    "ANN101", # Conflict with mypy
+    "PLR2004", # Magic value not realy magic value
+    # TODO: Passer a des pipes quand l'issue sera resolue.
+    "UP007", # Typer need Optional: https://github.com/tiangolo/typer/issues/533
+    "C901", # Not realy ussefull in this project
+    "B008", # Not realy ussefull in this project
+]
 
 
-[tool.flakehell]
-exclude = ["example.py", "setup.py", "README.rst"]
-max_line_length = 88
-show_source = true
-format = "grouped"
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    "tests",
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+per-file-ignores = {}
 
-[tool.flakehell.plugins]
-pyflakes = ["+*"]
-flake8-bandit = ["-*", "+S1??"]
-"flake8-*" = ["+*", "-Q000"]
-flake8-commas = ["+*"]
-mccabe = ["+*"]
-pep8-naming = ["+*", "-N812"]
-dlint = ["+*"]
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Assume Python 3.11.
+target-version = "py310"
+
+[tool.ruff.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10
+
+[tool.ruff.flake8-annotations]
+suppress-none-returning = true

@@ -17,13 +17,6 @@ install-all: clean clear
     npm install
     sudo npm install markdownlint-cli2 --global
 
-# Launch exodam pytest
-test: clean clear
-    python3.10 -m pytest
-
-# Launch test and clean
-pytest: test clean
-
 # Do a clean install of pre-commit dependencies
 preinstall: clean clear
     pre-commit clean
@@ -41,37 +34,41 @@ prepre: clean clear
     git status
     pre-commit run --all-files
 
-# Launch docstring verification with pydocstyle
-pydocstyle path="py_linq_sql": clean clear
-    pydocstyle {{ path }}
+# Launch the mypy type linter on the module
+mypy-linter: clean clear
+    mypy --pretty -p py_printlinter --config-file pyproject.toml
 
 # Launch the mypy type linter on the module
-mypy: clean clear
-    mypy --pretty -p py_linq_sql --config-file pyproject.toml
+mypy-cli: clean clear
+    mypy --pretty -p cli_app --config-file pyproject.toml
 
-# Run pylint
-pylint path="py_linq_sql": clean clear
-    pylint --output-format=colorized --msg-template='{msg_id}: in the file: {path}, at line: {line:}, at column: {column}, in objects: {obj} -> {msg}' {{ path }}
-
-# Run flakehell
-flakehell path="py_linq_sql": clean clear
-    flakehell lint {{ path }}
 
 # Run markdownlint
 lintmd path='"**/*.md" "#node_modules"': clean clear
     markdownlint-cli2-config ".markdownlint-cli2.yaml" {{ path }}
 
+# Run ruff
+ruff path="py_printlinter cli_app": clean clear
+    ruff {{path}}
+
 # Run all linter
-lint : clean clear pydocstyle mypy pylint flakehell lintmd
+lint : clean clear mypy-linter mypy-cli ruff lintmd
 
 # Run black and isort
-onmy31 path ="py_linq_sql tests": clean clear
+onmy31 path ="py_printlinter cli_app tests": clean clear
     black {{path}}
     isort {{path}}
 
 # auto interactive rebase
 autorebase: clean clear
     git rebase -i $(git merge-base $(git branch --show-current) main)
+
+# Launch coverage on all
+coverage: clean clear
+    coverage run -m pytest
+    clear
+    coverage report -m --skip-covered --precision=3
+
 
 # rebase on main
 rebaseM: clean clear
