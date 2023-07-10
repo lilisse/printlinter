@@ -16,7 +16,7 @@ rich = "^12.5.1"
 typer = "^0.7.0"
 mypy = "^1.4.1"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 codespell = "^2.1.0"
 pytest = "^7.1.2"
 pytest-sugar = "^0.9.5"
@@ -26,8 +26,6 @@ blask = "^0.2.3"
 isort = "^5.10.1"
 xdoctest = "^1.0.1"
 mypy = "^1.4.1"
-
-[tool.poetry.group.dev.dependencies]
 ruff = "^0.0.262"
 pytest-cov = "^4.1.0"
 
