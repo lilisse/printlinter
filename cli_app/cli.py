@@ -79,11 +79,14 @@ def lint(
         path: Path to lint.
     """
     files_path = enumerate_file(path)
+    all_ignored_lines = []
     for file_path in files_path:
         tree, ignored_lines = parse_file(file_path.as_posix())
         issues = contains_print(file_path, tree)
+        all_ignored_lines.extend(ignored_lines)
 
-    not_ignored_issues = get_not_ignore_issue(issues, ignored_lines)
+    not_ignored_issues = get_not_ignore_issue(issues, all_ignored_lines)
+
     for issue in not_ignored_issues:
         CONSOLE.print(str(issue))
     CONSOLE.print(f"Found {len(not_ignored_issues)} errors")
