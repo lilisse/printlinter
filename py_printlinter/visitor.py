@@ -4,11 +4,10 @@
 import ast
 from linecache import getline
 from pathlib import Path
+from typing import cast
 
 # Local imports
 from .classes import IssueEnum, IssueInfo
-
-from typing import cast
 
 
 class PrintNodeVisitor(ast.NodeVisitor):
@@ -30,9 +29,9 @@ class PrintNodeVisitor(ast.NodeVisitor):
             node: Node to visit.
 
         Returns:
-            Issue if we find one, oterwise return None.
+            Issue if we find one, otherwise return None.
         """
-        if not isinstance(node.value, ast.Call):
+        if not isinstance(node.value, ast.Call):  # pragma: no cover
             return None
 
         func = node.value.func

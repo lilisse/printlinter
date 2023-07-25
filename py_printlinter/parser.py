@@ -26,7 +26,7 @@ def enumerate_file(folder: Path) -> list[Path]:
     return list(folder.glob("**/*.py"))
 
 
-def get_ignore_lines(file: TextIOWrapper, file_path: Path) -> list:
+def get_ignore_lines(file: TextIOWrapper, file_path: Path) -> list[IgnoreLine]:
     """
     Get ignored lines in a file.
 

@@ -4,7 +4,6 @@
 from collections import namedtuple
 from dataclasses import dataclass
 from enum import Enum
-
 from pathlib import Path
 
 Issue = namedtuple("Issue", ["err_code", "name"])

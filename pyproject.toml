@@ -28,13 +28,17 @@ xdoctest = "^1.0.1"
 mypy = "^1.4.1"
 ruff = "^0.0.262"
 pytest-cov = "^4.1.0"
+assertpy = "^1.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-addopts = "--xdoctest -xl"
+addopts = "--xdoctest"
+
+[tool.coverage.run]
+omit = ["tests/*"]
 
 [tool.black]
 target-version = ['py310']
@@ -78,7 +82,7 @@ select = [
     "N", # pep8-naming: naming convention
     "ERA", # eradicate: commented-out code
     "C", # flake8-comprehensions: comprehension error/issues
-    "T100", # flake8-debugger: debuging issues
+    "T100", # flake8-debugger: debugging issues
     "B", # flake8-bugbear: common bugs and design problems
     "A", # flake8-builtins: builtins shadowing
     "ANN", # flake8-annotations: annotation problems

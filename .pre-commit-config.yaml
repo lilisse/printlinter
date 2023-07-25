@@ -3,12 +3,12 @@
 repos:
   # Precommit hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
+    rev: v4.4.0
     hooks:
       - id: no-commit-to-branch
       - id: check-merge-conflict
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
+    rev: v4.4.0
     hooks:
       - id: debug-statements
       - id: trailing-whitespace
@@ -20,56 +20,46 @@ repos:
       - id: check-shebang-scripts-are-executable
   # Formater
   - repo: https://github.com/pycqa/isort
-    rev: 5.10.1
+    rev: 5.12.0
     hooks:
       - id: isort
         name: isort (python)
   - repo: https://github.com/ambv/black
-    rev: 22.6.0
+    rev: 23.7.0
     hooks:
       - id: black
         language_version: python3.10
         args: [--target-version, py310]
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.1.0
+    rev: v2.2.5
     hooks:
       - id: codespell
         language_version: python3.10
         args: [-wi, "3"]
-  - repo: local
-    hooks:
-      - id: pydocstyle
-        name: pydocstyle
-        entry: pydocstyle
-        language: system
   # Linter
   - repo: local
     hooks:
-      - id: mypy
-        name: mypy
-        entry: mypy -p py_linq_sql --config-file pyproject.toml
+      - id: mypy_linter
+        name: mypy_linter
+        entry: mypy -p py_printlinter --config-file pyproject.toml
         language: system
         pass_filenames: false
   - repo: local
     hooks:
-      - id: pylint
-        name: pylint
-        entry: pylint --rcfile=pyproject.toml py_linq_sql/
+      - id: mypy_cli
+        name: mypy_cli
+        entry: mypy -p cli_app --config-file pyproject.toml
         language: system
         pass_filenames: false
-  - repo: https://github.com/pycqa/flake8
-    rev: 5.0.3
-    hooks:
-      - id: flake8
   - repo: local
     hooks:
-      - id: flakehell
-        name: flakehell
-        entry: flakehell lint py_linq_sql/
+      - id: ruff
+        name: ruff
+        entry: ruff py_printlinter cli_app
         language: system
         pass_filenames: false
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.5.0
+    rev: v0.8.1
     hooks:
       - id: markdownlint-cli2
         args: ["**/*.md", "#node_modules"]
@@ -86,8 +76,7 @@ repos:
     hooks:
       - id: alltest
         name: pytest and xdoctest
-        entry: python3 -m pytest -v
-        exclude: docs/api
+        entry: pytest
         language: system
         types: [python]
         pass_filenames: false
