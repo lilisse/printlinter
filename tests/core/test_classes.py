@@ -17,7 +17,13 @@ from py_printlinter import IgnoreLine, IssueEnum, IssueInfo
             "PPL001",
             "print-detected",
             id="print detected error n°1",
-        )
+        ),
+        param(
+            IssueEnum.PRETTYPRINTDETECT,
+            "PPL002",
+            "prettyprint-detected",
+            id="prettyprint detected error n°2",
+        ),
     ],
 )
 def test_issue_enum(enum_elem, err_code, name):
@@ -52,9 +58,16 @@ def test_issue_enum(enum_elem, err_code, name):
         param(False, id="not ignored"),
     ],
 )
-def test_iisue_info_class(line, column, str_line, file, ignored):
+@pytest.mark.parametrize(
+    "issue_type",
+    [
+        param(IssueEnum.PRINTDETECT, id="print"),
+        param(IssueEnum.PRETTYPRINTDETECT, id="pretty print"),
+    ],
+)
+def test_issue_info_class(line, column, str_line, file, ignored, issue_type):
     issue = IssueInfo(
-        issue=IssueEnum.PRINTDETECT,
+        issue=issue_type,
         num_line=line,
         num_col=column,
         line_as_str=str_line,
@@ -65,8 +78,8 @@ def test_iisue_info_class(line, column, str_line, file, ignored):
         assert issue
         assert_that(str(issue)).is_equal_to(
             f"[bold]{file}[/bold]:{line}:{column}: "
-            f"[bold red]PPL001[/bold red] `{str_line}` "
-            f"print-detected"
+            f"[bold red]{issue_type.value.err_code}[/bold red] `{str_line}` "
+            f"{issue_type.value.name}"
         )
 
 
@@ -77,5 +90,12 @@ def test_iisue_info_class(line, column, str_line, file, ignored):
         param(None, id="without file"),
     ],
 )
-def test_ignore_line_class(file):
-    assert IgnoreLine(1, "PPL001", file)
+@pytest.mark.parametrize(
+    "err_code",
+    [
+        param("PPL001", id="print PPL001"),
+        param("PPL002", id="pprint PPL002"),
+    ],
+)
+def test_ignore_line_class(file, err_code):
+    assert IgnoreLine(1, err_code, file)

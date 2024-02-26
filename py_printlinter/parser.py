@@ -10,6 +10,7 @@ from pathlib import Path
 # Local imports
 from .classes import IgnoreLine
 
+# TODO: enlever le droit d'ignorer plusieurs erreur sur une ligne
 IGNORE_TOKEN_REGEX = r"noqa:[ ]?((PPL[0-9]{3},? ?)+)"
 
 

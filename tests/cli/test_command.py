@@ -2,9 +2,6 @@
 import pytest
 from pytest import param
 
-# Standard imports
-from pathlib import Path
-
 # Third party imports
 from assertpy import assert_that, soft_assertions
 from typer.testing import CliRunner
@@ -28,10 +25,10 @@ def test_cli_version():
 @pytest.mark.parametrize(
     "path, expected_exit_code",
     [
-        param("toto0.py", 1, id="not a directory error"),
+        param("print/toto0.py", 1, id="not a directory error"),
         param("azerty.qwerty", 1, id="file not found error"),
-        param("toto4", 0, id="no errors, no print"),
-        param("toto2", 0, id="print detected"),
+        param("print/toto4", 0, id="no errors, no print"),
+        param("print/toto2", 0, id="print detected"),
     ],
 )
 def test_cli_command_lint_w_path(
