@@ -39,6 +39,5 @@ def test_cli_version():
 )
 def test_cli_command_lint_w_path(pnv_soft_reset, path, expected_exit_code):
     result = runner.invoke(APP, ["lint", f"{path}"])
-    print(result)
     with soft_assertions():
         assert_that(result.exit_code).is_equal_to(expected_exit_code)

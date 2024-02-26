@@ -14,7 +14,6 @@ readme = "README.md"
 python = "^3.10"
 rich = "^12.5.1"
 typer = "^0.7.0"
-mypy = "^1.4.1"
 
 [tool.poetry.group.dev.dependencies]
 codespell = "^2.1.0"
@@ -25,10 +24,10 @@ pre-commit = "^2.20.0"
 blask = "^0.2.3"
 isort = "^5.10.1"
 xdoctest = "^1.0.1"
-mypy = "^1.4.1"
 ruff = "^0.0.262"
 pytest-cov = "^4.1.0"
 assertpy = "^1.1"
+mypy = "^1.8.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
