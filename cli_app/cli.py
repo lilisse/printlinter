@@ -90,23 +90,16 @@ def lint(
         path: Path to lint.
     """
     files_path = enumerate_file(path)
-    print("ICI")
     all_ignored_lines = []
     for file_path in files_path:
-        print("LA")
         tree, ignored_lines = parse_file(file_path.as_posix())
         issues = contains_print(file_path, tree)
         all_ignored_lines.extend(ignored_lines)
 
-    print("OU LA")
-
     not_ignored_issues = get_not_ignore_issue(issues, all_ignored_lines)
-
-    print("OU ENCORE LA")
 
     for issue in not_ignored_issues:
         CONSOLE.print(str(issue))
-    print("OU BINE ICI")
 
     CONSOLE.print(f"Found {len(not_ignored_issues)} errors")
 

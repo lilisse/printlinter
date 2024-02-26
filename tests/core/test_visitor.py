@@ -12,16 +12,16 @@ from assertpy import assert_that
 # First party imports
 from py_printlinter import IssueEnum, IssueInfo, contains_print
 
-TEST_PATH = Path(__file__).parent.parent
-INPUT_FILE_PATH = TEST_PATH / "input_files"
+# Local imports
+from ..conftest import INPUT_FILE_PATH
 
 
 @pytest.mark.parametrize(
     "file_path, expected",
     [
-        param(INPUT_FILE_PATH / "toto_0.py", [], id="0 print"),
+        param("toto_0.py", [], id="0 print"),
         param(
-            INPUT_FILE_PATH / "toto_1.py",
+            "toto_1.py",
             [
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
@@ -35,7 +35,7 @@ INPUT_FILE_PATH = TEST_PATH / "input_files"
             id="1 print",
         ),
         param(
-            INPUT_FILE_PATH / "toto2/toto3.py",
+            "toto2/toto3.py",
             [
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
@@ -58,15 +58,15 @@ INPUT_FILE_PATH = TEST_PATH / "input_files"
         ),
     ],
 )
-def test_contains_print(pnv_soft_reset, file_path, expected):
-    with open(file_path, encoding="utf-8") as file:
+def test_contains_print(pnv_soft_reset, testing_files, file_path, expected):
+    with open(testing_files / file_path, encoding="utf-8") as file:
         tree = ast.parse(
             source=file.read(),
-            filename=file_path,
+            filename=testing_files / file_path,
             feature_version=(3, 11),
         )
 
-    print_detected = contains_print(file_path, tree)
+    print_detected = contains_print(testing_files / file_path, tree)
 
     if not expected:
         assert_that(print_detected).is_equal_to(expected)
