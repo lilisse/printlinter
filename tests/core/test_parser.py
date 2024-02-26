@@ -13,17 +13,15 @@ from assertpy import assert_that, soft_assertions
 from py_printlinter import IgnoreLine, enumerate_file, get_ignore_lines, parse_file
 
 # Local imports
+from ..conftest import INPUT_FILE_PATH
 from .conftest import compare_ast
-
-TEST_PATH = Path(__file__).parent.parent
-INPUT_FILE_PATH = TEST_PATH / "input_files"
 
 
 @pytest.mark.parametrize(
     "path, expected",
     [
         param(
-            INPUT_FILE_PATH,
+            Path("."),
             [
                 INPUT_FILE_PATH / "toto_0.py",
                 INPUT_FILE_PATH / "toto_1.py",
@@ -33,33 +31,33 @@ INPUT_FILE_PATH = TEST_PATH / "input_files"
             id="folder in folder",
         ),
         param(
-            INPUT_FILE_PATH / "toto2",
+            "toto2",
             [INPUT_FILE_PATH / "toto2/toto3.py"],
             id="single folder",
         ),
     ],
 )
-def test_enumerate_file(path, expected):
-    assert_that(enumerate_file(path)).contains_only(*expected)
+def test_enumerate_file(path, expected, testing_files):
+    assert_that(enumerate_file(testing_files / path)).contains_only(*expected)
 
 
-def test_get_ignored_lines_with_ignored_lines(file_with_ignored):
+def test_get_ignored_lines_with_ignored_lines(file_with_ignored, testing_files):
     assert_that(
-        get_ignore_lines(file_with_ignored, INPUT_FILE_PATH / "toto2/toto3.py")
+        get_ignore_lines(file_with_ignored, testing_files / "toto2/toto3.py")
     ).contains_only(
         *[
             IgnoreLine(
                 line_num=6,
                 error_code="PPL001",
-                from_file=INPUT_FILE_PATH / "toto2/toto3.py",
+                from_file=testing_files / "toto2/toto3.py",
             )
         ]
     )
 
 
-def test_get_ignored_lines_without_ignored_lines(file_without_ignored):
+def test_get_ignored_lines_without_ignored_lines(file_without_ignored, testing_files):
     assert_that(
-        get_ignore_lines(file_without_ignored, INPUT_FILE_PATH / "toto_1.py")
+        get_ignore_lines(file_without_ignored, testing_files / "toto_1.py")
     ).is_equal_to([])
 
 
@@ -67,17 +65,17 @@ def test_get_ignored_lines_without_ignored_lines(file_without_ignored):
     "path_file, expected_ignored_lines",
     [
         param(
-            INPUT_FILE_PATH / "toto_0.py",
+            "toto_0.py",
             [],
             id="0 print",
         ),
         param(
-            INPUT_FILE_PATH / "toto_1.py",
+            "toto_1.py",
             [],
             id="1 print",
         ),
         param(
-            INPUT_FILE_PATH / "toto2/toto3.py",
+            "toto2/toto3.py",
             [
                 IgnoreLine(
                     line_num=6,
@@ -89,15 +87,15 @@ def test_get_ignored_lines_without_ignored_lines(file_without_ignored):
         ),
     ],
 )
-def test_parse_file(path_file, expected_ignored_lines):
-    with open(path_file, encoding="utf-8") as file:
+def test_parse_file(testing_files, path_file, expected_ignored_lines):
+    with open(testing_files / path_file, encoding="utf-8") as file:
         expected_tree = ast.parse(
             source=file.read(),
-            filename=path_file,
+            filename=testing_files / path_file,
             feature_version=(3, 11),
         )
 
-    tree, ignored_lines = parse_file(path_file)
+    tree, ignored_lines = parse_file(testing_files / path_file)
 
     with soft_assertions():
         assert compare_ast(tree, expected_tree)
