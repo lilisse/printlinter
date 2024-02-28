@@ -53,6 +53,37 @@ def get_attr(obj: object, name: str, default: Any | None = None) -> Any:  # noqa
     return default
 
 
+def get_display_func_or_none(node: ast.Expr) -> str | None:
+    """
+    Get a display function in a ast.Expr.
+
+    Function detected by this one:
+        - sys.stdout.write()
+        - stdout.write()
+
+    Args:
+        node: Expr to parse may can contains one of function we search.
+
+    Returns:
+        The function name if we find a function of the list, None otherwizse.
+    """
+    # detect sys.stdout.write
+    if get_attr(node.value.func, "value") is not None:  # type: ignore[attr-defined]
+        if get_attr(node.value.func.value, "value") is not None:  # type: ignore[attr-defined] # noqa: E501
+            if node.value.func.value.value.id == "sys":  # type: ignore[attr-defined]
+                if get_attr(node.value.func.value, "attr") == "stdout":  # type: ignore[attr-defined] # noqa: E501
+                    if get_attr(node.value.func, "attr") == "write":  # type: ignore[attr-defined] # noqa: E501
+                        return "sys.stdout.write"
+
+    # detect stdout.write
+    if get_attr(node.value.func, "value") is not None:  # type: ignore[attr-defined]
+        if get_attr(node.value.func.value, "id") == "stdout":  # type: ignore[attr-defined] # noqa: E501
+            if get_attr(node.value.func, "attr") == "write":  # type: ignore[attr-defined] # noqa: E501
+                return "stdout.write"
+
+    return None
+
+
 class PrintNodeVisitor(ast.NodeVisitor):
     """
     Print visitor class.
@@ -83,7 +114,16 @@ class PrintNodeVisitor(ast.NodeVisitor):
                 issue_type = IssueEnum.PRINTDETECT
             case "pprint":
                 issue_type = IssueEnum.PRETTYPRINTDETECT
+            case None:
+                # Function not directly call like: `sys.stdout.write`
+                detected_func_or_none = get_display_func_or_none(node)
+                match detected_func_or_none:
+                    case "sys.stdout.write" | "stdout.write":
+                        issue_type = IssueEnum.SYSSTDOUTWRITEDETECT
+                    case _:
+                        return None
             case _:
+                # Function we wish to ignore
                 return None
 
         found_print = IssueInfo(
