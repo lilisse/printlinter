@@ -13,6 +13,7 @@ class IssueEnum(Issue, Enum):
     """Issue Enumerable to store issues."""
 
     PRINTDETECT = Issue(err_code="PPL001", name="print-detected")
+    PRETTYPRINTDETECT = Issue(err_code="PPL002", name="prettyprint-detected")
 
 
 @dataclass

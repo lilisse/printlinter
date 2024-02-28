@@ -7,9 +7,10 @@
 #### Standard
 
 - [x] print <!-- PPL001 -->
-- [ ] pprint <!-- PPL002 -->
+- [x] pprint <!-- PPL002 -->
 - [ ] sys.stdout.write <!-- PPL003 -->
 - [ ] sys.stderr.write <!-- PPL004 -->
+- [ ] sys.stdin.write <!-- PPL005 -->
 
 #### Rich
 
@@ -128,6 +129,7 @@ rich.console.Console().print(toto + titi)
 
 ### Add configuration
 
+- [ ] target version
 - [ ] ignored files
 - [ ] disabled rules
 - [ ] enabled rules

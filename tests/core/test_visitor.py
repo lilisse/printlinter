@@ -4,7 +4,6 @@ from pytest import param
 
 # Standard imports
 import ast
-from pathlib import Path
 
 # Third party imports
 from assertpy import assert_that
@@ -19,30 +18,31 @@ from ..conftest import INPUT_FILE_PATH
 @pytest.mark.parametrize(
     "file_path, expected",
     [
-        param("toto_0.py", [], id="0 print"),
+        # print
+        param("print/toto_0.py", [], id="0 print"),
         param(
-            "toto_1.py",
+            "print/toto_1.py",
             [
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
                     num_line=3,
                     num_col=0,
                     line_as_str='print("Hello, world")',
-                    from_file=INPUT_FILE_PATH / "toto_1.py",
+                    from_file=INPUT_FILE_PATH / "print/toto_1.py",
                     ignore=False,
                 )
             ],
             id="1 print",
         ),
         param(
-            "toto2/toto3.py",
+            "print/toto2/toto3.py",
             [
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
                     num_line=6,
                     num_col=4,
                     line_as_str='print("toto")  # noqa: PPL001',
-                    from_file=INPUT_FILE_PATH / "toto2/toto3.py",
+                    from_file=INPUT_FILE_PATH / "print/toto2/toto3.py",
                     ignore=False,
                 ),
                 IssueInfo(
@@ -50,11 +50,158 @@ from ..conftest import INPUT_FILE_PATH
                     num_line=7,
                     num_col=4,
                     line_as_str='print("tata")',
-                    from_file=INPUT_FILE_PATH / "toto2/toto3.py",
+                    from_file=INPUT_FILE_PATH / "print/toto2/toto3.py",
                     ignore=False,
                 ),
             ],
             id="2 print",
+        ),
+        # pprint
+        param("pprint/pprint0.py", [], id="0 pprint"),
+        param(
+            "pprint/pprint1.py",
+            [
+                IssueInfo(
+                    issue=IssueEnum.PRETTYPRINTDETECT,
+                    num_line=6,
+                    num_col=0,
+                    line_as_str='pprint("Hello, world")',
+                    from_file=INPUT_FILE_PATH / "pprint/pprint1.py",
+                    ignore=False,
+                )
+            ],
+            id="1 pprint",
+        ),
+        param(
+            "pprint/pprint2/pprint3.py",
+            [
+                IssueInfo(
+                    issue=IssueEnum.PRETTYPRINTDETECT,
+                    num_line=10,
+                    num_col=4,
+                    line_as_str='pprint("toto")  # noqa: PPL002',
+                    from_file=INPUT_FILE_PATH / "pprint/pprint2/pprint3.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.PRETTYPRINTDETECT,
+                    num_line=11,
+                    num_col=4,
+                    line_as_str='pprint("tata")',
+                    from_file=INPUT_FILE_PATH / "pprint/pprint2/pprint3.py",
+                    ignore=False,
+                ),
+            ],
+            id="2 pprint",
+        ),
+        # mixed
+        param(
+            "mixed/mixed0.py",
+            [
+                IssueInfo(
+                    issue=IssueEnum.PRINTDETECT,
+                    num_line=4,
+                    num_col=0,
+                    line_as_str='print("toto")',
+                    from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.PRETTYPRINTDETECT,
+                    num_line=5,
+                    num_col=0,
+                    line_as_str='pprint("titi")',
+                    from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.PRINTDETECT,
+                    num_line=7,
+                    num_col=0,
+                    line_as_str='print("tata")  # noqa: PPL001',
+                    from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.PRETTYPRINTDETECT,
+                    num_line=8,
+                    num_col=0,
+                    line_as_str='pprint("tutu")  # noqa: PPL002',
+                    from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.PRINTDETECT,
+                    num_line=10,
+                    num_col=0,
+                    line_as_str='print("foo")  # noqa: PPL002',
+                    from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.PRETTYPRINTDETECT,
+                    num_line=11,
+                    num_col=0,
+                    line_as_str='pprint("bar")  # noqa: PPL001',
+                    from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
+                    ignore=False,
+                ),
+            ],
+            id="not in a folder: 2 print, 2 prettyprint",
+        ),
+        param(
+            "mixed/mixed1/mixed2.py",
+            [
+                IssueInfo(
+                    issue=IssueEnum.PRINTDETECT,
+                    num_line=4,
+                    num_col=0,
+                    line_as_str='print("toto")',
+                    from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.PRETTYPRINTDETECT,
+                    num_line=5,
+                    num_col=0,
+                    line_as_str='pprint("titi")',
+                    from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.PRINTDETECT,
+                    num_line=7,
+                    num_col=0,
+                    line_as_str='print("tata")  # noqa: PPL001',
+                    from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.PRETTYPRINTDETECT,
+                    num_line=8,
+                    num_col=0,
+                    line_as_str='pprint("tutu")  # noqa: PPL002',
+                    from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.PRINTDETECT,
+                    num_line=10,
+                    num_col=0,
+                    line_as_str='print("foo")  # noqa: PPL002',
+                    from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.PRETTYPRINTDETECT,
+                    num_line=11,
+                    num_col=0,
+                    line_as_str='pprint("bar")  # noqa: PPL001',
+                    from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
+                    ignore=False,
+                ),
+            ],
+            id="in a folder: 2 print, 2 prettyprint",
         ),
     ],
 )

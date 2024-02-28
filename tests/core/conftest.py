@@ -6,7 +6,6 @@ import ast
 from io import TextIOWrapper
 from itertools import zip_longest
 from pathlib import Path
-from typing import Union
 
 # First party imports
 from py_printlinter import IgnoreLine, IssueEnum, IssueInfo
@@ -19,10 +18,26 @@ def issues() -> list[IssueInfo]:
     Returns:
         Issues.
     """
-    return [
+    res = [
         IssueInfo(IssueEnum.PRINTDETECT, line, 12, "print('toto')", "toto.py", False)
-        for line in range(15)
+        for line in range(9)
     ]
+
+    res.extend(
+        [
+            IssueInfo(
+                IssueEnum.PRETTYPRINTDETECT,
+                line,
+                12,
+                "pprint('toto')",
+                "toto.py",
+                False,
+            )
+            for line in range(9, 15)
+        ]
+    )
+
+    return res
 
 
 def ignored_lines() -> list[IgnoreLine]:
@@ -32,9 +47,14 @@ def ignored_lines() -> list[IgnoreLine]:
     Returns:
         Ignored lines.
     """
-    lines = [4, 6, 2, 7, 12]
+    ppl001_lines = [2, 4, 6, 7]
+    ppl002_lines = [12]
 
-    return [IgnoreLine(line, "PPL001", "toto.py") for line in lines]
+    res = [IgnoreLine(line, "PPL001", "toto.py") for line in ppl001_lines]
+
+    res.extend([IgnoreLine(line, "PPL002", "toto.py") for line in ppl002_lines])
+
+    return res
 
 
 def get_file(path: Path) -> TextIOWrapper:
@@ -50,15 +70,29 @@ def get_file(path: Path) -> TextIOWrapper:
 
 
 @pytest.fixture()
-def file_without_ignored(testing_files):
-    with open(testing_files / "toto_1.py", encoding="utf-8") as file:
+def file_without_ignored_print(testing_files):
+    with open(testing_files / "print/toto_1.py", encoding="utf-8") as file:
         file.seek(0)
         yield file
 
 
 @pytest.fixture()
-def file_with_ignored(testing_files):
-    with open(testing_files / "toto2/toto3.py", encoding="utf-8") as file:
+def file_without_ignored_prettyprint(testing_files):
+    with open(testing_files / "pprint/pprint1.py", encoding="utf-8") as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_print(testing_files):
+    with open(testing_files / "print/toto2/toto3.py", encoding="utf-8") as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_prettyprint(testing_files):
+    with open(testing_files / "pprint/pprint2/pprint3.py", encoding="utf-8") as file:
         file.seek(0)
         yield file
 

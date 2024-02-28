@@ -51,13 +51,13 @@ lintmd path='"**/*.md" "#node_modules"': clean clear
 ruff path="py_printlinter cli_app": clean clear
     ruff {{path}}
 
-# Run all linter
-lint : clean clear mypy-linter mypy-cli ruff lintmd
-
 # Run black and isort
 onmy31 path ="py_printlinter cli_app tests": clean clear
     black {{path}}
     isort {{path}}
+
+# Run all linter
+lint : clean clear onmy31 mypy-linter mypy-cli ruff lintmd
 
 # auto interactive rebase
 autorebase: clean clear
