@@ -14,6 +14,7 @@ class IssueEnum(Issue, Enum):
 
     PRINTDETECT = Issue(err_code="PPL001", name="print-detected")
     PRETTYPRINTDETECT = Issue(err_code="PPL002", name="prettyprint-detected")
+    SYSSTDOUTWRITEDETECT = Issue(err_code="PPL003", name="sys.stdout.write-detected")
 
 
 @dataclass
@@ -47,8 +48,8 @@ class IssueInfo:
         """
         return (
             f"[bold]{self.from_file}[/bold]:{self.num_line}:{self.num_col}: "
-            f"[bold red]{self.issue.err_code}[/bold red] `{self.line_as_str}` "
-            f"{self.issue.name}"
+            f"[bold red]{self.issue.err_code}[/bold red] [bold]`[/bold]"
+            f"{self.line_as_str}[bold]`[/bold] {self.issue.name}"
         )
 
 

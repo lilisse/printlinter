@@ -80,6 +80,31 @@ def test_get_ignored_lines_with_ignored_lines__prettyprint(
     )
 
 
+def test_get_ignored_lines_with_ignored_lines__sys_stdout_write(
+    file_with_ignored_stdout_write,
+    testing_files,
+):
+    assert_that(
+        get_ignore_lines(
+            file_with_ignored_stdout_write,
+            testing_files / "sys/stdout/write/stdout2/stdout3.py",
+        )
+    ).contains_only(
+        *[
+            IgnoreLine(
+                line_num=11,
+                error_code="PPL003",
+                from_file=testing_files / "sys/stdout/write/stdout2/stdout3.py",
+            ),
+            IgnoreLine(
+                line_num=12,
+                error_code="PPL003",
+                from_file=testing_files / "sys/stdout/write/stdout2/stdout3.py",
+            ),
+        ]
+    )
+
+
 def test_get_ignored_lines_without_ignored_lines__print(
     file_without_ignored_print,
     testing_files,
@@ -97,6 +122,18 @@ def test_get_ignored_lines_without_ignored_lines__prettyprint(
         get_ignore_lines(
             file_without_ignored_prettyprint,
             testing_files / "pprint/pprint1.py",
+        )
+    ).is_equal_to([])
+
+
+def test_get_ignored_lines_without_ignored_lines__sys_stdout_write(
+    file_without_ignored_stdout_write,
+    testing_files,
+):
+    assert_that(
+        get_ignore_lines(
+            file_without_ignored_stdout_write,
+            testing_files / "sys/stdout/write/stdout1.py",
         )
     ).is_equal_to([])
 
@@ -148,27 +185,54 @@ def test_get_ignored_lines_without_ignored_lines__prettyprint(
             ],
             id="1 prettyprint, 1 ignored prettyprint",
         ),
+        # sys.stdout.write
+        param(
+            "sys/stdout/write/stdout0.py",
+            [],
+            id="0 sys.stdout.write",
+        ),
+        param(
+            "sys/stdout/write/stdout1.py",
+            [],
+            id="2 sys.stdout.write",
+        ),
+        param(
+            "sys/stdout/write/stdout2/stdout3.py",
+            [
+                IgnoreLine(
+                    line_num=11,
+                    error_code="PPL003",
+                    from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
+                ),
+                IgnoreLine(
+                    line_num=12,
+                    error_code="PPL003",
+                    from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
+                ),
+            ],
+            id="2 sys.stdout.write, 2 ignored sys.stdout.write",
+        ),
         # mixed
         param(
             "mixed/mixed0.py",
             [
                 IgnoreLine(
-                    line_num=7,
+                    line_num=8,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
                 ),
                 IgnoreLine(
-                    line_num=8,
-                    error_code="PPL002",
-                    from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
-                ),
-                IgnoreLine(
-                    line_num=10,
+                    line_num=9,
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
                 ),
                 IgnoreLine(
                     line_num=11,
+                    error_code="PPL002",
+                    from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
+                ),
+                IgnoreLine(
+                    line_num=12,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
                 ),
@@ -179,22 +243,22 @@ def test_get_ignored_lines_without_ignored_lines__prettyprint(
             "mixed/mixed1/mixed2.py",
             [
                 IgnoreLine(
-                    line_num=7,
+                    line_num=8,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
                 ),
                 IgnoreLine(
-                    line_num=8,
-                    error_code="PPL002",
-                    from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
-                ),
-                IgnoreLine(
-                    line_num=10,
+                    line_num=9,
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
                 ),
                 IgnoreLine(
                     line_num=11,
+                    error_code="PPL002",
+                    from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
+                ),
+                IgnoreLine(
+                    line_num=12,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
                 ),

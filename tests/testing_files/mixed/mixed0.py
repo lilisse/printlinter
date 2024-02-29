@@ -1,4 +1,5 @@
 # Standard imports
+import sys
 from pprint import pprint
 
 print("toto")
@@ -11,3 +12,4 @@ print("foo")  # noqa: PPL002
 pprint("bar")  # noqa: PPL001
 
 abs(-1)
+sys.stdin.read()

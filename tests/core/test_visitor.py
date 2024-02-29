@@ -94,13 +94,75 @@ from ..conftest import INPUT_FILE_PATH
             ],
             id="2 pprint",
         ),
+        # sys.stdout.write
+        param("sys/stdout/write/stdout0.py", [], id="0 sys.stdout.write"),
+        param(
+            "sys/stdout/write/stdout1.py",
+            [
+                IssueInfo(
+                    issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+                    num_line=7,
+                    num_col=0,
+                    line_as_str='sys.stdout.write("Hello, world")',
+                    from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout1.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+                    num_line=8,
+                    num_col=0,
+                    line_as_str='stdout.write("Hello, world")',
+                    from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout1.py",
+                    ignore=False,
+                ),
+            ],
+            id="2 sys.stdout.write",
+        ),
+        param(
+            "sys/stdout/write/stdout2/stdout3.py",
+            [
+                IssueInfo(
+                    issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+                    num_line=11,
+                    num_col=4,
+                    line_as_str='sys.stdout.write("toto")  # noqa: PPL003',
+                    from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+                    num_line=12,
+                    num_col=4,
+                    line_as_str='stdout.write("toto")  # noqa: PPL003',
+                    from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+                    num_line=13,
+                    num_col=4,
+                    line_as_str='sys.stdout.write("tata")',
+                    from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+                    num_line=14,
+                    num_col=4,
+                    line_as_str='stdout.write("tata")',
+                    from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
+                    ignore=False,
+                ),
+            ],
+            id="4 sys.stdout.write",
+        ),
         # mixed
         param(
             "mixed/mixed0.py",
             [
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
-                    num_line=4,
+                    num_line=5,
                     num_col=0,
                     line_as_str='print("toto")',
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
@@ -108,7 +170,7 @@ from ..conftest import INPUT_FILE_PATH
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
-                    num_line=5,
+                    num_line=6,
                     num_col=0,
                     line_as_str='pprint("titi")',
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
@@ -116,7 +178,7 @@ from ..conftest import INPUT_FILE_PATH
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
-                    num_line=7,
+                    num_line=8,
                     num_col=0,
                     line_as_str='print("tata")  # noqa: PPL001',
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
@@ -124,7 +186,7 @@ from ..conftest import INPUT_FILE_PATH
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
-                    num_line=8,
+                    num_line=9,
                     num_col=0,
                     line_as_str='pprint("tutu")  # noqa: PPL002',
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
@@ -132,7 +194,7 @@ from ..conftest import INPUT_FILE_PATH
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
-                    num_line=10,
+                    num_line=11,
                     num_col=0,
                     line_as_str='print("foo")  # noqa: PPL002',
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
@@ -140,7 +202,7 @@ from ..conftest import INPUT_FILE_PATH
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
-                    num_line=11,
+                    num_line=12,
                     num_col=0,
                     line_as_str='pprint("bar")  # noqa: PPL001',
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
@@ -154,7 +216,7 @@ from ..conftest import INPUT_FILE_PATH
             [
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
-                    num_line=4,
+                    num_line=5,
                     num_col=0,
                     line_as_str='print("toto")',
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
@@ -162,7 +224,7 @@ from ..conftest import INPUT_FILE_PATH
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
-                    num_line=5,
+                    num_line=6,
                     num_col=0,
                     line_as_str='pprint("titi")',
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
@@ -170,7 +232,7 @@ from ..conftest import INPUT_FILE_PATH
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
-                    num_line=7,
+                    num_line=8,
                     num_col=0,
                     line_as_str='print("tata")  # noqa: PPL001',
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
@@ -178,7 +240,7 @@ from ..conftest import INPUT_FILE_PATH
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
-                    num_line=8,
+                    num_line=9,
                     num_col=0,
                     line_as_str='pprint("tutu")  # noqa: PPL002',
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
@@ -186,7 +248,7 @@ from ..conftest import INPUT_FILE_PATH
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
-                    num_line=10,
+                    num_line=11,
                     num_col=0,
                     line_as_str='print("foo")  # noqa: PPL002',
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
@@ -194,7 +256,7 @@ from ..conftest import INPUT_FILE_PATH
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
-                    num_line=11,
+                    num_line=12,
                     num_col=0,
                     line_as_str='pprint("bar")  # noqa: PPL001',
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",

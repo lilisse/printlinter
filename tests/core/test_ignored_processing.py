@@ -49,6 +49,7 @@ def test_get_not_ignore_issue():
             from_file="toto.py",
             ignore=False,
         ),
+        # pprint
         IssueInfo(
             issue=IssueEnum.PRETTYPRINTDETECT,
             num_line=9,
@@ -86,6 +87,39 @@ def test_get_not_ignore_issue():
             num_line=14,
             num_col=12,
             line_as_str="pprint('toto')",
+            from_file="toto.py",
+            ignore=False,
+        ),
+        # sys.stdout.write
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+            num_line=16,
+            num_col=12,
+            line_as_str="sys.stdout.write('toto')",
+            from_file="toto.py",
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+            num_line=18,
+            num_col=12,
+            line_as_str="sys.stdout.write('toto')",
+            from_file="toto.py",
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+            num_line=19,
+            num_col=12,
+            line_as_str="sys.stdout.write('toto')",
+            from_file="toto.py",
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+            num_line=22,
+            num_col=12,
+            line_as_str="sys.stdout.write('toto')",
             from_file="toto.py",
             ignore=False,
         ),
