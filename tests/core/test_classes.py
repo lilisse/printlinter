@@ -69,7 +69,7 @@ def test_issue_enum(enum_elem, err_code, name):
     [
         param(IssueEnum.PRINTDETECT, id="print"),
         param(IssueEnum.PRETTYPRINTDETECT, id="pretty print"),
-        param(IssueEnum.SYSSTDOUTWRITEDETECT, id="sys.stdout.print"),
+        param(IssueEnum.SYSSTDOUTWRITEDETECT, id="sys.stdout.write"),
     ],
 )
 def test_issue_info_class(line, column, str_line, file, ignored, issue_type):
