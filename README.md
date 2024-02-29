@@ -10,10 +10,10 @@
 
 - [x] print <!-- PPL001 -->
 - [x] pprint <!-- PPL002 -->
-- [x] sys.stdout.write <!-- PPL003 -->
-- [ ] sys.stderr.write <!-- PPL004 -->
-- [ ] sys.stdout.writelines <!-- PPL005 -->
-- [ ] sys.stderr.writelines <!-- PPL006 -->
+- [x] sys.stdout.write & stdout.write  <!-- PPL003 -->
+- [x] sys.stderr.write & stderr.write <!-- PPL004 -->
+- [ ] sys.stdout.writelines & stdout.writelines <!-- PPL005 -->
+- [ ] sys.stderr.writelines & stderr.writelines <!-- PPL006 -->
 
 #### Rich (not for first beta version)
 

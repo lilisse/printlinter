@@ -123,6 +123,39 @@ def test_get_not_ignore_issue():
             from_file="toto.py",
             ignore=False,
         ),
+        # sys.stderr.write
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITEDETECT,
+            num_line=25,
+            num_col=12,
+            line_as_str="sys.stderr.write('toto')",
+            from_file="toto.py",
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITEDETECT,
+            num_line=26,
+            num_col=12,
+            line_as_str="sys.stderr.write('toto')",
+            from_file="toto.py",
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITEDETECT,
+            num_line=28,
+            num_col=12,
+            line_as_str="sys.stderr.write('toto')",
+            from_file="toto.py",
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITEDETECT,
+            num_line=30,
+            num_col=12,
+            line_as_str="sys.stderr.write('toto')",
+            from_file="toto.py",
+            ignore=False,
+        ),
     ]
 
     assert not_ignored_line == expected

@@ -67,19 +67,29 @@ def get_display_func_or_none(node: ast.Expr) -> str | None:
     Returns:
         The function name if we find a function of the list, None otherwizse.
     """
-    # detect sys.stdout.write
-    if get_attr(node.value.func, "value") is not None:  # type: ignore[attr-defined]
-        if get_attr(node.value.func.value, "value") is not None:  # type: ignore[attr-defined] # noqa: E501
-            if node.value.func.value.value.id == "sys":  # type: ignore[attr-defined]
-                if get_attr(node.value.func.value, "attr") == "stdout":  # type: ignore[attr-defined] # noqa: E501
-                    if get_attr(node.value.func, "attr") == "write":  # type: ignore[attr-defined] # noqa: E501
-                        return "sys.stdout.write"
+    std_output = ["stdout", "stderr"]
 
-    # detect stdout.write
-    if get_attr(node.value.func, "value") is not None:  # type: ignore[attr-defined]
-        if get_attr(node.value.func.value, "id") == "stdout":  # type: ignore[attr-defined] # noqa: E501
-            if get_attr(node.value.func, "attr") == "write":  # type: ignore[attr-defined] # noqa: E501
-                return "stdout.write"
+    for output in std_output:
+        # detect sys.stdout.write or sys.stderr.write
+        try:
+            if (
+                node.value.func.value.value.id == "sys"  # type: ignore[attr-defined]
+                and node.value.func.value.attr == output  # type: ignore[attr-defined]
+                and node.value.func.attr == "write"  # type: ignore[attr-defined]
+            ):
+                return f"sys.{output}.write"
+        except AttributeError as err:  # noqa: F841 <Only used for debug>
+            pass
+
+        # detect stdout.write or stderr.write
+        try:
+            if (
+                node.value.func.value.id == output  # type: ignore[attr-defined]
+                and node.value.func.attr == "write"  # type: ignore[attr-defined]
+            ):
+                return f"{output}.write"
+        except AttributeError as err:  # noqa: F841 <Only used for debug>
+            pass
 
     return None
 
@@ -120,6 +130,8 @@ class PrintNodeVisitor(ast.NodeVisitor):
                 match detected_func_or_none:
                     case "sys.stdout.write" | "stdout.write":
                         issue_type = IssueEnum.SYSSTDOUTWRITEDETECT
+                    case "sys.stderr.write" | "stderr.write":
+                        issue_type = IssueEnum.SYSSTDERRWRITEDETECT
                     case _:
                         return None
             case _:

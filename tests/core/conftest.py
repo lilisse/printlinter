@@ -51,6 +51,20 @@ def issues() -> list[IssueInfo]:
         ]
     )
 
+    res.extend(
+        [
+            IssueInfo(
+                IssueEnum.SYSSTDERRWRITEDETECT,
+                line,
+                12,
+                "sys.stderr.write('toto')",
+                "toto.py",
+                False,
+            )
+            for line in range(23, 31)
+        ]
+    )
+
     return res
 
 
@@ -64,10 +78,12 @@ def ignored_lines() -> list[IgnoreLine]:
     ppl001_lines = [2, 4, 6, 7]
     ppl002_lines = [12]
     ppl003_lines = [15, 17, 20, 21]
+    ppl004_lines = [23, 24, 27, 29]
 
     res = [IgnoreLine(line, "PPL001", "toto.py") for line in ppl001_lines]
     res.extend([IgnoreLine(line, "PPL002", "toto.py") for line in ppl002_lines])
     res.extend([IgnoreLine(line, "PPL003", "toto.py") for line in ppl003_lines])
+    res.extend([IgnoreLine(line, "PPL004", "toto.py") for line in ppl004_lines])
 
     return res
 
@@ -106,6 +122,13 @@ def file_without_ignored_stdout_write(testing_files):
 
 
 @pytest.fixture()
+def file_without_ignored_stderr_write(testing_files):
+    with open(testing_files / "sys/stderr/write/stderr1.py", encoding="utf-8") as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
 def file_with_ignored_print(testing_files):
     with open(testing_files / "print/toto2/toto3.py", encoding="utf-8") as file:
         file.seek(0)
@@ -123,6 +146,15 @@ def file_with_ignored_prettyprint(testing_files):
 def file_with_ignored_stdout_write(testing_files):
     with open(
         testing_files / "sys/stdout/write/stdout2/stdout3.py", encoding="utf-8"
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_stderr_write(testing_files):
+    with open(
+        testing_files / "sys/stderr/write/stderr2/stderr3.py", encoding="utf-8"
     ) as file:
         file.seek(0)
         yield file

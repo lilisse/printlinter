@@ -156,6 +156,68 @@ from ..conftest import INPUT_FILE_PATH
             ],
             id="4 sys.stdout.write",
         ),
+        # sys.stderr.write
+        param("sys/stderr/write/stderr0.py", [], id="0 sys.stderr.write"),
+        param(
+            "sys/stderr/write/stderr1.py",
+            [
+                IssueInfo(
+                    issue=IssueEnum.SYSSTDERRWRITEDETECT,
+                    num_line=7,
+                    num_col=0,
+                    line_as_str='sys.stderr.write("Hello, world")',
+                    from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr1.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.SYSSTDERRWRITEDETECT,
+                    num_line=8,
+                    num_col=0,
+                    line_as_str='stderr.write("Hello, world")',
+                    from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr1.py",
+                    ignore=False,
+                ),
+            ],
+            id="2 sys.stderr.write",
+        ),
+        param(
+            "sys/stderr/write/stderr2/stderr3.py",
+            [
+                IssueInfo(
+                    issue=IssueEnum.SYSSTDERRWRITEDETECT,
+                    num_line=11,
+                    num_col=4,
+                    line_as_str='sys.stderr.write("toto")  # noqa: PPL004',
+                    from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.SYSSTDERRWRITEDETECT,
+                    num_line=12,
+                    num_col=4,
+                    line_as_str='stderr.write("toto")  # noqa: PPL004',
+                    from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.SYSSTDERRWRITEDETECT,
+                    num_line=13,
+                    num_col=4,
+                    line_as_str='sys.stderr.write("tata")',
+                    from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
+                    ignore=False,
+                ),
+                IssueInfo(
+                    issue=IssueEnum.SYSSTDERRWRITEDETECT,
+                    num_line=14,
+                    num_col=4,
+                    line_as_str='stderr.write("tata")',
+                    from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
+                    ignore=False,
+                ),
+            ],
+            id="4 sys.stderr.write",
+        ),
         # mixed
         param(
             "mixed/mixed0.py",

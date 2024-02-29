@@ -105,6 +105,31 @@ def test_get_ignored_lines_with_ignored_lines__sys_stdout_write(
     )
 
 
+def test_get_ignored_lines_with_ignored_lines__sys_stderr_write(
+    file_with_ignored_stderr_write,
+    testing_files,
+):
+    assert_that(
+        get_ignore_lines(
+            file_with_ignored_stderr_write,
+            testing_files / "sys/stderr/write/stderr2/stderr3.py",
+        )
+    ).contains_only(
+        *[
+            IgnoreLine(
+                line_num=11,
+                error_code="PPL004",
+                from_file=testing_files / "sys/stderr/write/stderr2/stderr3.py",
+            ),
+            IgnoreLine(
+                line_num=12,
+                error_code="PPL004",
+                from_file=testing_files / "sys/stderr/write/stderr2/stderr3.py",
+            ),
+        ]
+    )
+
+
 def test_get_ignored_lines_without_ignored_lines__print(
     file_without_ignored_print,
     testing_files,
@@ -133,7 +158,19 @@ def test_get_ignored_lines_without_ignored_lines__sys_stdout_write(
     assert_that(
         get_ignore_lines(
             file_without_ignored_stdout_write,
-            testing_files / "sys/stdout/write/stdout1.py",
+            testing_files / "sys/stdout/write/²1.py",
+        )
+    ).is_equal_to([])
+
+
+def test_get_ignored_lines_without_ignored_lines__sys_stderr_write(
+    file_without_ignored_stderr_write,
+    testing_files,
+):
+    assert_that(
+        get_ignore_lines(
+            file_without_ignored_stderr_write,
+            testing_files / "sys/stderr/write/stderr1.py",
         )
     ).is_equal_to([])
 
@@ -211,6 +248,33 @@ def test_get_ignored_lines_without_ignored_lines__sys_stdout_write(
                 ),
             ],
             id="2 sys.stdout.write, 2 ignored sys.stdout.write",
+        ),
+        # sys.stderr.write
+        param(
+            "sys/stderr/write/stderr0.py",
+            [],
+            id="0 sys.stderr.write",
+        ),
+        param(
+            "sys/stderr/write/stderr1.py",
+            [],
+            id="2 sys.stderr.write",
+        ),
+        param(
+            "sys/stderr/write/stderr2/stderr3.py",
+            [
+                IgnoreLine(
+                    line_num=11,
+                    error_code="PPL004",
+                    from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
+                ),
+                IgnoreLine(
+                    line_num=12,
+                    error_code="PPL004",
+                    from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
+                ),
+            ],
+            id="2 sys.stderr.write, 2 ignored sys.stderr.write",
         ),
         # mixed
         param(
