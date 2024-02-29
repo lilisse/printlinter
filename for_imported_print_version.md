@@ -28,9 +28,9 @@ Expr(
 
 We need to test if we have it's 3 conditions:
 
-- value.func.value.value.id. = sys
-- value.func.value/attr = stdout
-- value.func.aatr = write
+- node.value.func.value.value.id. = sys
+- node.value.func.value.attr = stdout
+- node.value.func.aatr = write
 
 It's exactly same for `stderr` and `stdin`.
 
@@ -56,8 +56,8 @@ Expr(
 
 We need to test if we have it's 2 conditions:
 
-- value.func.value.id = stdout
-- value.func.attr = write
+- node.value.func.value.id = stdout
+- node.value.func.attr = write
 
 It's exactly same for `stderr` and `stdin`.
 

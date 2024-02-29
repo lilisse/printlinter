@@ -24,6 +24,12 @@ from py_printlinter import IgnoreLine, IssueEnum, IssueInfo
             "prettyprint-detected",
             id="prettyprint detected error n°2",
         ),
+        param(
+            IssueEnum.SYSSTDOUTWRITEDETECT,
+            "PPL003",
+            "sys.stdout.write-detected",
+            id="sys.stdout.write detected error n°3",
+        ),
     ],
 )
 def test_issue_enum(enum_elem, err_code, name):
@@ -63,6 +69,7 @@ def test_issue_enum(enum_elem, err_code, name):
     [
         param(IssueEnum.PRINTDETECT, id="print"),
         param(IssueEnum.PRETTYPRINTDETECT, id="pretty print"),
+        param(IssueEnum.SYSSTDOUTWRITEDETECT, id="sys.stdout.write"),
     ],
 )
 def test_issue_info_class(line, column, str_line, file, ignored, issue_type):
@@ -78,8 +85,8 @@ def test_issue_info_class(line, column, str_line, file, ignored, issue_type):
         assert issue
         assert_that(str(issue)).is_equal_to(
             f"[bold]{file}[/bold]:{line}:{column}: "
-            f"[bold red]{issue_type.value.err_code}[/bold red] `{str_line}` "
-            f"{issue_type.value.name}"
+            f"[bold red]{issue_type.value.err_code}[/bold red] [bold]`[/bold]{str_line}"
+            f"[bold]`[/bold] {issue_type.value.name}"
         )
 
 
@@ -95,6 +102,7 @@ def test_issue_info_class(line, column, str_line, file, ignored, issue_type):
     [
         param("PPL001", id="print PPL001"),
         param("PPL002", id="pprint PPL002"),
+        param("PPL003", id="sys.stdout.write PPL003"),
     ],
 )
 def test_ignore_line_class(file, err_code):
