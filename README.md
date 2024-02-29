@@ -12,10 +12,8 @@
 - [x] pprint <!-- PPL002 -->
 - [x] sys.stdout.write <!-- PPL003 -->
 - [ ] sys.stderr.write <!-- PPL004 -->
-- [ ] sys.stdin.write <!-- PPL005 -->
-- [ ] sys.stdout.writelines <!-- PPL006 -->
-- [ ] sys.stderr.writelines <!-- PPL007 -->
-- [ ] sys.stdin.writelines <!-- PPL008 -->
+- [ ] sys.stdout.writelines <!-- PPL005 -->
+- [ ] sys.stderr.writelines <!-- PPL006 -->
 
 #### Rich (not for first beta version)
 
@@ -168,9 +166,9 @@ In formats:
 - [ ] chinese
 - and more
 
-### Add a LICENCE
+### Add a LICENSE
 
-- [ ] LICENCE.md
+- [x] LICENSE.md
 
 ### Add a good documentation
 
