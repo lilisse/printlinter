@@ -99,8 +99,6 @@ rich.console.Console().print(titi + toto)
 - [ ] ignored files
 - [ ] disabled rules
 - [ ] enabled rules
-- [ ] lang
-- [ ] colorized output
 
 In formats:
 
