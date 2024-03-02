@@ -34,7 +34,19 @@ from py_printlinter import IgnoreLine, IssueEnum, IssueInfo
             IssueEnum.SYSSTDERRWRITEDETECT,
             "PPL004",
             "sys.stderr.write-detected",
-            id="sys.stderr.write detected error n°3",
+            id="sys.stderr.write detected error n°4",
+        ),
+        param(
+            IssueEnum.SYSSTDOUTWRITELINESDETECT,
+            "PPL005",
+            "sys.stdout.writelines-detected",
+            id="sys.stdout.writelines detected error n°5",
+        ),
+        param(
+            IssueEnum.SYSSTDERRWRITELINESDETECT,
+            "PPL006",
+            "sys.stderr.writelines-detected",
+            id="sys.stderr.writelines detected error n°6",
         ),
     ],
 )
@@ -77,6 +89,8 @@ def test_issue_enum(enum_elem, err_code, name):
         param(IssueEnum.PRETTYPRINTDETECT, id="pretty print"),
         param(IssueEnum.SYSSTDOUTWRITEDETECT, id="sys.stdout.write"),
         param(IssueEnum.SYSSTDERRWRITEDETECT, id="sys.stderr.write"),
+        param(IssueEnum.SYSSTDOUTWRITELINESDETECT, id="sys.stdout.writelines"),
+        param(IssueEnum.SYSSTDERRWRITELINESDETECT, id="sys.stderr.writelines"),
     ],
 )
 def test_issue_info_class(line, column, str_line, file, ignored, issue_type):
@@ -111,6 +125,8 @@ def test_issue_info_class(line, column, str_line, file, ignored, issue_type):
         param("PPL002", id="pprint PPL002"),
         param("PPL003", id="sys.stdout.write PPL003"),
         param("PPL004", id="sys.stderr.write PPL004"),
+        param("PPL005", id="sys.stdout.writelines PPL005"),
+        param("PPL006", id="sys.stderr.writelines PPL006"),
     ],
 )
 def test_ignore_line_class(file, err_code):
