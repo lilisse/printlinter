@@ -16,6 +16,12 @@ class IssueEnum(Issue, Enum):
     PRETTYPRINTDETECT = Issue(err_code="PPL002", name="prettyprint-detected")
     SYSSTDOUTWRITEDETECT = Issue(err_code="PPL003", name="sys.stdout.write-detected")
     SYSSTDERRWRITEDETECT = Issue(err_code="PPL004", name="sys.stderr.write-detected")
+    SYSSTDOUTWRITELINESDETECT = Issue(
+        err_code="PPL005", name="sys.stdout.writelines-detected"
+    )
+    SYSSTDERRWRITELINESDETECT = Issue(
+        err_code="PPL006", name="sys.stderr.writelines-detected"
+    )
 
 
 @dataclass

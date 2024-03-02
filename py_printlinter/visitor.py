@@ -2,6 +2,7 @@
 
 # Standard imports
 import ast
+from itertools import product
 from linecache import getline
 from pathlib import Path
 from typing import Any, cast
@@ -60,6 +61,12 @@ def get_display_func_or_none(node: ast.Expr) -> str | None:
     Function detected by this one:
         - sys.stdout.write()
         - stdout.write()
+        - sys.stderr.write()
+        - stderr.write()
+        - sys.stdout.writelines()
+        - stdout.writelines()
+        - sys.stderr.writelines()
+        - stderr.writelines()
 
     Args:
         node: Expr to parse may can contains one of function we search.
@@ -68,26 +75,37 @@ def get_display_func_or_none(node: ast.Expr) -> str | None:
         The function name if we find a function of the list, None otherwizse.
     """
     std_output = ["stdout", "stderr"]
+    std_function = ["write", "writelines"]
 
-    for output in std_output:
-        # detect sys.stdout.write or sys.stderr.write
+    for res in product(std_output, std_function):
+        output = res[0]
+        funct = res[1]
+        # Detect:
+        # - sys.stdout.write
+        # - sys.stderr.write
+        # - sys.stdout.writelines
+        # - sys.stderr.writelines
         try:
             if (
                 node.value.func.value.value.id == "sys"  # type: ignore[attr-defined]
                 and node.value.func.value.attr == output  # type: ignore[attr-defined]
-                and node.value.func.attr == "write"  # type: ignore[attr-defined]
+                and node.value.func.attr == funct  # type: ignore[attr-defined]
             ):
-                return f"sys.{output}.write"
+                return f"sys.{output}.{funct}"
         except AttributeError as err:  # noqa: F841 <Only used for debug>
             pass
 
-        # detect stdout.write or stderr.write
+        # Detect:
+        # - stdout.write
+        # - stderr.write
+        # - stdout.writelines
+        # - stderr.writelines
         try:
             if (
                 node.value.func.value.id == output  # type: ignore[attr-defined]
-                and node.value.func.attr == "write"  # type: ignore[attr-defined]
+                and node.value.func.attr == funct  # type: ignore[attr-defined]
             ):
-                return f"{output}.write"
+                return f"{output}.{funct}"
         except AttributeError as err:  # noqa: F841 <Only used for debug>
             pass
 
@@ -132,6 +150,10 @@ class PrintNodeVisitor(ast.NodeVisitor):
                         issue_type = IssueEnum.SYSSTDOUTWRITEDETECT
                     case "sys.stderr.write" | "stderr.write":
                         issue_type = IssueEnum.SYSSTDERRWRITEDETECT
+                    case "sys.stdout.writelines" | "stdout.writelines":
+                        issue_type = IssueEnum.SYSSTDOUTWRITELINESDETECT
+                    case "sys.stderr.writelines" | "stderr.writelines":
+                        issue_type = IssueEnum.SYSSTDERRWRITELINESDETECT
                     case _:
                         return None
             case _:

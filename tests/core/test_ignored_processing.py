@@ -156,6 +156,48 @@ def test_get_not_ignore_issue():
             from_file="toto.py",
             ignore=False,
         ),
+        # sys.stdout.writelines
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
+            num_line=31,
+            num_col=12,
+            line_as_str="sys.stdout.writelines(['toto', 'titi'])",
+            from_file="toto.py",
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
+            num_line=32,
+            num_col=12,
+            line_as_str="sys.stdout.writelines(['toto', 'titi'])",
+            from_file="toto.py",
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
+            num_line=35,
+            num_col=12,
+            line_as_str="sys.stdout.writelines(['toto', 'titi'])",
+            from_file="toto.py",
+            ignore=False,
+        ),
+        # sys.stderr.writelines
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
+            num_line=38,
+            num_col=12,
+            line_as_str="sys.stderr.writelines(['toto', 'titi'])",
+            from_file="toto.py",
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
+            num_line=39,
+            num_col=12,
+            line_as_str="sys.stderr.writelines(['toto', 'titi'])",
+            from_file="toto.py",
+            ignore=False,
+        ),
     ]
 
     assert not_ignored_line == expected
