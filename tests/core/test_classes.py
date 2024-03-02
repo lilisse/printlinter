@@ -30,6 +30,12 @@ from py_printlinter import IgnoreLine, IssueEnum, IssueInfo
             "sys.stdout.write-detected",
             id="sys.stdout.write detected error n°3",
         ),
+        param(
+            IssueEnum.SYSSTDERRWRITEDETECT,
+            "PPL004",
+            "sys.stderr.write-detected",
+            id="sys.stderr.write detected error n°3",
+        ),
     ],
 )
 def test_issue_enum(enum_elem, err_code, name):
@@ -70,6 +76,7 @@ def test_issue_enum(enum_elem, err_code, name):
         param(IssueEnum.PRINTDETECT, id="print"),
         param(IssueEnum.PRETTYPRINTDETECT, id="pretty print"),
         param(IssueEnum.SYSSTDOUTWRITEDETECT, id="sys.stdout.write"),
+        param(IssueEnum.SYSSTDERRWRITEDETECT, id="sys.stderr.write"),
     ],
 )
 def test_issue_info_class(line, column, str_line, file, ignored, issue_type):
@@ -103,6 +110,7 @@ def test_issue_info_class(line, column, str_line, file, ignored, issue_type):
         param("PPL001", id="print PPL001"),
         param("PPL002", id="pprint PPL002"),
         param("PPL003", id="sys.stdout.write PPL003"),
+        param("PPL004", id="sys.stderr.write PPL004"),
     ],
 )
 def test_ignore_line_class(file, err_code):
