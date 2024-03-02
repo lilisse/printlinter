@@ -1,12 +1,18 @@
+<!-- markdownlint-disable-file MD024 -->
+
 # Py-printlinter
 
 ## TODO
 
-- Possible to launch lint on file and not only on folder
+### 0.1.0 - beta
 
-### Add to rules
+#### Fix
 
-#### Standard
+- Need to be possible to launch lint on file and not only on folder
+
+#### Add to rules
+
+##### Standard
 
 - [x] print <!-- PPL001 -->
 - [x] pprint <!-- PPL002 -->
@@ -15,17 +21,12 @@
 - [x] sys.stdout.writelines & stdout.writelines <!-- PPL005 -->
 - [x] sys.stderr.writelines & stderr.writelines <!-- PPL006 -->
 
-#### Rich (not for first beta version)
-
-- [ ] rich.console.print <!-- PPL101 -->
-
-### Add more way to ignore
+#### Add more way to ignore
 
 - [x] Inline
 - [ ] All file
-- [ ] a block of code
 
-#### Inline
+##### Inline
 
 Ignore a rules (or all rules) on a line.
 
@@ -35,7 +36,7 @@ titi = 2
 print (toto + titi) # noqa: PPL001
 ```
 
-#### All file
+##### All file
 
 To ignore a rules on all one file.
 
@@ -78,7 +79,49 @@ rich.console.Console().print(titi + toto)
 # ...
 ```
 
-#### Block of code
+#### Add a LICENSE
+
+- [x] LICENSE.md
+
+#### Create a real README
+
+- [ ] french
+- [ ] english
+
+#### Create a CHANGELOG
+
+- [ ] french
+- [ ] english
+
+### Add configuration
+
+- [ ] target version
+- [ ] ignored files
+- [ ] disabled rules
+- [ ] enabled rules
+- [ ] lang
+- [ ] colorized output
+
+In formats:
+
+- [ ] toml
+- [ ] json
+- [ ] yaml
+- [ ] pyproject
+
+### Later
+
+#### Add to rules
+
+##### Rich (not for first beta version)
+
+- [ ] rich.console.print <!-- PPL101 -->
+
+#### Add more way to ignore
+
+- [ ] a block of code
+
+##### Block of code
 
 Block ignore is way to disable linter from a line X to a line Y.
 
@@ -130,50 +173,29 @@ rich.console.Console().print(toto + titi)
 # <py-printlinter enable PPL100>
 ```
 
-### Add configuration
+#### Add configuration
 
-- [ ] target version
-- [ ] ignored files
-- [ ] disabled rules
-- [ ] enabled rules
 - [ ] lang
 - [ ] colorized output
 
-In formats:
+#### Create a real README
 
-- [ ] toml
-- [ ] json
-- [ ] yaml
-- [ ] pyproject
-
-### Create a real README
-
-- [ ] french
-- [ ] english
 - [ ] italien
 - [ ] spanish
 - [ ] indian
 - [ ] chinese
-- and more
 
-### Create a CHANGELOG
+#### Create a CHANGELOG
 
-- [ ] french
-- [ ] english
 - [ ] italien
 - [ ] spanish
 - [ ] indian
 - [ ] chinese
-- and more
 
-### Add a LICENSE
-
-- [x] LICENSE.md
-
-### Add a good documentation
+#### Add a good documentation
 
 - [ ] Documentation on readthedoc
 
-### Add linter on pypi
+#### Add linter on pypi
 
 - [ ] Add py-printlinter on pypi
