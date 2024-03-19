@@ -6,7 +6,7 @@ from pytest import param
 from assertpy import assert_that, soft_assertions
 
 # First party imports
-from py_printlinter import IgnoreLine, IssueEnum, IssueInfo
+from py_printlinter import IgnoreFile, IgnoreLine, IssueEnum, IssueInfo
 
 
 @pytest.mark.parametrize(
@@ -131,3 +131,25 @@ def test_issue_info_class(line, column, str_line, file, ignored, issue_type):
 )
 def test_ignore_line_class(file, err_code):
     assert IgnoreLine(1, err_code, file)
+
+
+@pytest.mark.parametrize(
+    "file",
+    [
+        param("toto.py", id="with file"),
+        param(None, id="without file"),
+    ],
+)
+@pytest.mark.parametrize(
+    "err_code",
+    [
+        param("PPL001", id="print PPL001"),
+        param("PPL002", id="pprint PPL002"),
+        param("PPL003", id="sys.stdout.write PPL003"),
+        param("PPL004", id="sys.stderr.write PPL004"),
+        param("PPL005", id="sys.stdout.writelines PPL005"),
+        param("PPL006", id="sys.stderr.writelines PPL006"),
+    ],
+)
+def test_ignore_file_class(file, err_code):
+    assert IgnoreFile(err_code, file)

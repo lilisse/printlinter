@@ -8,10 +8,13 @@ from io import TextIOWrapper
 from pathlib import Path
 
 # Local imports
-from .classes import IgnoreLine
+from .classes import IgnoreFile, IgnoreLine
 
 # TODO: enlever le droit d'ignorer plusieurs erreur sur une ligne
-IGNORE_TOKEN_REGEX = r"noqa:[ ]?((PPL[0-9]{3},? ?)+)"
+# TODO: ajouter un group nommé pour le code
+IGNORE_LINE_TOKEN_REGEX = r"noqa:[ ]?((PPL[0-9]{3},? ?)+)"
+
+IGNORE_FILE_TOKEN_REGEX = r"<py-printlinter disable-file (?P<code>ALL|PPL[0-9]{3})>"
 
 
 def enumerate_file(folder: Path) -> list[Path]:
@@ -27,6 +30,7 @@ def enumerate_file(folder: Path) -> list[Path]:
     return list(folder.glob("**/*.py"))
 
 
+# TODO: Facoriser le code avec la function pour avoir les fichiers ignorés
 def get_ignore_lines(file: TextIOWrapper, file_path: Path) -> list[IgnoreLine]:
     """
     Get ignored lines in a file.
@@ -44,7 +48,7 @@ def get_ignore_lines(file: TextIOWrapper, file_path: Path) -> list[IgnoreLine]:
     for token in tokens:
         toktype, tokval, start, *_ = token
         if toktype == tokenize.COMMENT:
-            if match := re.search(IGNORE_TOKEN_REGEX, tokval):
+            if match := re.search(IGNORE_LINE_TOKEN_REGEX, tokval):
                 lineo, _ = start
                 codes = match.group().strip("noqa: ").split(", ")
                 ignore_lines.extend(
@@ -54,7 +58,38 @@ def get_ignore_lines(file: TextIOWrapper, file_path: Path) -> list[IgnoreLine]:
     return ignore_lines
 
 
-def parse_file(file_path: str) -> tuple[ast.AST, list[IgnoreLine]]:
+def get_ignore_files(file: TextIOWrapper, file_path: Path) -> list[IgnoreFile]:
+    """
+    Get ignored files in a file.
+
+    Args:
+        file: File to analyze.
+        file_path: Path of the given file.
+
+    Returns:
+        Ignored File in given file.
+    """
+    tokens = tokenize.generate_tokens(file.readline)
+
+    for token in tokens:
+        toktype, tokval, start, *_ = token
+        if toktype == tokenize.COMMENT:
+            if match := re.search(IGNORE_FILE_TOKEN_REGEX, tokval):
+                lineo, _ = start
+                # TODO: Faire en sorte que ca soit pas forcement la première ligne mais
+                # que ca soit avant du code
+                if lineo == 1:
+                    code = match.group("code")
+                    return [IgnoreFile(code, file_path)]
+                else:
+                    # TODO: afficher un message qui dit que le message d'ignore doit
+                    # être au debut du fichier
+                    return []
+
+    return []
+
+
+def parse_file(file_path: str) -> tuple[ast.AST, list[IgnoreLine], list[IgnoreFile]]:
     """
     Parse a file to get the tree and all ignore lines in this file.
 
@@ -68,11 +103,15 @@ def parse_file(file_path: str) -> tuple[ast.AST, list[IgnoreLine]]:
         tree = ast.parse(
             source=file.read(),
             filename=file_path,
+            # TODO: feature_version = version depuis la config quand on aura la config
             feature_version=(3, 11),
         )
-
         file.seek(0)
 
         ignore_lines = get_ignore_lines(file, Path(file_path))
+        file.seek(0)
 
-    return tree, ignore_lines
+        ignore_files = get_ignore_files(file, Path(file_path))
+        file.seek(0)
+
+    return tree, ignore_lines, ignore_files

@@ -24,6 +24,7 @@ class IssueEnum(Issue, Enum):
     )
 
 
+# TODO: Refactor attributes doc in class not in docstring
 @dataclass
 class IssueInfo:
     """
@@ -60,6 +61,7 @@ class IssueInfo:
         )
 
 
+# TODO: Refactor attributes doc in class not in docstring
 @dataclass
 class IgnoreLine:
     """
@@ -73,5 +75,21 @@ class IgnoreLine:
     """
 
     line_num: int
+    error_code: str
+    from_file: Path | None
+
+
+# TODO: Refactor attributes doc in class not in docstring
+@dataclass
+class IgnoreFile:
+    """
+    Ignore file class.
+
+    Attributes:
+        error_code: Code of the ignore issue.
+        from_file: File who contains the ignored line.
+
+    """
+
     error_code: str
     from_file: Path | None

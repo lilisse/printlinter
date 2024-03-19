@@ -70,3 +70,21 @@ print(ast.dump(tree, indent=4))
 ```
 
 in the file: `py_printlinter/parser.py`
+
+## Pour comparer code
+
+```python
+ppl = [f"PPL{i:03}" for i in range(1, 1000)]
+
+res = '"PPL000"'
+for elem in ppl:
+    res = f'{res} < "{elem}"'
+
+print(eval(res))
+```
+
+donne
+
+```python
+True
+```
