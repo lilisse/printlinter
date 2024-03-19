@@ -1,0 +1,5 @@
+{
+  "printlinter": {
+    "ignored_files": ["tutu.py"]
+  }
+}

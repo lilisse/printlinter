@@ -1,0 +1,6 @@
+{
+  "printlinter": {
+    "target_version": "3.8",
+    "disabled_rules": ["PPL003"]
+  }
+}

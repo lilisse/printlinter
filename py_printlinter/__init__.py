@@ -3,6 +3,7 @@
 
 # Local imports
 from .classes import IgnoreFile, IgnoreLine, IssueEnum, IssueInfo  # noqa: F401
+from .config import Config  # noqa: F401
 from .ignored_processing import get_not_ignore_issue  # noqa: F401
 from .parser import (  # noqa: F401
     enumerate_file,

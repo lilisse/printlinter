@@ -1,0 +1,6 @@
+{
+  "printlinter": {
+    "ignored_files": ["tutu.py"],
+    "disabled_rules": ["PPL003"]
+  }
+}

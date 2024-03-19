@@ -1,0 +1,3 @@
+printlinter:
+  target_version: "3.10"
+  disabled_rules: [PPL001]

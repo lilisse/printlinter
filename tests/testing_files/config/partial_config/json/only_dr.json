@@ -1,0 +1,5 @@
+{
+  "printlinter": {
+    "disabled_rules": ["PPL003"]
+  }
+}

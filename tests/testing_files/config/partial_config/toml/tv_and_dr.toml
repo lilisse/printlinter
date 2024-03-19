@@ -1,0 +1,3 @@
+[printlinter]
+disabled_rules = ["PPL004"]
+target_version = "3.7"
