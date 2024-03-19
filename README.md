@@ -95,17 +95,20 @@ rich.console.Console().print(titi + toto)
 
 ### Add configuration
 
-- [ ] target version
-- [ ] ignored files
-- [ ] disabled rules
-- [ ] enabled rules
+- [x] target version
+- [x] ignored files
+- [x] disabled rules
 
 In formats:
 
-- [ ] toml
-- [ ] json
-- [ ] yaml
-- [ ] pyproject
+- [x] toml
+- [x] yaml
+- [x] json
+- [x] pyproject
+
+### Add linter on pypi
+
+- [ ] Add py-printlinter on pypi
 
 ### Later
 
@@ -176,6 +179,14 @@ rich.console.Console().print(toto + titi)
 - [ ] lang
 - [ ] colorized output
 
+#### Add configuration in command line
+
+- [ ] target version
+- [ ] ignored files
+- [ ] disabled rules
+- [ ] lang
+- [ ] colorized output
+
 #### Create a real README
 
 - [ ] italien
@@ -193,7 +204,3 @@ rich.console.Console().print(toto + titi)
 #### Add a good documentation
 
 - [ ] Documentation on readthedoc
-
-#### Add linter on pypi
-
-- [ ] Add py-printlinter on pypi

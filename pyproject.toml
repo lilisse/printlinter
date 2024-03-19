@@ -14,6 +14,7 @@ readme = "README.md"
 python = "^3.10"
 rich = "^12.5.1"
 typer = "^0.7.0"
+toml = "^0.10.2"
 
 [tool.poetry.group.dev.dependencies]
 codespell = "^2.1.0"
@@ -29,6 +30,8 @@ pytest-cov = "^4.1.0"
 assertpy = "^1.1"
 mypy = "^1.8.0"
 pytest-icdiff = "^0.9"
+types-toml = "^0.10.8.20240310"
+types-pyyaml = "^6.0.12.20240311"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

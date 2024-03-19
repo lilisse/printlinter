@@ -1,0 +1,3 @@
+printlinter:
+  ignored_files: [titi.py]
+  disabled_rules: [PPL002]

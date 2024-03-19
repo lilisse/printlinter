@@ -1,0 +1,2 @@
+printlinter:
+  disabled_rules: [PPL001]

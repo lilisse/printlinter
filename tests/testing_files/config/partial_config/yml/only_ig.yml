@@ -1,0 +1,2 @@
+printlinter:
+  ignored_files: [toto.py]

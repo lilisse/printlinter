@@ -1,0 +1,3 @@
+[printlinter]
+ignored_files = ["tata.py"]
+disabled_rules = ["PPL004"]
