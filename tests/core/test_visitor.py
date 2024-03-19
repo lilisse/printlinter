@@ -465,7 +465,12 @@ from ..conftest import INPUT_FILE_PATH
         ),
     ],
 )
-def test_contains_print(pnv_soft_reset, testing_files, file_path, expected):
+def test_contains_print_with_files_with_ignore_lines(
+    pnv_soft_reset,
+    testing_files,
+    file_path,
+    expected,
+):
     with open(testing_files / file_path, encoding="utf-8") as file:
         tree = ast.parse(
             source=file.read(),
@@ -476,6 +481,169 @@ def test_contains_print(pnv_soft_reset, testing_files, file_path, expected):
     print_detected = contains_print(testing_files / file_path, tree)
 
     if not expected:
-        assert_that(print_detected).is_equal_to(expected)
+        assert print_detected == expected
     else:
-        assert_that(print_detected).contains_only(*expected)
+        assert print_detected == expected
+
+
+@pytest.mark.parametrize(
+    "file_path, gap_line",
+    [
+        # nothings
+        param(
+            "ignored_files/ignore_nothing.py",
+            0,
+            id="No ignore files",
+        ),
+        # all
+        param(
+            "ignored_files/ignore_all.py",
+            1,
+            id="Ignore all in file",
+        ),
+        # standard library
+        param(
+            "ignored_files/ignore_ppl000.py",
+            1,
+            id="Ignore standard lib display function in file",
+        ),
+        # print
+        param(
+            "ignored_files/ignore_ppl001.py",
+            1,
+            id="Ignore print in file",
+        ),
+        # pprint
+        param(
+            "ignored_files/ignore_ppl002.py",
+            1,
+            id="Ignore pprint in file",
+        ),
+        # sys.stdout.write
+        param(
+            "ignored_files/ignore_ppl003.py",
+            1,
+            id="Ignore sys.stdout.write and stdout.write in file",
+        ),
+        # sys.stderr.write
+        param(
+            "ignored_files/ignore_ppl004.py",
+            1,
+            id="Ignore sys.stderr.write and stderr.write in file",
+        ),
+        # sys.stdout.writelines
+        param(
+            "ignored_files/ignore_ppl004.py",
+            1,
+            id="Ignore sys.stdout.writelines and stdout.writelines in file",
+        ),
+        # sys.stderr.writelines
+        param(
+            "ignored_files/ignore_ppl006.py",
+            1,
+            id="Ignore sys.stderr.writelines and stderr.writelines in file",
+        ),
+    ],
+)
+def test_contains_print_with_files_with_ignore_files(
+    pnv_soft_reset,
+    testing_files,
+    file_path,
+    gap_line,
+):
+    expected = [
+        IssueInfo(
+            issue=IssueEnum.PRINTDETECT,
+            num_line=6 + gap_line,
+            num_col=0,
+            line_as_str='print("toto")',
+            from_file=INPUT_FILE_PATH / file_path,
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.PRETTYPRINTDETECT,
+            num_line=8 + gap_line,
+            num_col=0,
+            line_as_str='pprint("toto")',
+            from_file=INPUT_FILE_PATH / file_path,
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+            num_line=10 + gap_line,
+            num_col=0,
+            line_as_str='sys.stdout.write("toto")',
+            from_file=INPUT_FILE_PATH / file_path,
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+            num_line=11 + gap_line,
+            num_col=0,
+            line_as_str='stdout.write("toto")',
+            from_file=INPUT_FILE_PATH / file_path,
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITEDETECT,
+            num_line=13 + gap_line,
+            num_col=0,
+            line_as_str='sys.stderr.write("toto")',
+            from_file=INPUT_FILE_PATH / file_path,
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITEDETECT,
+            num_line=14 + gap_line,
+            num_col=0,
+            line_as_str='stderr.write("toto")',
+            from_file=INPUT_FILE_PATH / file_path,
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
+            num_line=16 + gap_line,
+            num_col=0,
+            line_as_str='sys.stdout.writelines("toto")',
+            from_file=INPUT_FILE_PATH / file_path,
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
+            num_line=17 + gap_line,
+            num_col=0,
+            line_as_str='stdout.writelines("toto")',
+            from_file=INPUT_FILE_PATH / file_path,
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
+            num_line=19 + gap_line,
+            num_col=0,
+            line_as_str='sys.stderr.writelines("toto")',
+            from_file=INPUT_FILE_PATH / file_path,
+            ignore=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
+            num_line=20 + gap_line,
+            num_col=0,
+            line_as_str='stderr.writelines("toto")',
+            from_file=INPUT_FILE_PATH / file_path,
+            ignore=False,
+        ),
+    ]
+
+    with open(testing_files / file_path, encoding="utf-8") as file:
+        tree = ast.parse(
+            source=file.read(),
+            filename=testing_files / file_path,
+            feature_version=(3, 11),
+        )
+
+    print_detected = contains_print(testing_files / file_path, tree)
+
+    if not expected:
+        assert print_detected == expected
+    else:
+        assert print_detected == expected

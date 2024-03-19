@@ -24,7 +24,7 @@
 #### Add more way to ignore
 
 - [x] Inline
-- [ ] All file
+- [x] All file
 
 ##### Inline
 

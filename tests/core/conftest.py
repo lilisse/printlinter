@@ -1,17 +1,8 @@
-# Pytest imports
-import pytest
-
-# Standard imports
-import ast
-from io import TextIOWrapper
-from itertools import zip_longest
-from pathlib import Path
-
 # First party imports
-from py_printlinter import IgnoreLine, IssueEnum, IssueInfo
+from py_printlinter import IgnoreFile, IgnoreLine, IssueEnum, IssueInfo
 
 
-def issues() -> list[IssueInfo]:
+def issues_for_lines() -> list[IssueInfo]:
     """
     Get a list of issues.
 
@@ -19,7 +10,7 @@ def issues() -> list[IssueInfo]:
         Issues.
     """
     res = [
-        IssueInfo(IssueEnum.PRINTDETECT, line, 12, "print('toto')", "toto.py", False)
+        IssueInfo(IssueEnum.PRINTDETECT, line, 12, "print('toto')", "toto1.py", False)
         for line in range(9)
     ]
 
@@ -30,7 +21,7 @@ def issues() -> list[IssueInfo]:
                 line,
                 12,
                 "pprint('toto')",
-                "toto.py",
+                "toto2.py",
                 False,
             )
             for line in range(9, 15)
@@ -44,7 +35,7 @@ def issues() -> list[IssueInfo]:
                 line,
                 12,
                 "sys.stdout.write('toto')",
-                "toto.py",
+                "toto3.py",
                 False,
             )
             for line in range(15, 23)
@@ -58,7 +49,7 @@ def issues() -> list[IssueInfo]:
                 line,
                 12,
                 "sys.stderr.write('toto')",
-                "toto.py",
+                "toto4.py",
                 False,
             )
             for line in range(23, 31)
@@ -72,7 +63,7 @@ def issues() -> list[IssueInfo]:
                 line,
                 12,
                 "sys.stdout.writelines(['toto', 'titi'])",
-                "toto.py",
+                "toto5.py",
                 False,
             )
             for line in range(31, 36)
@@ -86,12 +77,78 @@ def issues() -> list[IssueInfo]:
                 line,
                 12,
                 "sys.stderr.writelines(['toto', 'titi'])",
-                "toto.py",
+                "toto6.py",
                 False,
             )
             for line in range(36, 41)
         ]
     )
+
+    return res
+
+
+def issues_for_files() -> list[IssueInfo]:
+    """
+    Get a list of issues.
+
+    Returns:
+        Issues.
+    """
+    res = []
+    for error_type, line_as_str in zip(
+        IssueEnum,
+        [
+            "print('toto')",
+            "pprint('toto')",
+            "sys.stdout.write('toto')",
+            "sys.stderr.write('toto')",
+            "sys.stdout.writelines(['toto', 'titi'])",
+            "sys.stderr.writelines(['toto', 'titi'])",
+        ],
+    ):
+        for test_file in [
+            "toto1.py",
+            "toto2.py",
+            "toto3.py",
+            "toto4.py",
+            "toto5.py",
+        ]:
+            res.append(IssueInfo(error_type, 3, 12, line_as_str, test_file, False))
+
+    return res
+
+
+def issues_for_files_and_lines() -> list[IssueInfo]:
+    """
+    Get a list of issues.
+
+    Returns:
+        Issues.
+    """
+    res = []
+    line = 0
+    for error_type, line_as_str in zip(
+        IssueEnum,
+        [
+            "print('toto')",  # line = 1
+            "pprint('toto')",  # line = 2
+            "sys.stdout.write('toto')",  # line = 3
+            "sys.stderr.write('toto')",  # line = 4
+            "sys.stdout.writelines(['toto', 'titi'])",  # line = 5
+            "sys.stderr.writelines(['toto', 'titi'])",  # line = 6
+        ],
+    ):
+        for test_file in [
+            "toto1.py",
+            "toto2.py",
+            "toto3.py",
+            "toto4.py",
+            "toto5.py",
+        ]:
+            res.append(
+                IssueInfo(error_type, line + 1, 12, line_as_str, test_file, False)
+            )
+        line += 1
 
     return res
 
@@ -110,140 +167,58 @@ def ignored_lines() -> list[IgnoreLine]:
     ppl005_lines = [33, 34]
     ppl006_lines = [36, 37, 40]
 
-    res = [IgnoreLine(line, "PPL001", "toto.py") for line in ppl001_lines]
-    res.extend([IgnoreLine(line, "PPL002", "toto.py") for line in ppl002_lines])
-    res.extend([IgnoreLine(line, "PPL003", "toto.py") for line in ppl003_lines])
-    res.extend([IgnoreLine(line, "PPL004", "toto.py") for line in ppl004_lines])
-    res.extend([IgnoreLine(line, "PPL005", "toto.py") for line in ppl005_lines])
-    res.extend([IgnoreLine(line, "PPL006", "toto.py") for line in ppl006_lines])
+    res = [IgnoreLine(line, "PPL001", "toto1.py") for line in ppl001_lines]
+    res.extend([IgnoreLine(line, "PPL002", "toto2.py") for line in ppl002_lines])
+    res.extend([IgnoreLine(line, "PPL003", "toto3.py") for line in ppl003_lines])
+    res.extend([IgnoreLine(line, "PPL004", "toto4.py") for line in ppl004_lines])
+    res.extend([IgnoreLine(line, "PPL005", "toto5.py") for line in ppl005_lines])
+    res.extend([IgnoreLine(line, "PPL006", "toto6.py") for line in ppl006_lines])
 
     return res
 
 
-def get_file(path: Path) -> TextIOWrapper:
-    """
-    Get file form his path.
-
-    Returns:
-        Wrapper of the file.
-    """
-    file = open(path, encoding="utf-8")
-    file.seek(0)
-    return file
+def ignored_files() -> list[IgnoreFile]:
+    return [
+        IgnoreFile("ALL", "toto1.py"),
+        IgnoreFile("PPL000", "toto2.py"),
+        IgnoreFile("PPL100", "toto3.py"),
+        IgnoreFile("PPL002", "toto4.py"),
+        IgnoreFile("PPL005", "toto5.py"),
+    ]
 
 
-@pytest.fixture()
-def file_without_ignored_print(testing_files):
-    with open(testing_files / "print/toto_1.py", encoding="utf-8") as file:
-        file.seek(0)
-        yield file
-
-
-@pytest.fixture()
-def file_without_ignored_prettyprint(testing_files):
-    with open(testing_files / "pprint/pprint1.py", encoding="utf-8") as file:
-        file.seek(0)
-        yield file
-
-
-@pytest.fixture()
-def file_without_ignored_stdout_write(testing_files):
-    with open(testing_files / "sys/stdout/write/stdout1.py", encoding="utf-8") as file:
-        file.seek(0)
-        yield file
-
-
-@pytest.fixture()
-def file_without_ignored_stderr_write(testing_files):
-    with open(testing_files / "sys/stderr/write/stderr1.py", encoding="utf-8") as file:
-        file.seek(0)
-        yield file
-
-
-@pytest.fixture()
-def file_without_ignored_stdout_writelines(testing_files):
-    with open(
-        testing_files / "sys/stdout/writelines/stdout1.py", encoding="utf-8"
-    ) as file:
-        file.seek(0)
-        yield file
-
-
-@pytest.fixture()
-def file_without_ignored_stderr_writelines(testing_files):
-    with open(
-        testing_files / "sys/stderr/writelines/stderr1.py", encoding="utf-8"
-    ) as file:
-        file.seek(0)
-        yield file
-
-
-@pytest.fixture()
-def file_with_ignored_print(testing_files):
-    with open(testing_files / "print/toto2/toto3.py", encoding="utf-8") as file:
-        file.seek(0)
-        yield file
-
-
-@pytest.fixture()
-def file_with_ignored_prettyprint(testing_files):
-    with open(testing_files / "pprint/pprint2/pprint3.py", encoding="utf-8") as file:
-        file.seek(0)
-        yield file
-
-
-@pytest.fixture()
-def file_with_ignored_stdout_write(testing_files):
-    with open(
-        testing_files / "sys/stdout/write/stdout2/stdout3.py", encoding="utf-8"
-    ) as file:
-        file.seek(0)
-        yield file
-
-
-@pytest.fixture()
-def file_with_ignored_stderr_write(testing_files):
-    with open(
-        testing_files / "sys/stderr/write/stderr2/stderr3.py", encoding="utf-8"
-    ) as file:
-        file.seek(0)
-        yield file
-
-
-@pytest.fixture()
-def file_with_ignored_stdout_writelines(testing_files):
-    with open(
-        testing_files / "sys/stdout/writelines/stdout2/stdout3.py", encoding="utf-8"
-    ) as file:
-        file.seek(0)
-        yield file
-
-
-@pytest.fixture()
-def file_with_ignored_stderr_writelines(testing_files):
-    with open(
-        testing_files / "sys/stderr/writelines/stderr2/stderr3.py", encoding="utf-8"
-    ) as file:
-        file.seek(0)
-        yield file
-
-
-def compare_ast(
-    node1: ast.expr | list[ast.expr],
-    node2: ast.expr | list[ast.expr],
-) -> bool:
-    if type(node1) is not type(node2):
-        return False
-
-    if isinstance(node1, ast.AST):
-        for k, v in vars(node1).items():
-            if k in {"lineno", "end_lineno", "col_offset", "end_col_offset", "ctx"}:
-                continue
-            if not compare_ast(v, getattr(node2, k)):
-                return False
-        return True
-
-    elif isinstance(node1, list) and isinstance(node2, list):
-        return all(compare_ast(n1, n2) for n1, n2 in zip_longest(node1, node2))
-    else:
-        return node1 == node2
+def ignored_files_and_lines() -> tuple[list[IgnoreLine], list[IgnoreFile]]:
+    files = [
+        IgnoreFile("ALL", "toto1.py"),
+        IgnoreFile("PPL000", "toto2.py"),
+        IgnoreFile("PPL100", "toto3.py"),
+        IgnoreFile("PPL002", "toto4.py"),
+    ]
+    lines = [
+        IgnoreLine(
+            1,
+            "PPL001",
+            "toto1.py",
+        ),
+        IgnoreLine(
+            1,
+            "PPL001",
+            "toto2.py",
+        ),
+        IgnoreLine(
+            1,
+            "PPL001",
+            "toto3.py",
+        ),
+        IgnoreLine(
+            2,
+            "PPL002",
+            "toto3.py",
+        ),
+        IgnoreLine(
+            6,
+            "PPL006",
+            "toto4.py",
+        ),
+    ]
+    return (lines, files)
