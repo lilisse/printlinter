@@ -21,6 +21,7 @@ def get_not_ignore_issue(
     issues: list[IssueInfo],
     ignore_lines: list[IgnoreLine],
     ignore_files: list[IgnoreFile],
+    disabled_rules: list[str],
 ) -> list[IssueInfo]:
     """
     Get all not ignored issues.
@@ -29,6 +30,7 @@ def get_not_ignore_issue(
         issues: All issue found.
         ignore_lines: All ignored lines.
         ignore_files: All ignored files.
+        disabled_rules: All disabled rules.
 
     Returns:
         All lines are not ignored.
@@ -36,6 +38,9 @@ def get_not_ignore_issue(
     result = []
 
     for issue in issues:
+        if issue.issue.err_code in disabled_rules:
+            continue
+
         ignore_all_file_equivalence = IgnoreFile(
             error_code="ALL",
             from_file=issue.from_file,

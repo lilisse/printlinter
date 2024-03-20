@@ -89,12 +89,16 @@ def get_ignore_files(file: TextIOWrapper, file_path: Path) -> list[IgnoreFile]:
     return []
 
 
-def parse_file(file_path: str) -> tuple[ast.AST, list[IgnoreLine], list[IgnoreFile]]:
+def parse_file(
+    file_path: str,
+    target_version: tuple[int, int],
+) -> tuple[ast.AST, list[IgnoreLine], list[IgnoreFile]]:
     """
     Parse a file to get the tree and all ignore lines in this file.
 
     Args:
         file_path: Path of the file to parse.
+        target_version: Target version for ast.
 
     Returns:
         The AST tree of the file and all ignored lines contains in this file.
@@ -103,8 +107,7 @@ def parse_file(file_path: str) -> tuple[ast.AST, list[IgnoreLine], list[IgnoreFi
         tree = ast.parse(
             source=file.read(),
             filename=file_path,
-            # TODO: feature_version = version depuis la config quand on aura la config
-            feature_version=(3, 11),
+            feature_version=target_version,
         )
         file.seek(0)
 

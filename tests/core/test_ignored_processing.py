@@ -14,7 +14,7 @@ from .conftest import (
 
 
 def test_get_not_ignore_issue__ignore_lines():
-    not_ignored_line = get_not_ignore_issue(issues_for_lines(), ignored_lines(), [])
+    not_ignored_line = get_not_ignore_issue(issues_for_lines(), ignored_lines(), [], [])
 
     expected = [
         IssueInfo(
@@ -212,7 +212,7 @@ def test_get_not_ignore_issue__ignore_lines():
 
 
 def test_get_not_ignore_issue__ignore_files():
-    not_ignored_line = get_not_ignore_issue(issues_for_files(), [], ignored_files())
+    not_ignored_line = get_not_ignore_issue(issues_for_files(), [], ignored_files(), [])
 
     expected = [
         IssueInfo(
@@ -351,7 +351,10 @@ def test_get_not_ignore_issue__ignore_files():
 def test_get_not_ignore_issue__ignore_files_and_lines():
     ignored_lines, ignored_files = ignored_files_and_lines()
     not_ignored_line = get_not_ignore_issue(
-        issues_for_files_and_lines(), ignored_lines, ignored_files
+        issues_for_files_and_lines(),
+        ignored_lines,
+        ignored_files,
+        [],
     )
 
     expected = [

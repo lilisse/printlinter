@@ -4,18 +4,27 @@ from pytest import param
 
 # Standard imports
 import ast
+from itertools import product
 
 # Third party imports
 from assertpy import assert_that, soft_assertions
 
 # First party imports
 from py_printlinter import IgnoreFile, IgnoreLine, parse_file
+from py_printlinter.config import MAX_MAJOR, MAX_MINOR
 
 # Local imports
 from ...conftest import INPUT_FILE_PATH
 from .conftest import compare_ast
 
 
+@pytest.mark.parametrize(
+    "target_version",
+    [
+        param(version, id=f"target version = {version}")
+        for version in product([*range(3, MAX_MAJOR + 1)], [*range(7, MAX_MINOR + 1)])
+    ],
+)
 @pytest.mark.parametrize(
     "path_file, expected_ignored_lines, expected_ignored_files",
     [
@@ -357,6 +366,7 @@ from .conftest import compare_ast
 )
 def test_parse_file(
     testing_files,
+    target_version,
     path_file,
     expected_ignored_lines,
     expected_ignored_files,
@@ -365,10 +375,13 @@ def test_parse_file(
         expected_tree = ast.parse(
             source=file.read(),
             filename=testing_files / path_file,
-            feature_version=(3, 11),
+            feature_version=target_version,
         )
 
-    tree, ignored_lines, ignored_files = parse_file(testing_files / path_file)
+    tree, ignored_lines, ignored_files = parse_file(
+        testing_files / path_file,
+        target_version,
+    )
 
     with soft_assertions():
         assert_that(compare_ast(tree, expected_tree)).is_true()
