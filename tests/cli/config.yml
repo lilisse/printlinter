@@ -1,0 +1,2 @@
+printlinter:
+  ignored_files: [tests/testing_files/pprint/pprint2/pprint3.py]

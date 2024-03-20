@@ -178,6 +178,15 @@ rich.console.Console().print(toto + titi)
 
 - [ ] lang
 - [ ] colorized output
+- [ ] ignored files with regex or folder
+
+#### Add configuration in command line
+
+- [ ] target version
+- [ ] ignored files
+- [ ] disabled rules
+- [ ] lang
+- [ ] colorized output
 
 #### Add configuration in command line
 
@@ -200,6 +209,12 @@ rich.console.Console().print(toto + titi)
 - [ ] spanish
 - [ ] indian
 - [ ] chinese
+
+#### Add test on "big" project
+
+- [ ] exoplanet.eu
+- [ ] django
+- [ ] ...
 
 #### Add a good documentation
 

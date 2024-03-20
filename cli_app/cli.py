@@ -8,6 +8,7 @@ import typer
 from rich.console import Console
 
 # First party imports
+from py_printlinter import Config
 from py_printlinter import __app_name__ as ppl_app_name
 from py_printlinter import __version__ as ppl_version
 from py_printlinter import (
@@ -47,6 +48,7 @@ def path_callback(path: Path) -> Path:
 
     Examples:
         >>> path_callback(Path("py_printlinter"))
+        PosixPath('py_printlinter')
 
         >>> try:
         ...     path_callback(Path("azert.qwerty"))
@@ -74,6 +76,38 @@ def path_callback(path: Path) -> Path:
     return path
 
 
+def is_a_file(file_name: Path) -> Path | None:
+    """
+    Check if given path is a file.
+
+    If the path is the default path (`Path(".")`) return None.
+
+    Args:
+        file_name: Path to check.
+
+    Returns:
+        The given path or None if given path is the default path (`Path(".")`).
+
+    Examples:
+        >>> is_a_file(Path("."))
+        None
+
+        >>> is_a_file(Path("README.md"))
+        PosixPath('README.md')
+
+        >>> try:
+        ...     is_a_file(Path("py_printlinter"))
+        ... except FileNotFoundError:
+        ...     False
+        False
+    """
+    if file_name == Path("."):
+        return None
+    if file_name.is_dir() or not file_name.is_file():
+        raise FileNotFoundError(f"The path: {file_name} is not a file")
+    return file_name
+
+
 @APP.command(name="lint", help="lint the code to find print")
 def lint(
     path: Path = typer.Argument(
@@ -82,24 +116,43 @@ def lint(
         show_default=False,
         callback=path_callback,
     ),
+    config_file: Path = typer.Option(
+        Path("."),
+        help="Configuration file",
+        show_default=False,
+        callback=is_a_file,
+    ),
 ) -> None:
     """
     Lint the given path or default path: `.`.
 
     Args:
         path: Path to lint.
+        config_file: Optional config file.
     """
+    config = Config(config_file)
     files_path = enumerate_file(path)
     all_ignored_lines = []
     all_ignored_files = []
+    issues = []
     for file_path in files_path:
-        tree, ignored_lines, ignored_files = parse_file(file_path.as_posix())
+        if file_path.absolute() in [
+            Path(path).absolute() for path in config.ignored_files
+        ]:
+            continue
+
+        tree, ignored_lines, ignored_files = parse_file(
+            file_path.as_posix(), config.target_version
+        )
         issues = contains_print(file_path, tree)
         all_ignored_lines.extend(ignored_lines)
         all_ignored_files.extend(ignored_files)
 
     not_ignored_issues = get_not_ignore_issue(
-        issues, all_ignored_lines, all_ignored_files
+        issues,
+        all_ignored_lines,
+        all_ignored_files,
+        config.disabled_rules,
     )
 
     for issue in not_ignored_issues:
