@@ -10,10 +10,7 @@ from pathlib import Path
 # Local imports
 from .classes import IgnoreFile, IgnoreLine
 
-# TODO: enlever le droit d'ignorer plusieurs erreur sur une ligne
-# TODO: ajouter un group nommé pour le code
-IGNORE_LINE_TOKEN_REGEX = r"noqa:[ ]?((PPL[0-9]{3},? ?)+)"
-
+IGNORE_LINE_TOKEN_REGEX = r"noqa:[ ]?(?P<code>PPL[0-9]{3})"
 IGNORE_FILE_TOKEN_REGEX = r"<py-printlinter disable-file (?P<code>ALL|PPL[0-9]{3})>"
 
 
@@ -30,7 +27,6 @@ def enumerate_file(folder: Path) -> list[Path]:
     return list(folder.glob("**/*.py"))
 
 
-# TODO: Facoriser le code avec la function pour avoir les fichiers ignorés
 def get_ignore_lines(file: TextIOWrapper, file_path: Path) -> list[IgnoreLine]:
     """
     Get ignored lines in a file.
@@ -50,15 +46,40 @@ def get_ignore_lines(file: TextIOWrapper, file_path: Path) -> list[IgnoreLine]:
         if toktype == tokenize.COMMENT:
             if match := re.search(IGNORE_LINE_TOKEN_REGEX, tokval):
                 lineo, _ = start
-                codes = match.group().strip("noqa: ").split(", ")
-                ignore_lines.extend(
-                    [IgnoreLine(lineo, code, file_path) for code in codes]
-                )
+                code = match.group("code")
+                ignore_lines.append(IgnoreLine(lineo, code, file_path))
 
     return ignore_lines
 
 
-def get_ignore_files(file: TextIOWrapper, file_path: Path) -> list[IgnoreFile]:
+def _no_code_before(
+    tokens_before: list[tokenize.TokenInfo],
+) -> bool:
+    """
+    Check if we have code in token before a specific token.
+
+    Args:
+        tokens_before: Token in file before the specific token.
+
+    Returns:
+        True if we have not code tokens in the given tokens, False otherwise.
+    """
+    for token in tokens_before:
+        toktype, *_ = token
+        if toktype not in [
+            tokenize.COMMENT,
+            tokenize.NEWLINE,
+            tokenize.INDENT,
+            tokenize.DEDENT,
+            tokenize.ENCODING,
+            tokenize.NL,
+        ]:
+            return False
+
+    return True
+
+
+def get_ignore_files(file: TextIOWrapper, file_path: Path) -> list[IgnoreFile] | None:
     """
     Get ignored files in a file.
 
@@ -70,21 +91,18 @@ def get_ignore_files(file: TextIOWrapper, file_path: Path) -> list[IgnoreFile]:
         Ignored File in given file.
     """
     tokens = tokenize.generate_tokens(file.readline)
+    tokens_before: list[tokenize.TokenInfo] = []
 
     for token in tokens:
-        toktype, tokval, start, *_ = token
+        toktype, tokval, *_ = token
         if toktype == tokenize.COMMENT:
             if match := re.search(IGNORE_FILE_TOKEN_REGEX, tokval):
-                lineo, _ = start
-                # TODO: Faire en sorte que ca soit pas forcement la première ligne mais
-                # que ca soit avant du code
-                if lineo == 1:
+                if _no_code_before(tokens_before):
                     code = match.group("code")
                     return [IgnoreFile(code, file_path)]
                 else:
-                    # TODO: afficher un message qui dit que le message d'ignore doit
-                    # être au debut du fichier
-                    return []
+                    return None
+        tokens_before.append(token)
 
     return []
 
@@ -92,7 +110,7 @@ def get_ignore_files(file: TextIOWrapper, file_path: Path) -> list[IgnoreFile]:
 def parse_file(
     file_path: str,
     target_version: tuple[int, int],
-) -> tuple[ast.AST, list[IgnoreLine], list[IgnoreFile]]:
+) -> tuple[ast.AST, list[IgnoreLine], list[IgnoreFile] | None]:
     """
     Parse a file to get the tree and all ignore lines in this file.
 

@@ -199,6 +199,16 @@ def file_with_comment_in_wrong_place__file(testing_files):
         yield file
 
 
+@pytest.fixture()
+def file_with_comment_not_at_first_line__file(testing_files):
+    with open(
+        testing_files / "ignored_files/disable_valid_but_not_in_first_line.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
 def compare_ast(
     node1: ast.expr | list[ast.expr],
     node2: ast.expr | list[ast.expr],

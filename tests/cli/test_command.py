@@ -37,6 +37,7 @@ def test_cli_version():
         param("print/toto4", 0, id="no errors, no print"),
         param("print/toto2", 0, id="print detected"),
         param("pprint/pprint2", 0, id="pprint detected with ignored file in config"),
+        param("ignored_files", 0, id="ignore file with warning"),
     ],
 )
 def test_cli_command_lint_w_path(

@@ -1,20 +1,9 @@
 # First party imports
 from py_printlinter import IssueEnum, IssueInfo, get_not_ignore_issue
 
-# Local imports
-# TODO: pass those function in fixture
-from .conftest import (
-    ignored_files,
-    ignored_files_and_lines,
-    ignored_lines,
-    issues_for_files,
-    issues_for_files_and_lines,
-    issues_for_lines,
-)
 
-
-def test_get_not_ignore_issue__ignore_lines():
-    not_ignored_line = get_not_ignore_issue(issues_for_lines(), ignored_lines(), [], [])
+def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
+    not_ignored_line = get_not_ignore_issue(issues_for_lines, ignored_lines, [], [])
 
     expected = [
         IssueInfo(
@@ -211,8 +200,8 @@ def test_get_not_ignore_issue__ignore_lines():
     assert not_ignored_line == expected
 
 
-def test_get_not_ignore_issue__ignore_files():
-    not_ignored_line = get_not_ignore_issue(issues_for_files(), [], ignored_files(), [])
+def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
+    not_ignored_line = get_not_ignore_issue(issues_for_files, [], ignored_files, [])
 
     expected = [
         IssueInfo(
@@ -348,10 +337,13 @@ def test_get_not_ignore_issue__ignore_files():
     assert not_ignored_line == expected
 
 
-def test_get_not_ignore_issue__ignore_files_and_lines():
-    ignored_lines, ignored_files = ignored_files_and_lines()
+def test_get_not_ignore_issue__ignore_files_and_lines(
+    issues_for_files_and_lines,
+    ignored_files_and_lines,
+):
+    ignored_lines, ignored_files = ignored_files_and_lines
     not_ignored_line = get_not_ignore_issue(
-        issues_for_files_and_lines(),
+        issues_for_files_and_lines,
         ignored_lines,
         ignored_files,
         [],

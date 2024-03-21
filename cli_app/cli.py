@@ -130,6 +130,7 @@ def lint(
         path: Path to lint.
         config_file: Optional config file.
     """
+    warning = False
     config = Config(config_file)
     files_path = enumerate_file(path)
     all_ignored_lines = []
@@ -146,7 +147,16 @@ def lint(
         )
         issues = contains_print(file_path, tree)
         all_ignored_lines.extend(ignored_lines)
-        all_ignored_files.extend(ignored_files)
+
+        if ignored_files is None:
+            warning = True
+            CONSOLE.print(
+                f"[bold][orange3]Warning ⚠️ [/orange3] {file_path}[/bold]: The ignore "
+                "file comment must be before code and docstring, we skip this ignore "
+                "comment. The file will be lint as if the file were not ignored."
+            )
+        else:
+            all_ignored_files.extend(ignored_files)
 
     not_ignored_issues = get_not_ignore_issue(
         issues,
@@ -155,6 +165,8 @@ def lint(
         config.disabled_rules,
     )
 
+    if warning:
+        print()
     for issue in not_ignored_issues:
         CONSOLE.print(str(issue))
 
