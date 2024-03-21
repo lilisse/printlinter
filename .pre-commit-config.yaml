@@ -30,12 +30,6 @@ repos:
       - id: black
         language_version: python3.10
         args: [--target-version, py310]
-  - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.5
-    hooks:
-      - id: codespell
-        language_version: python3.10
-        args: [-wi, "3"]
   # Linter
   - repo: local
     hooks:

@@ -5,53 +5,54 @@ TODO: logo -->
 
 [English readme](README.md) **·** [Français readme](doc/readme/README.fr.md)
 
-PrintLinter is a python linter to detect and signals display functions in python code.
+PrintLinter est un linter python pour detecter et signaler les fonctions d'affichage dans
+du code python.
 
-- [Installing](#installing)
-- [Usage](#usage)
-  - [Verbs](#verbs)
+- [Installation](#installation)
+- [Utilisation](#utilisation)
+  - [Verbes](#verbes)
     - [Lint](#lint)
-      - [Example](#example)
-- [Error codes](#error-codes)
-  - [Standard library](#standard-library)
-- [Ignore errors](#ignore-errors)
-  - [Ignore error inline](#ignore-error-inline)
-    - [Examples](#examples)
-  - [Ignore a whole file](#ignore-a-whole-file)
-    - [Examples](#examples-1)
-      - [Simple error](#simple-error)
-      - [library errors](#library-errors)
-      - [All errors](#all-errors)
+      - [Exemple](#exemple)
+- [Codes d'erreur](#codes-derreur)
+  - [Librairie standard](#librairie-standard)
+- [Ignorer des erreurs](#ignorer-des-erreurs)
+  - [Ignorer une erreur sur une ligne](#ignorer-une-erreur-sur-une-ligne)
+    - [Exemple](#exemple-1)
+  - [Ignorer sur un fichier entier](#ignorer-sur-un-fichier-entier)
+    - [Exemples](#exemples)
+      - [Une seul erreur](#une-seul-erreur)
+      - [Toutes les erreurs d'une librairie](#toutes-les-erreurs-dune-librairie)
+      - [Toutes les erreurs](#toutes-les-erreurs)
 - [Configuration](#configuration)
   - [Target version](#target-version)
   - [Ignored files](#ignored-files)
   - [Disabled rules](#disabled-rules)
-  - [Examples of configuration files](#examples-of-configuration-files)
-    - [Yaml/Yml configuration file](#yamlyml-configuration-file)
-    - [Json configuration file](#json-configuration-file)
-    - [Toml configuration file](#toml-configuration-file)
-    - [Pyproject configuration file](#pyproject-configuration-file)
-- [But then](#but-then)
+  - [Exemples de fichier configuration](#exemples-de-fichier-configuration)
+    - [Fichier de configuration Yaml/Yml](#fichier-de-configuration-yamlyml)
+    - [Fichier de configuration Json](#fichier-de-configuration-json)
+    - [Fichier de configuration Toml](#fichier-de-configuration-toml)
+    - [Fichier de configuration Pyproject](#fichier-de-configuration-pyproject)
+- [Pour la suite](#pour-la-suite)
 
-# Installing
+# Installation
 
-Install with `pip` or your favorite PyPI package manageer.
+Installer avec `pip` ou votre gestionnaire de paquets PyPI préféré.
 
 ```sh
 pip install printlinter
 ```
 
-Run the following command to test PrintLinter.
+Lancer la commande suivante pour tester l'installation de PrintLinter.
 
 ```sh
 printlinter --version
 ```
 
-# Usage
+# Utilisation
 
-## Verbs
+## Verbes
 
-For help on using a verb.
+Pour avoir de l'aide sur l'usage d'un verbe.
 
 ```sh
 printlinter <verb> --help
@@ -59,17 +60,17 @@ printlinter <verb> --help
 
 ### Lint
 
-To lint a folder.
+Pour linter un dossier.
 
 ```sh
 printlinter lint <folder>
 ```
 
-The product output look like this.
+Le résultat produit resemble à ça.
 
 `file_path:line:column error_code display_function_detected error_name`
 
-#### Example
+#### Exemple
 
 <!-- markdownlint-disable MD013 -->
 ```sh
@@ -109,35 +110,37 @@ Found 27 errors
 ```
 <!-- markdownlint-enable MD013 -->
 
-# Error codes
+# Codes d'erreur
 
-All errors have an individual code based on `PPLXXX`.
-Each library have its own error "domain".
+Toutes les erreurs ont un code individuel basé sur `PPLXXX`.
+Chaque librairie a son propre "domaine" d'erreurs.
 
-| Library  | Error domain |
-|:---------|:-------------|
-| Standard | PPL0XX       |
+| Librairie | Domaine d'erreur |
+|:----------|:-----------------|
+| Standard  | PPL0XX           |
 
-## Standard library
+## Librairie standard
 
-| Function                | Error code |
-|:------------------------|:-----------|
-| `print`                 | PPL001     |
-| `pprint`                | PPL002     |
-| `sys.stdout.write`      | PPL003     |
-| `sys.stderr.write`      | PPL004     |
-| `sys.stdout.writelines` | PPL005     |
-| `sys.stderr.writelines` | PPL006     |
+| Fonction                | Code d'erreur |
+|:------------------------|:--------------|
+| `print`                 | PPL001        |
+| `pprint`                | PPL002        |
+| `sys.stdout.write`      | PPL003        |
+| `sys.stderr.write`      | PPL004        |
+| `sys.stdout.writelines` | PPL005        |
+| `sys.stderr.writelines` | PPL006        |
 
-# Ignore errors
+# Ignorer des erreurs
 
-You can ignore errors with the linter.
+Vous pouvez ignorer les erreurs avec le linter.
 
-## Ignore error inline
+## Ignorer une erreur sur une ligne
 
-To ignore a rule inline, add a comment at the end of the line. `# noqa: <error_code>`.
+Pour ignorer une rêgle sur une ligne, ajoutez un commentaire à la fin de la ligne.
+`# noqa: <error_code>`.
 
-### Examples
+<!-- markdownlint-disable-next-line MD024 -->
+### Exemple
 
 ```python
 toto = 1
@@ -145,18 +148,17 @@ titi = 2
 print (toto + titi) # noqa: PPL001
 ```
 
-## Ignore a whole file
+## Ignorer sur un fichier entier
 
-To ignore a rule, library rules or all rules, add a comment at the beging of the file.
-`# <py-printlinter disable-file <error_code>`.
+Pour ignorer une rêgle, les rêgles d'une librairie ou toutes les rêgles, ajoutez un
+commentaire au début du fichier. `# <py-printlinter disable-file <error_code>`.
 
 <!-- markdownlint-disable-next-line MD036 -->
-**The comment must be before any code in a file.**
+**Le commentaire DOIT être avant tout code dans le fichier.**
 
-<!-- markdownlint-disable-next-line MD024 -->
-### Examples
+### Exemples
 
-#### Simple error
+#### Une seul erreur
 
 ```python
 # <py-printlinter disable-file PPL002>
@@ -167,7 +169,7 @@ pprint(titi + toto)  # ignored error
 ...
 ```
 
-#### library errors
+#### Toutes les erreurs d'une librairie
 
 ```python
 # <py-printlinter disable-file PPL000>
@@ -179,7 +181,7 @@ sys.stdout.write(titi + toto)  # ignored error
 ...
 ```
 
-#### All errors
+#### Toutes les erreurs
 
 ```python
 # <py-printlinter disable-file ALL>
@@ -198,16 +200,16 @@ stderr.writelines(titi + toto)  # ignored error
 
 # Configuration
 
-You can configurate the linter with a configuration file (configuration by command line,
-will arrive in a future version).
+Vous pouvez configurer le linter avec un fichier de configuration (la configuration en
+ligne de commande arrive dans une version future).
 
-PrintLinter supports 3 differents file type.
+PrintLinter support 3 différent type de fichier.
 
 - `.yaml/.yml`
 - `.json`
 - `.toml`
 
-By default the linter use one of thoses files load in this order.
+Par défaut le linter utilise un de ces fichier et chargés dans cet ordre.
 
 - `printlinter.yaml`
 - `printlinter.yml`
@@ -215,8 +217,8 @@ By default the linter use one of thoses files load in this order.
 - `printlinter.toml`
 - `pyproject.toml`
 
-Alternatively, you can use another file and fill it in by running linter from the command
-line.
+Vous pouvez également utiliser un autre fichier et exécuter le  linter à partir de la
+ligne de commande.
 
 ```sh
 printlinter lint <folder> --config-file </path/of/config/file>
@@ -224,30 +226,31 @@ printlinter lint <folder> --config-file </path/of/config/file>
 
 ## Target version
 
-The config file allows to specify the python target version for the parser. Use a
-string like this `3.10` or `3.7` to specify the version.
+Le fichier de configuration permet de spécifer la version de python utilisé par le parser.
+Utilisez un string qui formater comme `3.10` ou `3.7` pour spécifier la version,
 
 <!-- markdownlint-disable-next-line MD036 -->
-**The python target version MUST be contains between 3.7 and 3.10**
+**La version ciblé de python DOIT être entre 3.7 et 3.10**
 
-You can see examples of this config [here](#examples-of-configuration-files).
+Vous pouvez voir des exemples de configuration [ici](#exemples-de-fichier-configuration).
 
 ## Ignored files
 
-The config file allows to ignore files, unlike the comment that allows errors to be
-ignored in a whole file this configuration option prevents the linter from reading the file.
+Le fichier de configuration permet d'ignorer des fichiers, contrairement au commentaire
+qui permet aux erreurs d'être ignorées dans un fichier entier cette option de
+configuration empêche le linter de lire le fichier.
 
-You can see examples of this config [here](#examples-of-configuration-files).
+Vous pouvez voir des exemples de configuration [ici](#exemples-de-fichier-configuration).
 
 ## Disabled rules
 
-The config file allows to disable rules, in all files and folders.
+Le fichier de configuration permet de désactiver des rêgles dans tout les fichiers et dossiers.
 
-You can see examples of this config [here](#examples-of-configuration-files).
+Vous pouvez voir des exemples de configuration [ici](#exemples-de-fichier-configuration).
 
-## Examples of configuration files
+## Exemples de fichier configuration
 
-### Yaml/Yml configuration file
+### Fichier de configuration Yaml/Yml
 
 ```yaml
 printlinter:
@@ -256,7 +259,7 @@ printlinter:
   disabled_rules: [PPL001]
 ```
 
-### Json configuration file
+### Fichier de configuration Json
 
 ```json
 {
@@ -269,7 +272,7 @@ printlinter:
 
 ```
 
-### Toml configuration file
+### Fichier de configuration Toml
 
 ```toml
 [printlinter]
@@ -278,7 +281,7 @@ ignored_files = ["toto.py"]
 disabled_rules = ["PPL001"]
 ```
 
-### Pyproject configuration file
+### Fichier de configuration Pyproject
 
 ```toml
 [tool.printlinter]
@@ -287,13 +290,14 @@ ignored_files = ["toto.py"]
 disabled_rules = ["PPL001"]
 ```
 
-# But then
+# Pour la suite
 
-Too see the next features to be developed see [TODO](TODO.md). Here's a small,
-non-exhaustive list of what's comming in the future versions.
+Pour voir les prochaines fonctionnalités qui seront développées regarder [TODO](TOTO.md).
+Voici une petite, liste non exhaustive de ce qui est prévu dans les versions futures.
 
-- Ignore a code block in a file.
-- Ignore the next line.
-- Lint display functions from other libraries.
-- Add other configuration options.
-- Add translation in other languages
+- Utiliser le linter sur un fichier, plus seulement sur des dossiers.
+- Ignorer un bloque de code.
+- Ignorer la ligne suivante
+- Linter les fonctions d'affichage de d'autres librairies
+- Ajouter d'autre option de configuration.
+- Ajouter d'autres traductions.
