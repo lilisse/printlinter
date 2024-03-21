@@ -8,6 +8,8 @@ TODO: logo -->
 PrintLinter est un linter python pour detecter et signaler les fonctions d'affichage dans
 du code python.
 
+## Sommaire
+
 - [Installation](#installation)
 - [Utilisation](#utilisation)
   - [Verbes](#verbes)

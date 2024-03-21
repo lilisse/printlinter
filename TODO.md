@@ -1,5 +1,8 @@
 <!-- markdownlint-disable-file MD041 -->
 
+## Summary
+
+- [Summary](#summary)
 - [Next version](#next-version)
   - [Ignore block of code](#ignore-block-of-code)
   - [Ignore the next line](#ignore-the-next-line)
