@@ -166,4 +166,24 @@ def test_get_ignored_files_with_ignored_files__comment_in_wrong_place(
             file_with_comment_in_wrong_place__file,
             testing_files / "ignored_files/disable_in_wrong_place.py",
         )
-    ).is_equal_to([])
+    ).is_none()
+
+
+def test_get_ignored_files_with_ignored_files__comment_top_of_the_file_not_first_line(
+    file_with_comment_not_at_first_line__file,
+    testing_files,
+):
+    assert_that(
+        get_ignore_files(
+            file_with_comment_not_at_first_line__file,
+            testing_files / "ignored_files/disable_valid_but_not_in_first_line.py",
+        )
+    ).contains_only(
+        *[
+            IgnoreFile(
+                error_code="ALL",
+                from_file=testing_files
+                / "ignored_files/disable_valid_but_not_in_first_line.py",
+            )
+        ]
+    )

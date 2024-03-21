@@ -1,7 +1,11 @@
+# Pytest imports
+import pytest
+
 # First party imports
 from py_printlinter import IgnoreFile, IgnoreLine, IssueEnum, IssueInfo
 
 
+@pytest.fixture(scope="function")
 def issues_for_lines() -> list[IssueInfo]:
     """
     Get a list of issues.
@@ -87,6 +91,7 @@ def issues_for_lines() -> list[IssueInfo]:
     return res
 
 
+@pytest.fixture(scope="function")
 def issues_for_files() -> list[IssueInfo]:
     """
     Get a list of issues.
@@ -118,6 +123,7 @@ def issues_for_files() -> list[IssueInfo]:
     return res
 
 
+@pytest.fixture(scope="function")
 def issues_for_files_and_lines() -> list[IssueInfo]:
     """
     Get a list of issues.
@@ -153,6 +159,7 @@ def issues_for_files_and_lines() -> list[IssueInfo]:
     return res
 
 
+@pytest.fixture(scope="function")
 def ignored_lines() -> list[IgnoreLine]:
     """
     Get a list of ignored lines.
@@ -177,6 +184,7 @@ def ignored_lines() -> list[IgnoreLine]:
     return res
 
 
+@pytest.fixture(scope="function")
 def ignored_files() -> list[IgnoreFile]:
     return [
         IgnoreFile("ALL", "toto1.py"),
@@ -187,6 +195,7 @@ def ignored_files() -> list[IgnoreFile]:
     ]
 
 
+@pytest.fixture(scope="function")
 def ignored_files_and_lines() -> tuple[list[IgnoreLine], list[IgnoreFile]]:
     files = [
         IgnoreFile("ALL", "toto1.py"),

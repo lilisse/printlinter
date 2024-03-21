@@ -24,28 +24,27 @@ class IssueEnum(Issue, Enum):
     )
 
 
-# TODO: Refactor attributes doc in class not in docstring
 @dataclass
 class IssueInfo:
-    """
-    Issue information class.
-
-    Attributes:
-        issue: Issue type.
-        num_line: Line number of the issue.
-        num_col: Column number of the issue
-        line_as_str: String representation of the line.
-        from_file: File who contain the line with the issue.
-        ignore: If this issue is ignore or not.
-
-    """
+    """Issue information class."""
 
     issue: IssueEnum
+    "Issue type."
+
     num_line: int
+    "Line number of the issue."
+
     num_col: int
+    "Column number of the issue."
+
     line_as_str: str | None
+    "String representation of the line."
+
     from_file: Path | None
+    "File who contain the line with the issue."
+
     ignore: bool
+    "If this issue is ignore or not."
 
     def __str__(self) -> str:
         """
@@ -61,35 +60,26 @@ class IssueInfo:
         )
 
 
-# TODO: Refactor attributes doc in class not in docstring
 @dataclass
 class IgnoreLine:
-    """
-    Ignore line class.
-
-    Attributes:
-        line_num: Line number.
-        error_code: Code of the ignore issue.
-        from_file: File who contains the ignored line.
-
-    """
+    """Ignore line class."""
 
     line_num: int
+    "Line number of the ignored line."
+
     error_code: str
+    "Code of the ignore issue."
+
     from_file: Path | None
+    "File who contains the ignored line."
 
 
-# TODO: Refactor attributes doc in class not in docstring
 @dataclass
 class IgnoreFile:
-    """
-    Ignore file class.
-
-    Attributes:
-        error_code: Code of the ignore issue.
-        from_file: File who contains the ignored line.
-
-    """
+    """Ignore file class."""
 
     error_code: str
+    "Code of the ignore issue."
+
     from_file: Path | None
+    "File who contains the ignored line."
