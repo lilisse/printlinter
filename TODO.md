@@ -1,5 +1,7 @@
 <!-- markdownlint-disable-file MD041 -->
 
+Todo list of the project.
+
 ## Summary
 
 - [Summary](#summary)
