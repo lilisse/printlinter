@@ -5,10 +5,10 @@ description = "print linter to know where is the test print"
 authors = ["ulysse <ulysse.chosson@obspm.fr>"]
 license = "EUPL v1.2"
 readme = "README.md"
-# packages = [{include = "cli_app"}, {include = "printlinter"}]
+packages = [{ include = "cli_app" }, { include = "printlinter" }]
 
-# [tool.poetry.scripts]
-# printlinter = "printlinter.main:main"
+[tool.poetry.scripts]
+printlinter = "printlinter.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.10"
