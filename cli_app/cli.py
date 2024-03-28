@@ -6,6 +6,7 @@ from pathlib import Path
 # Third party imports
 import typer
 from rich.console import Console
+from rich.progress import track
 
 # First party imports
 from printlinter import Config
@@ -129,7 +130,7 @@ def lint(
     all_ignored_lines = []
     all_ignored_files = []
     issues = []
-    for file_path in files_path:
+    for file_path in track(files_path, description="Processing..."):
         if file_path.absolute() in [
             Path(path).absolute() for path in config.ignored_files
         ]:
