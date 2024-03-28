@@ -10,8 +10,8 @@ from itertools import product
 from assertpy import assert_that, soft_assertions
 
 # First party imports
-from py_printlinter import IgnoreFile, IgnoreLine, parse_file
-from py_printlinter.config import MAX_MAJOR, MAX_MINOR
+from printlinter import IgnoreFile, IgnoreLine, parse_file
+from printlinter.config import MAX_MAJOR, MAX_MINOR
 
 # Local imports
 from ...conftest import INPUT_FILE_PATH

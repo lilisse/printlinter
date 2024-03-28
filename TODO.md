@@ -1,5 +1,10 @@
 <!-- markdownlint-disable-file MD041 -->
 
+Todo list of the project.
+
+## Summary
+
+- [Summary](#summary)
 - [Next version](#next-version)
   - [Ignore block of code](#ignore-block-of-code)
   - [Ignore the next line](#ignore-the-next-line)
@@ -115,9 +120,13 @@ Add tests on "big project" like py-linq-sql, django, etc...
 
 ### Translation
 
-Translate readme and changelog.
+Translate README.md and CHANGELOG.md.
 
 - [ ] italien <!-- TODO: lien de l'issue -->
+- [ ] deutsche <!-- TODO: lien de l'issue -->
+- [ ] protuges <!-- TODO: lien de l'issue -->
+- [ ] japan <!-- TODO: lien de l'issue -->
+- [ ] korean <!-- TODO: lien de l'issue -->
 - [ ] spanish <!-- TODO: lien de l'issue -->
 - [ ] indian <!-- TODO: lien de l'issue -->
 - [ ] chinese <!-- TODO: lien de l'issue -->

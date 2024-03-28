@@ -10,7 +10,7 @@ from pathlib import Path
 from assertpy import assert_that, soft_assertions
 
 # First party imports
-from py_printlinter import Config
+from printlinter import Config
 
 # Local imports
 from ..conftest import INPUT_FILE_PATH

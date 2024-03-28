@@ -3,7 +3,7 @@ import pytest
 from pytest import param
 
 # First party imports
-from py_printlinter import IssueEnum, IssueInfo, get_not_ignore_issue
+from printlinter import IssueEnum, IssueInfo, get_not_ignore_issue
 
 
 @pytest.mark.parametrize(

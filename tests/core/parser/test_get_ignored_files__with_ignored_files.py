@@ -2,7 +2,7 @@
 from assertpy import assert_that
 
 # First party imports
-from py_printlinter import IgnoreFile, get_ignore_files
+from printlinter import IgnoreFile, get_ignore_files
 
 
 def test_get_ignored_files_with_ignored_files__ALL(

@@ -6,7 +6,7 @@ from pytest import param
 from assertpy import assert_that, soft_assertions
 
 # First party imports
-from py_printlinter import IgnoreFile, IgnoreLine, IssueEnum, IssueInfo
+from printlinter import IgnoreFile, IgnoreLine, IssueEnum, IssueInfo
 
 
 @pytest.mark.parametrize(
