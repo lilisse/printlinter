@@ -5,7 +5,7 @@ import pytest
 from pathlib import Path
 
 # First party imports
-from py_printlinter import PrintNodeVisitor
+from printlinter import PrintNodeVisitor
 
 TEST_PATH = Path(__file__).parent
 INPUT_FILE_PATH = TEST_PATH / "testing_files"

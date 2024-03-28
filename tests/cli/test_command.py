@@ -12,8 +12,8 @@ from typer.testing import CliRunner
 
 # First party imports
 from cli_app import APP
-from py_printlinter import __app_name__ as ppl_name
-from py_printlinter import __version__ as ppl_version
+from printlinter import __app_name__ as ppl_name
+from printlinter import __version__ as ppl_version
 
 # Local imports
 from ..config.conftest import change_cwd

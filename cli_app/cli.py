@@ -8,10 +8,10 @@ import typer
 from rich.console import Console
 
 # First party imports
-from py_printlinter import Config
-from py_printlinter import __app_name__ as ppl_app_name
-from py_printlinter import __version__ as ppl_version
-from py_printlinter import (
+from printlinter import Config
+from printlinter import __app_name__ as ppl_app_name
+from printlinter import __version__ as ppl_version
+from printlinter import (
     contains_print,
     enumerate_file,
     get_not_ignore_issue,
@@ -47,8 +47,8 @@ def path_callback(path: Path) -> Path:
         NotADirectoryError: If the given path is not a directory.
 
     Examples:
-        >>> path_callback(Path("py_printlinter"))
-        PosixPath('py_printlinter')
+        >>> path_callback(Path("printlinter"))
+        PosixPath('printlinter')
 
         >>> try:
         ...     path_callback(Path("azert.qwerty"))
@@ -96,7 +96,7 @@ def is_a_file(file_name: Path) -> Path | None:
         PosixPath('README.md')
 
         >>> try:
-        ...     is_a_file(Path("py_printlinter"))
+        ...     is_a_file(Path("printlinter"))
         ... except FileNotFoundError:
         ...     False
         False

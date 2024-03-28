@@ -9,7 +9,7 @@ import ast
 from assertpy import assert_that
 
 # First party imports
-from py_printlinter import IssueEnum, IssueInfo, contains_print
+from printlinter import IssueEnum, IssueInfo, contains_print
 
 # Local imports
 from ..conftest import INPUT_FILE_PATH

@@ -2,7 +2,7 @@
 from assertpy import assert_that
 
 # First party imports
-from py_printlinter import get_ignore_lines
+from printlinter import get_ignore_lines
 
 
 def test_get_ignored_lines_without_ignored_lines__print(

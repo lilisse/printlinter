@@ -1,5 +1,5 @@
 # First party imports
-from py_printlinter import IssueEnum, IssueInfo, get_not_ignore_issue
+from printlinter import IssueEnum, IssueInfo, get_not_ignore_issue
 
 
 def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):

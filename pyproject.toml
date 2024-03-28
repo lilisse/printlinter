@@ -1,14 +1,14 @@
 [tool.poetry]
-name = "py-printlinter"
+name = "printlinter"
 version = "0.1.0"
 description = "print linter to know where is the test print"
 authors = ["ulysse <ulysse.chosson@obspm.fr>"]
 license = "EUPL v1.2"
 readme = "README.md"
-# packages = [{include = "cli_app"}, {include = "py_printlinter"}]
+# packages = [{include = "cli_app"}, {include = "printlinter"}]
 
 # [tool.poetry.scripts]
-# py-printlinter = "py_printlinter.main:main"
+# printlinter = "printlinter.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.10"

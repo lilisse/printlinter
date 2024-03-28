@@ -36,7 +36,7 @@ prepre: clean clear
 
 # Launch the mypy type linter on the module
 mypy-linter: clean clear
-    mypy --pretty -p py_printlinter --config-file pyproject.toml
+    mypy --pretty -p printlinter --config-file pyproject.toml
 
 # Launch the mypy type linter on the module
 mypy-cli: clean clear
@@ -48,11 +48,11 @@ lintmd path='"**/*.md" "#node_modules"': clean clear
     markdownlint-cli2-config ".markdownlint-cli2.yaml" {{ path }}
 
 # Run ruff
-ruff path="py_printlinter cli_app": clean clear
+ruff path="printlinter cli_app": clean clear
     ruff {{path}}
 
 # Run black and isort
-onmy31 path ="py_printlinter cli_app tests": clean clear
+onmy31 path ="printlinter cli_app tests": clean clear
     black {{path}}
     isort {{path}}
 

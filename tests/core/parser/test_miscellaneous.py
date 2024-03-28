@@ -6,7 +6,7 @@ from pytest import param
 from assertpy import assert_that
 
 # First party imports
-from py_printlinter import enumerate_file
+from printlinter import enumerate_file
 
 # Local imports
 from ...conftest import INPUT_FILE_PATH
