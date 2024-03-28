@@ -1,6 +1,6 @@
 # Remove python cache files
 clean:
-    find . \( -name __pycache__ -o -name "*.pyc" \) -delete
+    -find . \( -name __pycache__ -o -name "*.pyc" \) -delete
 
 # Clear and display pwd
 clear:
@@ -12,10 +12,13 @@ install: clean clear
     poetry install --no-dev --remove-untracked
 
 # install all dependencies with poetry and npm
-install-all: clean clear
+install-dev: clean clear
     poetry install --remove-untracked
     npm install
-    sudo npm install markdownlint-cli2 --global
+    npm install markdownlint-cli2
+
+create_rep_for_test:
+    ./create_ignored_rep_for_test.sh
 
 # Do a clean install of pre-commit dependencies
 preinstall: clean clear

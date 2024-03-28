@@ -57,5 +57,12 @@ def test_cli_command_lint_w_path(
         ],
     )
 
+    assert_that(result.exit_code).is_equal_to(expected_exit_code)
+
+
+def test_cli_on_default_ignored_rep(pnv_soft_reset, testing_files):
+    result = runner.invoke(APP, ["lint", f"{testing_files}/config/ignored_rep"])
+
     with soft_assertions():
-        assert_that(result.exit_code).is_equal_to(expected_exit_code)
+        assert_that(result.exit_code).is_equal_to(0)
+        assert_that(result.stdout).contains("Found 1 errors")

@@ -72,6 +72,43 @@ Le résultat produit resemble à ça.
 
 `file_path:line:column error_code display_function_detected error_name`
 
+Par défaut nous avons désactiver le linter sur certains dossiers.
+
+- `node_modules`
+- `.vscode/`
+- `__pycache__/`
+- `build/`
+- `develop-eggs/`
+- `dist/`
+- `downloads/`
+- `eggs/`
+- `.eggs/`
+- `lib/`
+- `lib64/`
+- `parts/`
+- `sdist/`
+- `var/`
+- `wheels/`
+- `pip-wheel-metadata/`
+- `share/python-wheels/`
+- `htmlcov/`
+- `.tox/`
+- `.nox/`
+- `.hypothesis/`
+- `.pytest_cache/`
+- `docs/_build/`
+- `__pypackages__/`
+- `.mypy_cache/`
+- `.ruff_cache`
+- `.pyre/`
+- `env/`
+- `venv/`
+- `ENV/`
+- `env.bak/`
+- `venv.bak/`
+- `.venv/`
+- `.env/`
+
 #### Exemple
 
 <!-- markdownlint-disable MD013 -->
@@ -297,7 +334,6 @@ disabled_rules = ["PPL001"]
 Pour voir les prochaines fonctionnalités qui seront développées regarder [TODO](TOTO.md).
 Voici une petite, liste non exhaustive de ce qui est prévu dans les versions futures.
 
-- Utiliser le linter sur un fichier, plus seulement sur des dossiers.
 - Ignorer un bloque de code.
 - Ignorer la ligne suivante
 - Linter les fonctions d'affichage de d'autres librairies
