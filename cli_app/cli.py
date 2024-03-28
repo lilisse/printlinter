@@ -97,6 +97,24 @@ def is_a_file(file_name: Path) -> Path | None:
     return file_name
 
 
+def _is_ignored_rep(ignored_rep: list[Path], path: Path) -> bool:
+    """
+    Check if given path is in an ignored repository.
+
+    Args:
+        ignored_rep: All ignored repositories
+        path: Path to check.
+
+    Returns:
+        True if path is in an ignored repository, False otherwise.
+    """
+    for rep in ignored_rep:
+        if all(i in path.parts for i in rep.parts):
+            return True
+
+    return False
+
+
 @APP.command(name="lint", help="lint the code to find print")
 def lint(
     path: Path = typer.Argument(
@@ -131,9 +149,10 @@ def lint(
     all_ignored_files = []
     issues = []
     for file_path in track(files_path, description="Processing..."):
-        if file_path.absolute() in [
-            Path(path).absolute() for path in config.ignored_files
-        ]:
+        if (
+            file_path.absolute()
+            in [Path(path).absolute() for path in config.ignored_files]
+        ) or _is_ignored_rep(config.ignored_rep, file_path):
             continue
 
         tree, ignored_lines, ignored_files = parse_file(

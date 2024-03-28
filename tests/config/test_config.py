@@ -10,7 +10,7 @@ from pathlib import Path
 from assertpy import assert_that, soft_assertions
 
 # First party imports
-from printlinter import Config
+from printlinter import DEFAULT_IGNORED_REP, Config
 
 # Local imports
 from ..conftest import INPUT_FILE_PATH
@@ -233,6 +233,7 @@ def test_config_from_given_file(
         assert_that(conf.target_version).is_equal_to(expect_target_version)
         assert_that(conf.ignored_files).is_equal_to(expect_ignored_files)
         assert_that(conf.disabled_rules).is_equal_to(expect_disabled_rules)
+        assert_that(conf.ignored_rep).is_equal_to(DEFAULT_IGNORED_REP)
 
 
 @pytest.mark.parametrize(
@@ -289,6 +290,7 @@ def test_config_from_auto_file(
         assert_that(conf.target_version).is_equal_to(expect_target_version)
         assert_that(conf.ignored_files).contains_only(*expect_ignored_files)
         assert_that(conf.disabled_rules).contains_only(*expect_disabled_rules)
+        assert_that(conf.ignored_rep).is_equal_to(DEFAULT_IGNORED_REP)
 
 
 def test_config_from_auto_no_config_file():
@@ -300,6 +302,7 @@ def test_config_from_auto_no_config_file():
         assert_that(conf.target_version).is_equal_to((3, 10))
         assert_that(conf.ignored_files).is_empty()
         assert_that(conf.disabled_rules).is_empty()
+        assert_that(conf.ignored_rep).is_equal_to(DEFAULT_IGNORED_REP)
 
 
 @pytest.mark.parametrize(
@@ -317,6 +320,7 @@ def test_config_default_config_because_empty_config_file(given_file):
         assert_that(conf.target_version).is_equal_to((3, 10))
         assert_that(conf.ignored_files).is_empty()
         assert_that(conf.disabled_rules).is_empty()
+        assert_that(conf.ignored_rep).is_equal_to(DEFAULT_IGNORED_REP)
 
 
 def test_config_default_because_no_config_file():
@@ -328,6 +332,7 @@ def test_config_default_because_no_config_file():
         assert_that(conf.target_version).is_equal_to((3, 10))
         assert_that(conf.ignored_files).is_empty()
         assert_that(conf.disabled_rules).is_empty()
+        assert_that(conf.ignored_rep).is_equal_to(DEFAULT_IGNORED_REP)
 
 
 @pytest.mark.parametrize(

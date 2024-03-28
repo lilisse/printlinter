@@ -71,6 +71,43 @@ The product output look like this.
 
 `file_path:line:column error_code display_function_detected error_name`
 
+By default we disable the linter in some folders.
+
+- `node_modules`
+- `.vscode/`
+- `__pycache__/`
+- `build/`
+- `develop-eggs/`
+- `dist/`
+- `downloads/`
+- `eggs/`
+- `.eggs/`
+- `lib/`
+- `lib64/`
+- `parts/`
+- `sdist/`
+- `var/`
+- `wheels/`
+- `pip-wheel-metadata/`
+- `share/python-wheels/`
+- `htmlcov/`
+- `.tox/`
+- `.nox/`
+- `.hypothesis/`
+- `.pytest_cache/`
+- `docs/_build/`
+- `__pypackages__/`
+- `.mypy_cache/`
+- `.ruff_cache`
+- `.pyre/`
+- `env/`
+- `venv/`
+- `ENV/`
+- `env.bak/`
+- `venv.bak/`
+- `.venv/`
+- `.env/`
+
 #### Example
 
 <!-- markdownlint-disable MD013 -->

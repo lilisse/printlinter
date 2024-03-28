@@ -34,6 +34,53 @@ CONFIG_DEFAULT_FILES = [
 
 MAX_MAJOR = 3
 MAX_MINOR = 11
+DEFAULT_IGNORED_REP = [
+    # npm
+    Path("node_modules/"),
+    # VSCode
+    Path(".vscode/"),
+    # Byte-compiled
+    Path("__pycache__/"),
+    # Distribution / packaging
+    Path("build/"),
+    Path("develop-eggs/"),
+    Path("dist/"),
+    Path("downloads/"),
+    Path("eggs/"),
+    Path(".eggs/"),
+    Path("lib/"),
+    Path("lib64/"),
+    Path("parts/"),
+    Path("sdist/"),
+    Path("var/"),
+    Path("wheels/"),
+    Path("pip-wheel-metadata/"),
+    Path("share/python-wheels/"),
+    # Unit test / coverage reports
+    Path("htmlcov/"),
+    Path(".tox/"),
+    Path(".nox/"),
+    Path(".hypothesis/"),
+    Path(".pytest_cache/"),
+    # Sphinx documentation
+    Path("docs/_build/"),
+    # PEP 582
+    Path("__pypackages__/"),
+    # mypy
+    Path(".mypy_cache/"),
+    # ruff
+    Path(".ruff_cache"),
+    # Pyre type checker
+    Path(".pyre/"),
+    # Environments
+    Path("env/"),
+    Path("venv/"),
+    Path("ENV/"),
+    Path("env.bak/"),
+    Path("venv.bak/"),
+    Path(".venv/"),
+    Path(".env/"),
+]
 
 
 @dataclass
@@ -45,6 +92,9 @@ class Config:
 
     ignored_files: list[str]
     "Ignored files."
+
+    ignored_rep: list[Path]
+    "Ignored repositories."
 
     disabled_rules: list[str]
     "Disabled rules."
@@ -69,6 +119,9 @@ class Config:
         self.target_version = self._fix_target_version(config)
         self.ignored_files = cast(list[str], config.get("ignored_files", []))
         self.disabled_rules = cast(list[str], config.get("disabled_rules", []))
+
+        # TODO: Add this in user config and merge list give by user and default list
+        self.ignored_rep = DEFAULT_IGNORED_REP
 
     def _read_config(
         self,
