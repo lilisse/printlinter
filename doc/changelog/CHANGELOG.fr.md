@@ -11,6 +11,46 @@ et ce projet adhère au principe de la [Semantic Versioning](https://semver.org/
 
 ## [Non publié]
 
+### Ajouté
+
+- Ajout d'une valeur par défaut pour la configuration `ignored_rep`. Tout ces dossier ne
+  seront pas visités par le linter
+  - `node_modules`
+  - `.vscode/`
+  - `__pycache__/`
+  - `build/`
+  - `develop-eggs/`
+  - `dist/`
+  - `downloads/`
+  - `eggs/`
+  - `.eggs/`
+  - `lib/`
+  - `lib64/`
+  - `parts/`
+  - `sdist/`
+  - `var/`
+  - `wheels/`
+  - `pip-wheel-metadata/`
+  - `share/python-wheels/`
+  - `htmlcov/`
+  - `.tox/`
+  - `.nox/`
+  - `.hypothesis/`
+  - `.pytest_cache/`
+  - `docs/_build/`
+  - `__pypackages__/`
+  - `.mypy_cache/`
+  - `.ruff_cache`
+  - `.pyre/`
+  - `env/`
+  - `venv/`
+  - `ENV/`
+  - `env.bak/`
+  - `venv.bak/`
+  - `.venv/`
+  - `.env/`
+- Ajout d'une barre de progression au cli.
+
 ## [0.1.0] - 21-03-2024
 
 ### Ajouté
