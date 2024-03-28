@@ -62,10 +62,10 @@ printlinter <verb> --help
 
 ### Lint
 
-Pour linter un dossier.
+Pour linter un fichier ou un dossier.
 
 ```sh
-printlinter lint <folder>
+printlinter lint <file|folder>
 ```
 
 Le résultat produit resemble à ça.
@@ -223,7 +223,7 @@ Vous pouvez également utiliser un autre fichier et exécuter le  linter à part
 ligne de commande.
 
 ```sh
-printlinter lint <folder> --config-file </path/of/config/file>
+printlinter lint <file|folder> --config-file </path/of/config/file>
 ```
 
 ## Target version

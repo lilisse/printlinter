@@ -32,8 +32,9 @@ def test_cli_version():
 @pytest.mark.parametrize(
     "path, expected_exit_code",
     [
-        param("print/toto0.py", 1, id="not a directory error"),
         param("azerty.qwerty", 1, id="file not found error"),
+        param("README.md", 1, id="not a python file"),
+        param("print/toto0.py", 1, id="file"),
         param("print/toto4", 0, id="no errors, no print"),
         param("print/toto2", 0, id="print detected"),
         param("pprint/pprint2", 0, id="pprint detected with ignored file in config"),
@@ -55,8 +56,6 @@ def test_cli_command_lint_w_path(
             f"{Path(__file__).parent / 'config.yml'}",
         ],
     )
-
-    print(result.stdout)
 
     with soft_assertions():
         assert_that(result.exit_code).is_equal_to(expected_exit_code)

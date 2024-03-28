@@ -61,10 +61,10 @@ printlinter <verb> --help
 
 ### Lint
 
-To lint a folder.
+To lint a file or a folder.
 
 ```sh
-printlinter lint <folder>
+printlinter lint <file|folder>
 ```
 
 The product output look like this.
@@ -221,7 +221,7 @@ Alternatively, you can use another file and fill it in by running linter from th
 line.
 
 ```sh
-printlinter lint <folder> --config-file </path/of/config/file>
+printlinter lint <file|folder> --config-file </path/of/config/file>
 ```
 
 ## Target version
