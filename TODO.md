@@ -10,7 +10,6 @@ Todo list of the project.
   - [Ignore the next line](#ignore-the-next-line)
   - [Configuration](#configuration)
     - [Colorized output](#colorized-output)
-    - [ignored\_files with regex](#ignored_files-with-regex)
   - [Tests](#tests)
     - [On big projects](#on-big-projects)
 - [For the future](#for-the-future)
@@ -25,11 +24,11 @@ Todo list of the project.
 
 ## Next version
 
-<!-- TODO: lien du millestone -->
+[Version 0.2.0](https://github.com/lilisse/printlinter/milestone/1)
 
 ### Ignore block of code
 
-<!-- TODO: lien de l'issue -->
+[Issue](https://github.com/lilisse/printlinter/issues/5)
 
 Add way to disable linter from a line X to a line Y for single error, library errors or
 all errors.
@@ -58,7 +57,7 @@ And re enable.
 
 ### Ignore the next line
 
-<!-- TODO: lien de l'issue -->
+[Issue](https://github.com/lilisse/printlinter/issues/1)
 
 Add way to disable linter for the next line for single error, library errors or
 all errors.
@@ -71,25 +70,15 @@ all errors.
 
 #### Colorized output
 
-<!-- TODO: lien de l'issue -->
+[Issue](https://github.com/lilisse/printlinter/issues/6)
 
 Add option in configuration to enable or disable colorized output.
-
-#### ignored_files with regex
-
-<!-- TODO: lien de l'issue -->
-
-Modify ignored_files option to manage regex.
-
-```yml
-ignored_files: [toto/toto.py, toto/*, toto/*.py]
-```
 
 ### Tests
 
 #### On big projects
 
-<!-- TODO: lien de l'issue -->
+[Issue](https://github.com/lilisse/printlinter/issues/7)
 
 Add tests on "big project" like py-linq-sql, django, etc...
 
@@ -97,23 +86,22 @@ Add tests on "big project" like py-linq-sql, django, etc...
 
 ### Other libraries
 
-- [ ] rich (100-199) <!-- TODO: lien de l'issue -->
+- [ ] rich (100-199) [Issue](https://github.com/lilisse/printlinter/issues/8)
 
 <!-- markdownlint-disable-next-line MD024 -->
 ### Configuration
 
 #### Add configuration option
 
-- [ ] lang <!-- TODO: lien de l'issue -->
-- [ ] ignored_folder <!-- TODO: lien de l'issue -->
+- [ ] lang [Issue](https://github.com/lilisse/printlinter/issues/9)
+- [ ] ignored_file_with_regex [Issue](https://github.com/lilisse/printlinter/issues/10)
 
 #### Add configuration in command line
 
-<!-- TODO: lien de l'issue -->
+[Issue](https://github.com/lilisse/printlinter/issues/11)
 
 - [ ] target version
 - [ ] ignored files
-- [ ] ignored folder
 - [ ] disabled rules
 - [ ] lang
 - [ ] colorized output
@@ -122,25 +110,25 @@ Add tests on "big project" like py-linq-sql, django, etc...
 
 Translate README.md and CHANGELOG.md.
 
-- [ ] italien <!-- TODO: lien de l'issue -->
-- [ ] deutsche <!-- TODO: lien de l'issue -->
-- [ ] protuges <!-- TODO: lien de l'issue -->
-- [ ] japan <!-- TODO: lien de l'issue -->
-- [ ] korean <!-- TODO: lien de l'issue -->
-- [ ] spanish <!-- TODO: lien de l'issue -->
-- [ ] indian <!-- TODO: lien de l'issue -->
-- [ ] chinese <!-- TODO: lien de l'issue -->
+- [ ] italian [Issue](https://github.com/lilisse/printlinter/issues/12)
+- [ ] deutsche [Issue](https://github.com/lilisse/printlinter/issues/13)
+- [ ] portuguese [Issue](https://github.com/lilisse/printlinter/issues/14)
+- [ ] japanese [Issue](https://github.com/lilisse/printlinter/issues/15)
+- [ ] korean [Issue](https://github.com/lilisse/printlinter/issues/16)
+- [ ] spanish [Issue](https://github.com/lilisse/printlinter/issues/17)
+- [ ] indian [Issue](https://github.com/lilisse/printlinter/issues/18)
+- [ ] chinese [Issue](https://github.com/lilisse/printlinter/issues/19)
 
 <!-- markdownlint-disable-next-line MD024 -->
 ### Tests
 
 #### BDD tests
 
-<!-- TODO: lien de l'issue -->
+[Issue](https://github.com/lilisse/printlinter/issues/20)
 
 Add user tests with [pytest-bdd](https://github.com/pytest-dev/pytest-bdd).
 
 ### Documentation
 
-- [ ] github pages <!-- TODO: lien de l'issue -->
-- [ ] readthedoc <!-- TODO: lien de l'issue -->
+- [ ] github pages
+- [ ] readthedoc

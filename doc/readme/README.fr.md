@@ -297,7 +297,6 @@ disabled_rules = ["PPL001"]
 Pour voir les prochaines fonctionnalités qui seront développées regarder [TODO](TOTO.md).
 Voici une petite, liste non exhaustive de ce qui est prévu dans les versions futures.
 
-- Utiliser le linter sur un fichier, plus seulement sur des dossiers.
 - Ignorer un bloque de code.
 - Ignorer la ligne suivante
 - Linter les fonctions d'affichage de d'autres librairies
