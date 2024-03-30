@@ -10,15 +10,13 @@ Todo list of the project.
   - [Ignore the next line](#ignore-the-next-line)
   - [Configuration](#configuration)
     - [Colorized output](#colorized-output)
-  - [Tests](#tests)
-    - [On big projects](#on-big-projects)
 - [For the future](#for-the-future)
   - [Other libraries](#other-libraries)
   - [Configuration](#configuration-1)
     - [Add configuration option](#add-configuration-option)
     - [Add configuration in command line](#add-configuration-in-command-line)
   - [Translation](#translation)
-  - [Tests](#tests-1)
+  - [Tests](#tests)
     - [BDD tests](#bdd-tests)
   - [Documentation](#documentation)
 
@@ -73,14 +71,6 @@ all errors.
 [Issue](https://github.com/lilisse/printlinter/issues/6)
 
 Add option in configuration to enable or disable colorized output.
-
-### Tests
-
-#### On big projects
-
-[Issue](https://github.com/lilisse/printlinter/issues/7)
-
-Add tests on "big project" like py-linq-sql, django, etc...
 
 ## For the future
 
