@@ -109,7 +109,7 @@ def _is_ignored_rep(ignored_rep: list[Path], path: Path) -> bool:
         True if path is in an ignored repository, False otherwise.
     """
     for rep in ignored_rep:
-        if all(i in path.parts for i in rep.parts):
+        if all(part in path.parts for part in rep.parts):
             return True
 
     return False
