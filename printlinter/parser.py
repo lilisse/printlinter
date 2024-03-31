@@ -11,6 +11,7 @@ from pathlib import Path
 from .classes import IgnoreFile, IgnoreLine
 
 IGNORE_LINE_TOKEN_REGEX = r"noqa:[ ]?(?P<code>PPL[0-9]{3})"
+IGNORE_NEXT_LINE_TOKEN_REGEX = r"<py-printlinter disable-next (?P<code>PPL[0-9]{3})>"
 IGNORE_FILE_TOKEN_REGEX = r"<py-printlinter disable-file (?P<code>ALL|PPL[0-9]{3})>"
 
 
@@ -48,6 +49,10 @@ def get_ignore_lines(file: TextIOWrapper, file_path: Path) -> list[IgnoreLine]:
                 lineo, _ = start
                 code = match.group("code")
                 ignore_lines.append(IgnoreLine(lineo, code, file_path))
+            elif match := re.search(IGNORE_NEXT_LINE_TOKEN_REGEX, tokval):
+                lineo, _ = start
+                code = match.group("code")
+                ignore_lines.append(IgnoreLine(lineo + 1, code, file_path))
 
     return ignore_lines
 
