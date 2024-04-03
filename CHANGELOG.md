@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add a configuration to enable/disable colorized output: `color`.
+- Add a configuration option to enable/disable colorized output: `color`.
 [Issue](https://github.com/lilisse/printlinter/issues/6).
 - Add a way to ignore next line with: `<py-printlinter disable-next PPLXXX>`.
 [Issue](https://github.com/lilisse/printlinter/issues/1).
