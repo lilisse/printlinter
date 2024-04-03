@@ -88,7 +88,7 @@ class Config:
     """Configuration of the linter."""
 
     target_version: tuple[int, int]
-    "Target python version."
+    "Target python version. Default 3.10"
 
     ignored_files: list[str]
     "Ignored files."
@@ -98,6 +98,9 @@ class Config:
 
     disabled_rules: list[str]
     "Disabled rules."
+
+    color: bool
+    "Colorized output. Default True"
 
     def __init__(self, path: Path | None = None) -> None:
         """
@@ -119,6 +122,7 @@ class Config:
         self.target_version = self._fix_target_version(config)
         self.ignored_files = cast(list[str], config.get("ignored_files", []))
         self.disabled_rules = cast(list[str], config.get("disabled_rules", []))
+        self.color = cast(bool, config.get("color", True))
 
         # TODO: Add this in user config and merge list give by user and default list
         self.ignored_rep = DEFAULT_IGNORED_REP
@@ -126,7 +130,7 @@ class Config:
     def _read_config(
         self,
         path: Path | None,
-    ) -> dict[str, tuple[int, int] | list[str] | str]:
+    ) -> dict[str, tuple[int, int] | list[str] | str | bool]:
         """
         Read the correct config file to produce a config dict.
 
@@ -162,6 +166,7 @@ class Config:
                 "target_version": "3.10",
                 "ignored_files": [],
                 "disabled_rules": [],
+                "color": True,
             }
 
         return config
@@ -169,7 +174,7 @@ class Config:
     def _load_config(
         self,
         path: Path,
-    ) -> dict[str, tuple[int, int] | list[str] | str] | None:
+    ) -> dict[str, tuple[int, int] | list[str] | str | bool] | None:
         """
         Load config from a config file.
 
@@ -206,7 +211,7 @@ class Config:
 
     def _fix_target_version(
         self,
-        config: dict[str, tuple[int, int] | list[str] | str],
+        config: dict[str, tuple[int, int] | list[str] | str | bool],
     ) -> tuple[int, int]:
         """
         Fix `target_version` info.

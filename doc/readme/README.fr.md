@@ -268,6 +268,13 @@ Le fichier de configuration permet de désactiver des rêgles dans tout les fich
 
 Vous pouvez voir des exemples de configuration [ici](#exemples-de-fichier-configuration).
 
+## Color
+
+Le fichier de configuration permet d'activer ou de désactiver la sortie colorisée. Par
+défaut l'option `color` est sur `True`.
+
+Vous pouvez voir des exemples de configuration [ici](#exemples-de-fichier-configuration).
+
 ## Exemples de fichier configuration
 
 ### Fichier de configuration Yaml/Yml
@@ -277,6 +284,7 @@ printlinter:
   target_version: "3.10"
   ignored_files: [toto.py]
   disabled_rules: [PPL001]
+  color: true
 ```
 
 ### Fichier de configuration Json
@@ -287,6 +295,7 @@ printlinter:
     "target_version": "3.10",
     "ignored_files": ["toto.py"],
     "disabled_rules": ["PPL001"]
+    "color": false
   }
 }
 
@@ -299,6 +308,7 @@ printlinter:
 target_version = "3.10"
 ignored_files = ["toto.py"]
 disabled_rules = ["PPL001"]
+color = true
 ```
 
 ### Fichier de configuration Pyproject
@@ -308,6 +318,7 @@ disabled_rules = ["PPL001"]
 target_version = "3.10"
 ignored_files = ["toto.py"]
 disabled_rules = ["PPL001"]
+color = false
 ```
 
 # Pour la suite
