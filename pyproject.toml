@@ -75,12 +75,6 @@ disallow_incomplete_defs = true
 check_untyped_defs = true
 disallow_untyped_decorators = true
 
-# mypy per-module options:
-
-# [[tool.mypy.overrides]]
-# module = []
-# ignore_missing_imports = true
-
 [tool.ruff]
 line-length = 88
 

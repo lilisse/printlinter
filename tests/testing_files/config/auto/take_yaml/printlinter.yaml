@@ -2,3 +2,4 @@ printlinter:
   target_version: "3.9"
   ignored_files: [titi.py]
   disabled_rules: [PPL002]
+  color: false

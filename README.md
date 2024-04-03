@@ -265,6 +265,13 @@ The config file allows to disable rules, in all files and folders.
 
 You can see examples of this config [here](#examples-of-configuration-files).
 
+## Color
+
+The config file allows to enable or disable colorized output. By default the `color` option
+is on `True`.
+
+You can see examples of this config [here](#examples-of-configuration-files).
+
 ## Examples of configuration files
 
 ### Yaml/Yml configuration file
@@ -274,6 +281,7 @@ printlinter:
   target_version: "3.10"
   ignored_files: [toto.py]
   disabled_rules: [PPL001]
+  color: true
 ```
 
 ### Json configuration file
@@ -283,7 +291,8 @@ printlinter:
   "printlinter": {
     "target_version": "3.10",
     "ignored_files": ["toto.py"],
-    "disabled_rules": ["PPL001"]
+    "disabled_rules": ["PPL001"],
+    "color": false
   }
 }
 
@@ -296,6 +305,7 @@ printlinter:
 target_version = "3.10"
 ignored_files = ["toto.py"]
 disabled_rules = ["PPL001"]
+color = true
 ```
 
 ### Pyproject configuration file
@@ -305,6 +315,7 @@ disabled_rules = ["PPL001"]
 target_version = "3.10"
 ignored_files = ["toto.py"]
 disabled_rules = ["PPL001"]
+color = false
 ```
 
 # But then
