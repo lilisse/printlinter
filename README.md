@@ -165,10 +165,25 @@ titi = 2
 print (toto + titi) # noqa: PPL001
 ```
 
+## Ignore error on the next line
+
+To ignore a rule on the next line, add a comment at the line before code to ignore.
+`<py-printlinter disable-next (error_code)>`.
+
+<!-- markdownlint-disable-next-line MD024 -->
+### Examples
+
+```python
+toto = 1
+titi = 2
+# <py-printlinter disable-next PPL001>
+print (toto + titi) # ignored error
+```
+
 ## Ignore a whole file
 
 To ignore a rule, library rules or all rules, add a comment at the beging of the file.
-`# <py-printlinter disable-file <error_code>`.
+`# <py-printlinter disable-file (error_code)>`.
 
 <!-- markdownlint-disable-next-line MD036 -->
 **The comment must be before any code in a file.**

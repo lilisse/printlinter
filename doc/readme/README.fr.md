@@ -168,6 +168,21 @@ titi = 2
 print (toto + titi) # noqa: PPL001
 ```
 
+## Ignorer une erreur sur la ligne suivante
+
+Pour ignorer une rêgle sur la ligne suivant, ajoutez un commentaire à la ligne précédente.
+`<py-printlinter disable-next (error_code)>`.
+
+<!-- markdownlint-disable-next-line MD024 -->
+### Exemples
+
+```python
+toto = 1
+titi = 2
+# <py-printlinter disable-next PPL001>
+print (toto + titi) # erreur ignorée
+```
+
 ## Ignorer sur un fichier entier
 
 Pour ignorer une rêgle, les rêgles d'une librairie ou toutes les rêgles, ajoutez un
@@ -176,6 +191,7 @@ commentaire au début du fichier. `# <py-printlinter disable-file <error_code>`.
 <!-- markdownlint-disable-next-line MD036 -->
 **Le commentaire DOIT être avant tout code dans le fichier.**
 
+<!-- markdownlint-disable-next-line MD024 -->
 ### Exemples
 
 #### Une seul erreur
