@@ -14,8 +14,6 @@ install: clean clear
 # install all dependencies with poetry and npm
 install-dev: clean clear
     poetry install --remove-untracked
-    npm install
-    npm install markdownlint-cli2
 
 create_rep_for_test:
     ./create_ignored_rep_for_test.sh
@@ -46,10 +44,6 @@ mypy-cli: clean clear
     mypy --pretty -p cli_app --config-file pyproject.toml
 
 
-# Run markdownlint
-lintmd path='"**/*.md" "#node_modules"': clean clear
-    markdownlint-cli2-config ".markdownlint-cli2.yaml" {{ path }}
-
 # Run ruff
 ruff path="printlinter cli_app": clean clear
     ruff {{path}}
@@ -60,7 +54,7 @@ onmy31 path ="printlinter cli_app tests": clean clear
     isort {{path}}
 
 # Run all linter
-lint : clean clear onmy31 mypy-linter mypy-cli ruff lintmd
+lint : clean clear onmy31 mypy-linter mypy-cli ruff
 
 # auto interactive rebase
 autorebase: clean clear

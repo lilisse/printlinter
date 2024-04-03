@@ -4,7 +4,6 @@ Todo list of the project.
 
 ## Summary
 
-- [Summary](#summary)
 - [Next version](#next-version)
   - [Ignore block of code](#ignore-block-of-code)
   - [Ignore the next line](#ignore-the-next-line)
@@ -62,6 +61,7 @@ all errors.
 
 ```python
 # <py-printlinter disable-next PPL002>
+print("toto")
 ```
 
 ### Configuration
@@ -117,6 +117,12 @@ Translate README.md and CHANGELOG.md.
 [Issue](https://github.com/lilisse/printlinter/issues/20)
 
 Add user tests with [pytest-bdd](https://github.com/pytest-dev/pytest-bdd).
+
+#### On big projects
+
+[Issue](https://github.com/lilisse/printlinter/issues/7)
+
+Add tests on "big project" like py-linq-sql, django, etc...
 
 ### Documentation
 

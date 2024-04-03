@@ -209,6 +209,66 @@ def file_with_comment_not_at_first_line__file(testing_files):
         yield file
 
 
+@pytest.fixture()
+def file_with_ignored_next_print(testing_files):
+    with open(
+        testing_files / "ignored_next_line/ppl001.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_next_pprint(testing_files):
+    with open(
+        testing_files / "ignored_next_line/ppl002.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_next_stdout_write(testing_files):
+    with open(
+        testing_files / "ignored_next_line/ppl003.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_next_stderr_write(testing_files):
+    with open(
+        testing_files / "ignored_next_line/ppl004.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_next_stdout_writelines(testing_files):
+    with open(
+        testing_files / "ignored_next_line/ppl005.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_next_stderr_writelines(testing_files):
+    with open(
+        testing_files / "ignored_next_line/ppl006.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
 def compare_ast(
     node1: ast.expr | list[ast.expr],
     node2: ast.expr | list[ast.expr],

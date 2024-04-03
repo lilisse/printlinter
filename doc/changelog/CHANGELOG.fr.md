@@ -13,6 +13,8 @@ et ce projet adhère au principe de la [Semantic Versioning](https://semver.org/
 
 ### Ajouté
 
+- Ajout d'une méthode pour ignorer la ligne suivante avec:
+`<py-printlinter disable-next PPLXXX>`. [Issue](https://github.com/lilisse/printlinter/issues/1).
 - Ajout d'une valeur par défaut pour la configuration `ignored_rep`. Tout ces dossier ne
   seront pas visités par le linter
   - `node_modules`
