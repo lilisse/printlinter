@@ -9,11 +9,11 @@ clear:
 
 # Install no-dev dependencies with poetry
 install: clean clear
-    poetry install --no-dev --remove-untracked
+    poetry install --no-dev --sync
 
 # install all dependencies with poetry and npm
 install-dev: clean clear
-    poetry install --remove-untracked
+    poetry install --sync
 
 create_rep_for_test:
     ./create_ignored_rep_for_test.sh

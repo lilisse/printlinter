@@ -269,6 +269,99 @@ def file_with_ignored_next_stderr_writelines(testing_files):
         yield file
 
 
+#####
+
+
+@pytest.fixture()
+def file_with_ignored_block_print(testing_files):
+    with open(
+        testing_files / "ignored_block/ppl001.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_pprint(testing_files):
+    with open(
+        testing_files / "ignored_block/ppl002.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_stdout_write(testing_files):
+    with open(
+        testing_files / "ignored_block/ppl003.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_stderr_write(testing_files):
+    with open(
+        testing_files / "ignored_block/ppl004.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_stdout_writelines(testing_files):
+    with open(
+        testing_files / "ignored_block/ppl005.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_stderr_writelines(testing_files):
+    with open(
+        testing_files / "ignored_block/ppl006.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_all(testing_files):
+    with open(
+        testing_files / "ignored_block/all.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_nothing(testing_files):
+    with open(
+        testing_files / "ignored_block/ignore_nothing.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_mix(testing_files):
+    with open(
+        testing_files / "ignored_block/mix.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
 def compare_ast(
     node1: ast.expr | list[ast.expr],
     node2: ast.expr | list[ast.expr],

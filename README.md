@@ -11,9 +11,35 @@ PrintLinter is a python linter to detect and signals display functions in python
 
 - [Installing](#installing)
 - [Usage](#usage)
+  - [Verbs](#verbs)
+    - [Lint](#lint)
+      - [Example](#example)
 - [Error codes](#error-codes)
+  - [Standard library](#standard-library)
 - [Ignore errors](#ignore-errors)
+  - [Ignore error inline](#ignore-error-inline)
+    - [Examples](#examples)
+  - [Ignore error on the next line](#ignore-error-on-the-next-line)
+    - [Examples](#examples-1)
+  - [Ignore a whole file](#ignore-a-whole-file)
+    - [Examples](#examples-2)
+      - [Simple error](#simple-error)
+      - [library errors](#library-errors)
+      - [All errors](#all-errors)
+  - [Ignore a block of code](#ignore-a-block-of-code)
+    - [Examples](#examples-3)
+      - [Simple error](#simple-error-1)
+      - [All errors](#all-errors-1)
 - [Configuration](#configuration)
+  - [Target version](#target-version)
+  - [Ignored files](#ignored-files)
+  - [Disabled rules](#disabled-rules)
+  - [Color](#color)
+  - [Examples of configuration files](#examples-of-configuration-files)
+    - [Yaml/Yml configuration file](#yamlyml-configuration-file)
+    - [Json configuration file](#json-configuration-file)
+    - [Toml configuration file](#toml-configuration-file)
+    - [Pyproject configuration file](#pyproject-configuration-file)
 - [But then](#but-then)
 
 # Installing
@@ -228,6 +254,67 @@ stdout.write(titi + toto)  # ignored error
 stderr.write(titi + toto)  # ignored error
 stdout.writelines(titi + toto)  # ignored error
 stderr.writelines(titi + toto)  # ignored error
+...
+```
+
+## Ignore a block of code
+
+To ignore a block of code (disable the linter) on a rules or all rules (disable library
+rules come later), add a comment before the block you want ignore:
+`<py-printlinter disable (error_code)`. To re enable the linter add an other comment after
+the block of code: `<py-printlinter enable (error_code)>`.
+
+<!-- markdownlint-disable-next-line MD024 -->
+### Examples
+
+<!-- markdownlint-disable-next-line MD024 -->
+#### Simple error
+
+```python
+from pprint import pprint
+# <py-printlinter disable PPL001>
+print("toto") # ignored error
+pprint("titit")
+# <py-printlinter enable PPL001>
+...
+```
+
+You can nested ignored block.
+
+```python
+from pprint import pprint
+
+# <py-printlinter disable PPL002>
+
+pprint("titi") # ignored error
+
+# <py-printlinter disable PPL001>
+print("toto") # ignored error
+# <py-printlinter enable PPL001>
+
+print("tutu") # NOT IGNORED ERROR
+pprint("tata") # ignored error
+
+# <py-printlinter enable PPL002>
+...
+```
+
+<!-- markdownlint-disable-next-line MD024 -->
+#### All errors
+
+```python
+from sys import stdout, stderr
+from pprint import pprint
+toto = 1
+titi = 2
+# <py-printlinter disable ALL>
+print(titi + toto)  # ignored error
+pprint(titi + toto)  # ignored error
+stdout.write(titi + toto)  # ignored error
+stderr.write(titi + toto)  # ignored error
+stdout.writelines(titi + toto)  # ignored error
+stderr.writelines(titi + toto)  # ignored error
+# <py-printlinter enable ALL>
 ...
 ```
 

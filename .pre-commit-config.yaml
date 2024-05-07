@@ -3,12 +3,12 @@
 repos:
   # Precommit hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: no-commit-to-branch
       - id: check-merge-conflict
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: debug-statements
       - id: trailing-whitespace
@@ -25,7 +25,7 @@ repos:
       - id: isort
         name: isort (python)
   - repo: https://github.com/ambv/black
-    rev: 24.3.0
+    rev: 24.4.2
     hooks:
       - id: black
         language_version: python3.10
@@ -53,7 +53,7 @@ repos:
         language: system
         pass_filenames: false
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.12.1
+    rev: v0.13.0
     hooks:
       - id: markdownlint-cli2
         args: ["**/*.md", "#node_modules"]

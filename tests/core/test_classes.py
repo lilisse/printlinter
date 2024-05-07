@@ -6,7 +6,7 @@ from pytest import param
 from assertpy import assert_that, soft_assertions
 
 # First party imports
-from printlinter import IgnoreFile, IgnoreLine, IssueEnum, IssueInfo
+from printlinter import IgnoredBlock, IgnoreFile, IgnoreLine, IssueEnum, IssueInfo
 
 
 @pytest.mark.parametrize(
@@ -153,3 +153,53 @@ def test_ignore_line_class(file, err_code):
 )
 def test_ignore_file_class(file, err_code):
     assert IgnoreFile(err_code, file)
+
+
+@pytest.mark.parametrize(
+    "file",
+    [
+        param("toto.py", id="with file"),
+        param(None, id="without file"),
+    ],
+)
+@pytest.mark.parametrize(
+    "err_code",
+    [
+        param("PPL001", id="print PPL001"),
+        param("PPL002", id="pprint PPL002"),
+        param("PPL003", id="sys.stdout.write PPL003"),
+        param("PPL004", id="sys.stderr.write PPL004"),
+        param("PPL005", id="sys.stdout.writelines PPL005"),
+        param("PPL006", id="sys.stderr.writelines PPL006"),
+    ],
+)
+@pytest.mark.parametrize(
+    "line_from",
+    [
+        param(1, id="line 1"),
+        param(2, id="line 2"),
+        param(3, id="line 3"),
+    ],
+)
+@pytest.mark.parametrize(
+    "line_to",
+    [
+        param(4, id="line 4"),
+        param(5, id="line 5"),
+        param(6, id="line 6"),
+    ],
+)
+def test_ignored_block_class(err_code, line_from, line_to, file):
+    assert IgnoredBlock(err_code, line_from, line_to, file)
+
+
+@pytest.mark.parametrize(
+    "line_from, line_to",
+    [
+        param(1, 1, id="line_from == line_to"),
+        param(2, 1, id="line_from < line_to"),
+    ],
+)
+def test_ignored_block_value_error(line_from, line_to):
+    with pytest.raises(ValueError):
+        IgnoredBlock("PPL001", line_from, line_to, None)

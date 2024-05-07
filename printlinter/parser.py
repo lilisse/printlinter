@@ -8,11 +8,14 @@ from io import TextIOWrapper
 from pathlib import Path
 
 # Local imports
-from .classes import IgnoreFile, IgnoreLine
+from .classes import IgnoredBlock, IgnoreFile, IgnoreLine
 
 IGNORE_LINE_TOKEN_REGEX = r"noqa:[ ]?(?P<code>PPL[0-9]{3})"
+# TODO: REMOVE py-, py-printlinter becomoe printlinter
 IGNORE_NEXT_LINE_TOKEN_REGEX = r"<py-printlinter disable-next (?P<code>PPL[0-9]{3})>"
 IGNORE_FILE_TOKEN_REGEX = r"<py-printlinter disable-file (?P<code>ALL|PPL[0-9]{3})>"
+IGNORE_BLOCK_BEGIN_TOKEN_REGEX = r"<py-printlinter disable (?P<code>ALL|PPL[0-9]{3})>"
+IGNORE_BLOCK_END_TOKEN_REGEX = r"<py-printlinter enable (?P<code>ALL|PPL[0-9]{3})>"
 
 
 def enumerate_file(folder: Path) -> list[Path]:
@@ -112,19 +115,79 @@ def get_ignore_files(file: TextIOWrapper, file_path: Path) -> list[IgnoreFile] |
     return []
 
 
+def _match_block(
+    begin: list[tuple[int, str]],
+    end: list[tuple[int, str]],
+    file_path: Path,
+) -> list[IgnoredBlock]:
+    """
+    Match ignored block of code.
+
+    Args:
+        begin: Start of ignored block of code.
+        end: End of ignored block of code.
+        file_path: Path of the given file.
+
+    Returns:
+        Ignored Block of code in given file.
+    """
+    result = []
+
+    for begin_element in begin:
+        for end_element in end:
+            if begin_element[1] == end_element[1]:
+                result.append(
+                    IgnoredBlock(
+                        begin_element[1], begin_element[0], end_element[0], file_path
+                    )
+                )
+                break
+
+    return result
+
+
+def get_ignored_block(file: TextIOWrapper, file_path: Path) -> list[IgnoredBlock]:
+    """
+    Get ignored block in a file.
+
+    Args:
+        file: File to analyze.
+        file_path: Path of the given file.
+
+    Returns:
+        Ignored Block in given file.
+    """
+    tokens = tokenize.generate_tokens(file.readline)
+    begin = []
+    end = []
+
+    for token in tokens:
+        toktype, tokval, start, *_ = token
+        if toktype == tokenize.COMMENT:
+            if match := re.search(IGNORE_BLOCK_BEGIN_TOKEN_REGEX, tokval):
+                lineo, _ = start
+                begin.append((lineo, match.group("code")))
+            elif match := re.search(IGNORE_BLOCK_END_TOKEN_REGEX, tokval):
+                lineo, _ = start
+                end.append((lineo, match.group("code")))
+
+    return _match_block(begin, end, file_path)
+
+
 def parse_file(
     file_path: str,
     target_version: tuple[int, int],
-) -> tuple[ast.AST, list[IgnoreLine], list[IgnoreFile] | None]:
+) -> tuple[ast.AST, list[IgnoreLine], list[IgnoreFile] | None, list[IgnoredBlock]]:
     """
-    Parse a file to get the tree and all ignore lines in this file.
+    Parse a file to get the tree and all ignored lines, file and blocks in this file.
 
     Args:
         file_path: Path of the file to parse.
         target_version: Target version for ast.
 
     Returns:
-        The AST tree of the file and all ignored lines contains in this file.
+        The AST tree of the file and all ignored lines, files and blocks
+        contains in this file.
     """
     with open(file_path, encoding="utf-8") as file:
         tree = ast.parse(
@@ -140,4 +203,7 @@ def parse_file(
         ignore_files = get_ignore_files(file, Path(file_path))
         file.seek(0)
 
-    return tree, ignore_lines, ignore_files
+        ignored_block = get_ignored_block(file, Path(file_path))
+        file.seek(0)
+
+    return tree, ignore_lines, ignore_files, ignored_block
