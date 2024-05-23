@@ -188,7 +188,8 @@ def lint(
         config.disabled_rules,
     )
 
-    # TODO: pass ignored value of issue at true when it is ignored.
+    # TODO: pass ignored value of issue at true when it is ignored. it's usful to get a
+    # list of ignred issues.
     # console.print(f"[bold]ISSUES:\n{issues}\n[/bold]") # noqa: ERA001
 
     if warning:
