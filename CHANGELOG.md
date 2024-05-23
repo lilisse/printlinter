@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 23-05-2024
+
 ### Added
 
 - Now we can ignore a block of code and don't re enable the linter.

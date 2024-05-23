@@ -441,8 +441,5 @@ color = false
 Pour voir les prochaines fonctionnalités qui seront développées regarder [TODO](TOTO.md).
 Voici une petite, liste non exhaustive de ce qui est prévu dans les versions futures.
 
-- Ignorer un bloque de code.
-- Ignorer la ligne suivante
 - Linter les fonctions d'affichage de d'autres librairies
 - Ajouter d'autre option de configuration.
-- Ajouter d'autres traductions.

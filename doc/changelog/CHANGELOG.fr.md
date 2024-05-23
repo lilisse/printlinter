@@ -11,6 +11,8 @@ et ce projet adhère au principe de la [Semantic Versioning](https://semver.org/
 
 ## [Non publié]
 
+## [0.2.0] - 23-05-2024
+
 ### Ajouté
 
 - Maintenant on peut ignorer un bloque de code sans réactiver le linteur.
