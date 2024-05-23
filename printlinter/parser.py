@@ -8,7 +8,7 @@ from io import TextIOWrapper
 from pathlib import Path
 
 # Local imports
-from .classes import IgnoredBlock, IgnoreFile, IgnoreLine
+from .classes import IgnoredBlock, IgnoredFile, IgnoredLine
 
 IGNORE_LINE_TOKEN_REGEX = r"noqa:[ ]?(?P<code>PPL[0-9]{3})"
 # TODO: REMOVE py-, py-printlinter becomoe printlinter
@@ -31,7 +31,7 @@ def enumerate_file(folder: Path) -> list[Path]:
     return list(folder.glob("**/*.py"))
 
 
-def get_ignore_lines(file: TextIOWrapper, file_path: Path) -> list[IgnoreLine]:
+def get_ignored_lines(file: TextIOWrapper, file_path: Path) -> list[IgnoredLine]:
     """
     Get ignored lines in a file.
 
@@ -43,7 +43,7 @@ def get_ignore_lines(file: TextIOWrapper, file_path: Path) -> list[IgnoreLine]:
         All ignored lines in given file.
     """
     tokens = tokenize.generate_tokens(file.readline)
-    ignore_lines = []
+    ignored_lines = []
 
     for token in tokens:
         toktype, tokval, start, *_ = token
@@ -51,13 +51,13 @@ def get_ignore_lines(file: TextIOWrapper, file_path: Path) -> list[IgnoreLine]:
             if match := re.search(IGNORE_LINE_TOKEN_REGEX, tokval):
                 lineo, _ = start
                 code = match.group("code")
-                ignore_lines.append(IgnoreLine(lineo, code, file_path))
+                ignored_lines.append(IgnoredLine(lineo, code, file_path))
             elif match := re.search(IGNORE_NEXT_LINE_TOKEN_REGEX, tokval):
                 lineo, _ = start
                 code = match.group("code")
-                ignore_lines.append(IgnoreLine(lineo + 1, code, file_path))
+                ignored_lines.append(IgnoredLine(lineo + 1, code, file_path))
 
-    return ignore_lines
+    return ignored_lines
 
 
 def _no_code_before(
@@ -87,7 +87,7 @@ def _no_code_before(
     return True
 
 
-def get_ignore_files(file: TextIOWrapper, file_path: Path) -> list[IgnoreFile] | None:
+def get_ignored_files(file: TextIOWrapper, file_path: Path) -> list[IgnoredFile] | None:
     """
     Get ignored files in a file.
 
@@ -107,7 +107,7 @@ def get_ignore_files(file: TextIOWrapper, file_path: Path) -> list[IgnoreFile] |
             if match := re.search(IGNORE_FILE_TOKEN_REGEX, tokval):
                 if _no_code_before(tokens_before):
                     code = match.group("code")
-                    return [IgnoreFile(code, file_path)]
+                    return [IgnoredFile(code, file_path)]
                 else:
                     return None
         tokens_before.append(token)
@@ -190,7 +190,7 @@ def get_ignored_blocks(
 def parse_file(
     file_path: str,
     target_version: tuple[int, int],
-) -> tuple[ast.AST, list[IgnoreLine], list[IgnoreFile] | None, list[IgnoredBlock]]:
+) -> tuple[ast.AST, list[IgnoredLine], list[IgnoredFile] | None, list[IgnoredBlock]]:
     """
     Parse a file to get the tree and all ignored lines, file and blocks in this file.
 
@@ -212,13 +212,13 @@ def parse_file(
         nb_lines = len(file.readlines()) + 1
         file.seek(0)
 
-        ignore_lines = get_ignore_lines(file, Path(file_path))
+        ignored_lines = get_ignored_lines(file, Path(file_path))
         file.seek(0)
 
-        ignore_files = get_ignore_files(file, Path(file_path))
+        ignored_files = get_ignored_files(file, Path(file_path))
         file.seek(0)
 
         ignored_block = get_ignored_blocks(file, Path(file_path), nb_lines)
         file.seek(0)
 
-    return tree, ignore_lines, ignore_files, ignored_block
+    return tree, ignored_lines, ignored_files, ignored_block

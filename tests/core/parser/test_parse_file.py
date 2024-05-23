@@ -10,7 +10,7 @@ from itertools import product
 from assertpy import assert_that, soft_assertions
 
 # First party imports
-from printlinter import IgnoredBlock, IgnoreFile, IgnoreLine, parse_file
+from printlinter import IgnoredBlock, IgnoredFile, IgnoredLine, parse_file
 from printlinter.config import MAX_MAJOR, MAX_MINOR
 
 # Local imports
@@ -47,7 +47,7 @@ from .conftest import compare_ast
         param(
             "print/toto2/toto3.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=6,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "print/toto2/toto3.py",
@@ -75,7 +75,7 @@ from .conftest import compare_ast
         param(
             "pprint/pprint2/pprint3.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=10,
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "pprint/pprint2/pprint3.py",
@@ -103,12 +103,12 @@ from .conftest import compare_ast
         param(
             "sys/stdout/write/stdout2/stdout3.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=11,
                     error_code="PPL003",
                     from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=12,
                     error_code="PPL003",
                     from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
@@ -136,12 +136,12 @@ from .conftest import compare_ast
         param(
             "sys/stderr/write/stderr2/stderr3.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=11,
                     error_code="PPL004",
                     from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=12,
                     error_code="PPL004",
                     from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
@@ -169,13 +169,13 @@ from .conftest import compare_ast
         param(
             "sys/stdout/writelines/stdout2/stdout3.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=11,
                     error_code="PPL005",
                     from_file=INPUT_FILE_PATH
                     / "sys/stdout/writelines/stdout2/stdout3.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=12,
                     error_code="PPL005",
                     from_file=INPUT_FILE_PATH
@@ -204,13 +204,13 @@ from .conftest import compare_ast
         param(
             "sys/stderr/writelines/stderr2/stderr3.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=11,
                     error_code="PPL006",
                     from_file=INPUT_FILE_PATH
                     / "sys/stderr/writelines/stderr2/stderr3.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=12,
                     error_code="PPL006",
                     from_file=INPUT_FILE_PATH
@@ -225,22 +225,22 @@ from .conftest import compare_ast
         param(
             "mixed/mixed0.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=8,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=9,
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=11,
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=12,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
@@ -253,22 +253,22 @@ from .conftest import compare_ast
         param(
             "mixed/mixed1/mixed2.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=8,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=9,
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=11,
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=12,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
@@ -292,7 +292,7 @@ from .conftest import compare_ast
             "ignored_files/ignore_all.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="ALL",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_all.py",
                 )
@@ -305,7 +305,7 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl000.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL000",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl000.py",
                 )
@@ -318,7 +318,7 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl001.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl001.py",
                 )
@@ -331,7 +331,7 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl002.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl002.py",
                 )
@@ -344,7 +344,7 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl003.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL003",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl003.py",
                 )
@@ -357,7 +357,7 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl004.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL004",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl004.py",
                 )
@@ -370,7 +370,7 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl004.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL004",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl004.py",
                 )
@@ -383,7 +383,7 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl006.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL006",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl006.py",
                 )

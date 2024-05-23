@@ -43,8 +43,8 @@ class IssueInfo:
     from_file: Path | None
     "File who contain the line with the issue."
 
-    ignore: bool
-    "If this issue is ignore or not."
+    ignored: bool
+    "If this issue is ignored or not."
 
     def __str__(self) -> str:
         """
@@ -60,29 +60,26 @@ class IssueInfo:
         )
 
 
-# TODO: check spelling: Ignore => Ignored in all file
-
-
 @dataclass
-class IgnoreLine:
-    """Ignore line class."""
+class IgnoredLine:
+    """Ignored line class."""
 
     line_num: int
     "Line number of the ignored line."
 
     error_code: str
-    "Code of the ignore issue."
+    "Code of the ignored issue."
 
     from_file: Path | None
     "File who contains the ignored line."
 
 
 @dataclass
-class IgnoreFile:
-    """Ignore file class."""
+class IgnoredFile:
+    """Ignored file class."""
 
     error_code: str
-    "Code of the ignore issue."
+    "Code of the ignored issue."
 
     from_file: Path | None
     "File who contains the ignored line."
