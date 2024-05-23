@@ -1,7 +1,7 @@
 <!-- markdownlint-disable-file MD041 -->
 
-<!-- TODO: Add badge
-TODO: logo -->
+<!-- TODO: Add badge -->
+![logo](logo.png)
 
 [English readme](README.md) **·** [Français readme](doc/readme/README.fr.md)
 
