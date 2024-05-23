@@ -12,9 +12,35 @@ du code python.
 
 - [Installation](#installation)
 - [Utilisation](#utilisation)
+  - [Verbes](#verbes)
+    - [Lint](#lint)
+      - [Exemple](#exemple)
 - [Codes d'erreur](#codes-derreur)
+  - [Librairie standard](#librairie-standard)
 - [Ignorer des erreurs](#ignorer-des-erreurs)
+  - [Ignorer une erreur sur une ligne](#ignorer-une-erreur-sur-une-ligne)
+    - [Exemple](#exemple-1)
+  - [Ignorer une erreur sur la ligne suivante](#ignorer-une-erreur-sur-la-ligne-suivante)
+    - [Exemples](#exemples)
+  - [Ignorer sur un fichier entier](#ignorer-sur-un-fichier-entier)
+    - [Exemples](#exemples-1)
+      - [Une seule erreur](#une-seule-erreur)
+      - [Toutes les erreurs d'une librairie](#toutes-les-erreurs-dune-librairie)
+      - [Toutes les erreurs](#toutes-les-erreurs)
+  - [Ignorer un bloque de code](#ignorer-un-bloque-de-code)
+    - [Exemples](#exemples-2)
+      - [Une seule erreur](#une-seule-erreur-1)
+      - [Toutes les erreurs](#toutes-les-erreurs-1)
 - [Configuration](#configuration)
+  - [Target version](#target-version)
+  - [Ignored files](#ignored-files)
+  - [Disabled rules](#disabled-rules)
+  - [Color](#color)
+  - [Exemples de fichier configuration](#exemples-de-fichier-configuration)
+    - [Fichier de configuration Yaml/Yml](#fichier-de-configuration-yamlyml)
+    - [Fichier de configuration Json](#fichier-de-configuration-json)
+    - [Fichier de configuration Toml](#fichier-de-configuration-toml)
+    - [Fichier de configuration Pyproject](#fichier-de-configuration-pyproject)
 - [Pour la suite](#pour-la-suite)
 
 # Installation
@@ -194,7 +220,7 @@ commentaire au début du fichier. `# <py-printlinter disable-file <error_code>`.
 <!-- markdownlint-disable-next-line MD024 -->
 ### Exemples
 
-#### Une seul erreur
+#### Une seule erreur
 
 ```python
 # <py-printlinter disable-file PPL002>
@@ -231,6 +257,79 @@ stdout.write(titi + toto)  # ignored error
 stderr.write(titi + toto)  # ignored error
 stdout.writelines(titi + toto)  # ignored error
 stderr.writelines(titi + toto)  # ignored error
+...
+```
+
+## Ignorer un bloque de code
+
+Pour ignorer un bloque de code (désactiver le linteur) sur une ou toutes rêgles (pour
+les librairies ça arrivera plus tard), ajoutez un commentaire avant le bloque de code que
+vous voulez ignorer: `<py-printlinter disable (error_code)`. Pour réactiver le linteur
+ajoutez un autre commentaire après  le bloque de code: `<py-printlinter enable (error_code)>`.
+Vous n'etes pas obligé de réactiver le linter après l'avoir désactivé.
+
+<!-- markdownlint-disable-next-line MD024 -->
+### Exemples
+
+<!-- markdownlint-disable-next-line MD024 -->
+#### Une seule erreur
+
+```python
+from pprint import pprint
+# <py-printlinter disable PPL001>
+print("toto") # ignored error
+pprint("titit")
+# <py-printlinter enable PPL001>
+...
+```
+
+Vous pouvez ignorer des bloque de code imbriqués.
+
+```python
+from pprint import pprint
+
+# <py-printlinter disable PPL002>
+
+pprint("titi") # ignored error
+
+# <py-printlinter disable PPL001>
+print("toto") # ignored error
+# <py-printlinter enable PPL001>
+
+print("tutu") # NOT IGNORED ERROR
+pprint("tata") # ignored error
+
+# <py-printlinter enable PPL002>
+...
+```
+
+Sans réactiver le linteur.
+
+```python
+from pprint import pprint
+# <py-printlinter disable PPL001>
+print("toto") # ignored error
+pprint("titit")
+...
+print('toto') # ignored error
+```
+
+<!-- markdownlint-disable-next-line MD024 -->
+#### Toutes les erreurs
+
+```python
+from sys import stdout, stderr
+from pprint import pprint
+toto = 1
+titi = 2
+# <py-printlinter disable ALL>
+print(titi + toto)  # ignored error
+pprint(titi + toto)  # ignored error
+stdout.write(titi + toto)  # ignored error
+stderr.write(titi + toto)  # ignored error
+stdout.writelines(titi + toto)  # ignored error
+stderr.writelines(titi + toto)  # ignored error
+# <py-printlinter enable ALL>
 ...
 ```
 

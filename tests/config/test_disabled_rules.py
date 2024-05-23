@@ -190,6 +190,7 @@ def test_get_not_ignore_issue_with_disabled_rules(
         issues,
         [],
         [],
+        [],
         disabled_rules,
     ) == [
         expect_rule

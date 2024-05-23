@@ -13,6 +13,10 @@ et ce projet adhère au principe de la [Semantic Versioning](https://semver.org/
 
 ### Ajouté
 
+- Maintenant on peut ignorer un bloque de code sans réactiver le linteur.
+- Ajout d'une méthode pour ignorer un bloque de code avec: `<py-printlinter disable PPLXXX>`
+  pour désactiver le linter et `<py-printlinter enable PPLXXX>` pour le réactiver. On peut
+  aussi désactiver toutes les rêgles avec `All`.
 - Ajout d'une option de configuration pour actver ou désactiver la couleur sur la sortie:
 `color`. [Issue](https://github.com/lilisse/printlinter/issues/6).
 - Ajout d'une méthode pour ignorer la ligne suivante avec:

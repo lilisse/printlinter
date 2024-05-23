@@ -121,10 +121,8 @@ ignore = [
     "E999",    # syntax error -> does not support pattern matching yet https://github.com/charliermarsh/ruff/issues/282
     "ANN101",  # Conflict with mypy
     "PLR2004", # Magic value not really magic value
-    # TODO: Passer a des pipes quand l'issue sera resolue.
-    "UP007", # Typer need Optional: https://github.com/tiangolo/typer/issues/533
-    "C901",  # Not really ussefull in this project
-    "B008",  # Not really ussefull in this project
+    "C901",    # Not really ussefull in this project
+    "B008",    # Not really ussefull in this project
 ]
 
 

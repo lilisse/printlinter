@@ -2,16 +2,16 @@
 import pytest
 
 # First party imports
-from printlinter import IgnoreFile, IgnoreLine, IssueEnum, IssueInfo
+from printlinter import IgnoredBlock, IgnoreFile, IgnoreLine, IssueEnum, IssueInfo
 
 
 @pytest.fixture(scope="function")
 def issues_for_lines() -> list[IssueInfo]:
     """
-    Get a list of issues.
+    Get a list of issues to test ignored lines.
 
     Returns:
-        Issues.
+        Issues to test ignored lines.
     """
     res = [
         IssueInfo(IssueEnum.PRINTDETECT, line, 12, "print('toto')", "toto1.py", False)
@@ -94,10 +94,10 @@ def issues_for_lines() -> list[IssueInfo]:
 @pytest.fixture(scope="function")
 def issues_for_files() -> list[IssueInfo]:
     """
-    Get a list of issues.
+    Get a list of issues to test ignored files.
 
     Returns:
-        Issues.
+        Issues to test ignored files.
     """
     res = []
     for error_type, line_as_str in zip(
@@ -126,10 +126,10 @@ def issues_for_files() -> list[IssueInfo]:
 @pytest.fixture(scope="function")
 def issues_for_files_and_lines() -> list[IssueInfo]:
     """
-    Get a list of issues.
+    Get a list of issues to test ignored files and lines.
 
     Returns:
-        Issues.
+        Issues to test ignored files and lines.
     """
     res = []
     line = 0
@@ -150,6 +150,44 @@ def issues_for_files_and_lines() -> list[IssueInfo]:
             "toto3.py",
             "toto4.py",
             "toto5.py",
+        ]:
+            res.append(
+                IssueInfo(error_type, line + 1, 12, line_as_str, test_file, False)
+            )
+        line += 1
+
+    return res
+
+
+@pytest.fixture(scope="function")
+def issues_for_blocks() -> list[IssueInfo]:
+    """
+    Get a list of issues to test ignored blocks.
+
+    Returns:
+        Issues to test ignored blocks.
+    """
+    res = []
+    line = 5
+    for error_type, line_as_str in zip(
+        IssueEnum,
+        [
+            "print('toto')",  # line = 6
+            "pprint('toto')",  # line = 7
+            "sys.stdout.write('toto')",  # line = 8
+            "sys.stderr.write('toto')",  # line = 9
+            "sys.stdout.writelines(['toto', 'titi'])",  # line = 10
+            "sys.stderr.writelines(['toto', 'titi'])",  # line = 11
+        ],
+    ):
+        for test_file in [
+            "toto1.py",  ## ppl001
+            "toto2.py",  ## ppl002
+            "toto3.py",  ## ppl003
+            "toto4.py",  ## ppl004
+            "toto5.py",  ## ppl005
+            "toto6.py",  ## ppl006
+            "toto_all.py",  ## all
         ]:
             res.append(
                 IssueInfo(error_type, line + 1, 12, line_as_str, test_file, False)
@@ -186,6 +224,12 @@ def ignored_lines() -> list[IgnoreLine]:
 
 @pytest.fixture(scope="function")
 def ignored_files() -> list[IgnoreFile]:
+    """
+    Get a list of ignored files.
+
+    Returns:
+        Ignored files.
+    """
     return [
         IgnoreFile("ALL", "toto1.py"),
         IgnoreFile("PPL000", "toto2.py"),
@@ -197,6 +241,12 @@ def ignored_files() -> list[IgnoreFile]:
 
 @pytest.fixture(scope="function")
 def ignored_files_and_lines() -> tuple[list[IgnoreLine], list[IgnoreFile]]:
+    """
+    Get a list of ignored files and lines.
+
+    Returns:
+        Ignored files and lines.
+    """
     files = [
         IgnoreFile("ALL", "toto1.py"),
         IgnoreFile("PPL000", "toto2.py"),
@@ -231,3 +281,36 @@ def ignored_files_and_lines() -> tuple[list[IgnoreLine], list[IgnoreFile]]:
         ),
     ]
     return (lines, files)
+
+
+@pytest.fixture(scope="function")
+def ignored_blocks() -> list[IgnoredBlock]:
+    """
+    Get a list of ignored blocks.
+
+    Returns:
+        Ignored blocks.
+    """
+    return [
+        IgnoredBlock(
+            error_code="PPL001", line_from=5, line_to=12, from_file="toto1.py"
+        ),
+        IgnoredBlock(
+            error_code="PPL002", line_from=5, line_to=12, from_file="toto2.py"
+        ),
+        IgnoredBlock(
+            error_code="PPL003", line_from=5, line_to=12, from_file="toto3.py"
+        ),
+        IgnoredBlock(
+            error_code="PPL004", line_from=5, line_to=12, from_file="toto4.py"
+        ),
+        IgnoredBlock(
+            error_code="PPL005", line_from=5, line_to=12, from_file="toto5.py"
+        ),
+        IgnoredBlock(
+            error_code="PPL006", line_from=5, line_to=12, from_file="toto6.py"
+        ),
+        IgnoredBlock(
+            error_code="ALL", line_from=5, line_to=12, from_file="toto_all.py"
+        ),
+    ]

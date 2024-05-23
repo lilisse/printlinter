@@ -269,6 +269,176 @@ def file_with_ignored_next_stderr_writelines(testing_files):
         yield file
 
 
+@pytest.fixture()
+def file_with_ignored_block_nothing(testing_files):
+    with open(
+        testing_files / "ignored_block/re_enable/ignore_nothing.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_print__re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/re_enable/ppl001.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_pprint__re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/re_enable/ppl002.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_stdout_write__re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/re_enable/ppl003.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_stderr_write__re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/re_enable/ppl004.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_stdout_writelines__re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/re_enable/ppl005.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_stderr_writelines__re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/re_enable/ppl006.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_all__re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/re_enable/all.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_mix__re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/re_enable/mix.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_print__no_re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/no_re_enable/ppl001.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_pprint__no_re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/no_re_enable/ppl002.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_stdout_write__no_re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/no_re_enable/ppl003.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_stderr_write__no_re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/no_re_enable/ppl004.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_stdout_writelines__no_re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/no_re_enable/ppl005.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_stderr_writelines__no_re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/no_re_enable/ppl006.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_all__no_re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/no_re_enable/all.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
+@pytest.fixture()
+def file_with_ignored_block_mix__no_re_enable(testing_files):
+    with open(
+        testing_files / "ignored_block/no_re_enable/mix.py",
+        encoding="utf-8",
+    ) as file:
+        file.seek(0)
+        yield file
+
+
 def compare_ast(
     node1: ast.expr | list[ast.expr],
     node2: ast.expr | list[ast.expr],

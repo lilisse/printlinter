@@ -148,6 +148,7 @@ def lint(
 
     all_ignored_lines = []
     all_ignored_files = []
+    all_ignored_blocks = []
     issues = []
     for file_path in track(files_path, description="Processing..."):
         if (
@@ -156,7 +157,7 @@ def lint(
         ) or _is_ignored_rep(config.ignored_rep, file_path):
             continue
 
-        tree, ignored_lines, ignored_files = parse_file(
+        tree, ignored_lines, ignored_files, ignored_blocks = parse_file(
             file_path.as_posix(), config.target_version
         )
         issues = contains_print(file_path, tree)
@@ -172,12 +173,18 @@ def lint(
         else:
             all_ignored_files.extend(ignored_files)
 
+        all_ignored_blocks.extend(ignored_blocks)
+
     not_ignored_issues = get_not_ignore_issue(
         issues,
         all_ignored_lines,
         all_ignored_files,
+        all_ignored_blocks,
         config.disabled_rules,
     )
+
+    # TODO: pass ignored value of issue at true when it is ignored.
+    # console.print(f"[bold]ISSUES:\n{issues}\n[/bold]") # noqa: ERA001
 
     if warning:
         print()
