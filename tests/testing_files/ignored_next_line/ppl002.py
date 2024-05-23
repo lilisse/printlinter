@@ -7,5 +7,5 @@ def toto():
 
 
 pprint(toto())
-# <py-printlinter disable-next PPL002>
+# <printlinter disable-next PPL002>
 pprint(toto())

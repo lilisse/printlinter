@@ -4,18 +4,18 @@
 # Local imports
 from .classes import (  # noqa: F401
     IgnoredBlock,
-    IgnoreFile,
-    IgnoreLine,
+    IgnoredFile,
+    IgnoredLine,
     IssueEnum,
     IssueInfo,
 )
 from .config import DEFAULT_IGNORED_REP, Config  # noqa: F401
-from .ignored_processing import get_not_ignore_issue  # noqa: F401
+from .ignored_processing import get_not_ignored_issue  # noqa: F401
 from .parser import (  # noqa: F401
     enumerate_file,
-    get_ignore_files,
-    get_ignore_lines,
     get_ignored_blocks,
+    get_ignored_files,
+    get_ignored_lines,
     parse_file,
 )
 from .visitor import PrintNodeVisitor, contains_print  # noqa: F401

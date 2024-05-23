@@ -4,6 +4,7 @@ Todo list of the project.
 
 ## Summary
 
+- [Summary](#summary)
 - [Next version](#next-version)
   - [Ignore block of code](#ignore-block-of-code)
   - [Ignore the next line](#ignore-the-next-line)
@@ -17,6 +18,7 @@ Todo list of the project.
   - [Translation](#translation)
   - [Tests](#tests)
     - [BDD tests](#bdd-tests)
+    - [On big projects](#on-big-projects)
   - [Documentation](#documentation)
 
 ## Next version
@@ -33,23 +35,23 @@ all errors.
 ```python
 toto = 1
 titi = 2
-# <py-printlinter disable PPL001>
+# <printlinter disable PPL001>
 print(toto)
 print(titi)
 print (toto + titi)
-# <py-printlinter enable PPL001>
+# <printlinter enable PPL001>
 ```
 
 All rules can be ignored.
 
 ```python
-# <py-printlinter disable ALL>
+# <printlinter disable ALL>
 ```
 
 And re enable.
 
 ```python
-# <py-printlinter enable ALL>
+# <printlinter enable ALL>
 ```
 
 ### Ignore the next line
@@ -60,7 +62,7 @@ Add way to disable linter for the next line for single error, library errors or
 all errors.
 
 ```python
-# <py-printlinter disable-next PPL002>
+# <printlinter disable-next PPL002>
 print("toto")
 ```
 
