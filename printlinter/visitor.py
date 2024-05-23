@@ -166,7 +166,7 @@ class PrintNodeVisitor(ast.NodeVisitor):
             node.col_offset,
             line_as_str=None,
             from_file=None,
-            ignore=False,
+            ignored=False,
         )
         self.found_prints.append(cast(IssueInfo, found_print))
 

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# <py-printlinter disable-file ALL>
+# <printlinter disable-file ALL>
 """Aaaaaaaaa."""
 
 # Standard imports

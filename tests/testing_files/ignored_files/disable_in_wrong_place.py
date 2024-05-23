@@ -3,7 +3,7 @@ import sys
 from pprint import pprint
 from sys import stderr, stdout
 
-# <py-printlinter disable-file ALL>
+# <printlinter disable-file ALL>
 
 print("toto")
 

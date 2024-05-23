@@ -11,9 +11,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 23-05-2024
+
 ### Added
 
-- Add progress bar to the cli
+- Now we can ignore a block of code and don't re enable the linter.
+- Add a way to ignore a block of code with: `<printlinter disable PPLXXX>` to disable
+  linter and: `<printlinter enable PPLXXX>` to re enable it. We can also disable
+  `ALL` rules.
+- Add a configuration option to enable/disable colorized output: `color`.
+[Issue](https://github.com/lilisse/printlinter/issues/6).
+- Add a way to ignore next line with: `<printlinter disable-next PPLXXX>`.
+[Issue](https://github.com/lilisse/printlinter/issues/1).
+- Add default `ignored_rep` configuration. All those folders while not be visited by the
+  linter.
+  - `node_modules`
+  - `.vscode/`
+  - `__pycache__/`
+  - `build/`
+  - `develop-eggs/`
+  - `dist/`
+  - `downloads/`
+  - `eggs/`
+  - `.eggs/`
+  - `lib/`
+  - `lib64/`
+  - `parts/`
+  - `sdist/`
+  - `var/`
+  - `wheels/`
+  - `pip-wheel-metadata/`
+  - `share/python-wheels/`
+  - `htmlcov/`
+  - `.tox/`
+  - `.nox/`
+  - `.hypothesis/`
+  - `.pytest_cache/`
+  - `docs/_build/`
+  - `__pypackages__/`
+  - `.mypy_cache/`
+  - `.ruff_cache`
+  - `.pyre/`
+  - `env/`
+  - `venv/`
+  - `ENV/`
+  - `env.bak/`
+  - `venv.bak/`
+  - `.venv/`
+  - `.env/`
+- Add progress bar to the cli.
 
 ## [0.1.0] - 21-03-2024
 

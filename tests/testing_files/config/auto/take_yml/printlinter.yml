@@ -2,3 +2,4 @@ printlinter:
   target_version: "3.10"
   ignored_files: [toto.py]
   disabled_rules: [PPL001]
+  color: false

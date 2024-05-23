@@ -3,7 +3,7 @@ import pytest
 from pytest import param
 
 # First party imports
-from printlinter import IssueEnum, IssueInfo, get_not_ignore_issue
+from printlinter import IssueEnum, IssueInfo, get_not_ignored_issue
 
 
 @pytest.mark.parametrize(
@@ -114,7 +114,7 @@ from printlinter import IssueEnum, IssueInfo, get_not_ignore_issue
         ),
     ],
 )
-def test_get_not_ignore_issue_with_disabled_rules(
+def test_get_not_ignored_issue_with_disabled_rules(
     testing_files,
     rule_001,
     rule_002,
@@ -186,8 +186,9 @@ def test_get_not_ignore_issue_with_disabled_rules(
         ),
     ]
 
-    assert get_not_ignore_issue(
+    assert get_not_ignored_issue(
         issues,
+        [],
         [],
         [],
         disabled_rules,

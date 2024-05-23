@@ -10,7 +10,7 @@ from itertools import product
 from assertpy import assert_that, soft_assertions
 
 # First party imports
-from printlinter import IgnoreFile, IgnoreLine, parse_file
+from printlinter import IgnoredBlock, IgnoredFile, IgnoredLine, parse_file
 from printlinter.config import MAX_MAJOR, MAX_MINOR
 
 # Local imports
@@ -26,12 +26,13 @@ from .conftest import compare_ast
     ],
 )
 @pytest.mark.parametrize(
-    "path_file, expected_ignored_lines, expected_ignored_files",
+    "path_file, expected_ignored_lines, expected_ignored_files, expected_ignored_block",
     [
         # Ignored Lines
         # print
         param(
             "print/toto_0.py",
+            [],
             [],
             [],
             id="0 print",
@@ -40,17 +41,19 @@ from .conftest import compare_ast
             "print/toto_1.py",
             [],
             [],
+            [],
             id="1 print",
         ),
         param(
             "print/toto2/toto3.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=6,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "print/toto2/toto3.py",
                 )
             ],
+            [],
             [],
             id="1 print, 1 ignored print",
         ),
@@ -59,10 +62,12 @@ from .conftest import compare_ast
             "pprint/pprint0.py",
             [],
             [],
+            [],
             id="0 prettyprint",
         ),
         param(
             "pprint/pprint1.py",
+            [],
             [],
             [],
             id="1 prettyprint",
@@ -70,12 +75,13 @@ from .conftest import compare_ast
         param(
             "pprint/pprint2/pprint3.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=10,
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "pprint/pprint2/pprint3.py",
                 )
             ],
+            [],
             [],
             id="1 prettyprint, 1 ignored prettyprint",
         ),
@@ -84,10 +90,12 @@ from .conftest import compare_ast
             "sys/stdout/write/stdout0.py",
             [],
             [],
+            [],
             id="0 sys.stdout.write",
         ),
         param(
             "sys/stdout/write/stdout1.py",
+            [],
             [],
             [],
             id="2 sys.stdout.write",
@@ -95,17 +103,18 @@ from .conftest import compare_ast
         param(
             "sys/stdout/write/stdout2/stdout3.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=11,
                     error_code="PPL003",
                     from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=12,
                     error_code="PPL003",
                     from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
                 ),
             ],
+            [],
             [],
             id="2 sys.stdout.write, 2 ignored sys.stdout.write",
         ),
@@ -114,10 +123,12 @@ from .conftest import compare_ast
             "sys/stderr/write/stderr0.py",
             [],
             [],
+            [],
             id="0 sys.stderr.write",
         ),
         param(
             "sys/stderr/write/stderr1.py",
+            [],
             [],
             [],
             id="2 sys.stderr.write",
@@ -125,17 +136,18 @@ from .conftest import compare_ast
         param(
             "sys/stderr/write/stderr2/stderr3.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=11,
                     error_code="PPL004",
                     from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=12,
                     error_code="PPL004",
                     from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
                 ),
             ],
+            [],
             [],
             id="2 sys.stderr.write, 2 ignored sys.stderr.write",
         ),
@@ -144,10 +156,12 @@ from .conftest import compare_ast
             "sys/stdout/writelines/stdout0.py",
             [],
             [],
+            [],
             id="0 sys.stdout.writelines",
         ),
         param(
             "sys/stdout/writelines/stdout1.py",
+            [],
             [],
             [],
             id="2 sys.stdout.writelines",
@@ -155,19 +169,20 @@ from .conftest import compare_ast
         param(
             "sys/stdout/writelines/stdout2/stdout3.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=11,
                     error_code="PPL005",
                     from_file=INPUT_FILE_PATH
                     / "sys/stdout/writelines/stdout2/stdout3.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=12,
                     error_code="PPL005",
                     from_file=INPUT_FILE_PATH
                     / "sys/stdout/writelines/stdout2/stdout3.py",
                 ),
             ],
+            [],
             [],
             id="2 sys.stdout.writelines, 2 ignored sys.stdout.writelines",
         ),
@@ -176,10 +191,12 @@ from .conftest import compare_ast
             "sys/stderr/writelines/stderr0.py",
             [],
             [],
+            [],
             id="0 sys.stderr.writelines",
         ),
         param(
             "sys/stderr/writelines/stderr1.py",
+            [],
             [],
             [],
             id="2 sys.stderr.writelines",
@@ -187,19 +204,20 @@ from .conftest import compare_ast
         param(
             "sys/stderr/writelines/stderr2/stderr3.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=11,
                     error_code="PPL006",
                     from_file=INPUT_FILE_PATH
                     / "sys/stderr/writelines/stderr2/stderr3.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=12,
                     error_code="PPL006",
                     from_file=INPUT_FILE_PATH
                     / "sys/stderr/writelines/stderr2/stderr3.py",
                 ),
             ],
+            [],
             [],
             id="2 sys.stderr.writelines, 2 ignored sys.stderr.writelines",
         ),
@@ -207,54 +225,56 @@ from .conftest import compare_ast
         param(
             "mixed/mixed0.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=8,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=9,
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=11,
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=12,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
                 ),
             ],
             [],
+            [],
             id="not in a folder: 3 print, 1 ignored, 3 prettyprint, 1 ignored",
         ),
         param(
             "mixed/mixed1/mixed2.py",
             [
-                IgnoreLine(
+                IgnoredLine(
                     line_num=8,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=9,
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=11,
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
                 ),
-                IgnoreLine(
+                IgnoredLine(
                     line_num=12,
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
                 ),
             ],
+            [],
             [],
             id="in a folder: 3 print, 1 ignored, 3 prettyprint, 1 ignored",
         ),
@@ -264,6 +284,7 @@ from .conftest import compare_ast
             "ignored_files/ignore_nothing.py",
             [],
             [],
+            [],
             id="No ignore files",
         ),
         # all
@@ -271,11 +292,12 @@ from .conftest import compare_ast
             "ignored_files/ignore_all.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="ALL",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_all.py",
                 )
             ],
+            [],
             id="Ignore all in file",
         ),
         # standard library
@@ -283,11 +305,12 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl000.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL000",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl000.py",
                 )
             ],
+            [],
             id="Ignore standard lib display function in file",
         ),
         # print
@@ -295,11 +318,12 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl001.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL001",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl001.py",
                 )
             ],
+            [],
             id="Ignore print in file",
         ),
         # pprint
@@ -307,11 +331,12 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl002.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL002",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl002.py",
                 )
             ],
+            [],
             id="Ignore pprint in file",
         ),
         # sys.stdout.write
@@ -319,11 +344,12 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl003.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL003",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl003.py",
                 )
             ],
+            [],
             id="Ignore sys.stdout.write and stdout.write in file",
         ),
         # sys.stderr.write
@@ -331,11 +357,12 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl004.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL004",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl004.py",
                 )
             ],
+            [],
             id="Ignore sys.stderr.write and stderr.write in file",
         ),
         # sys.stdout.writelines
@@ -343,11 +370,12 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl004.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL004",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl004.py",
                 )
             ],
+            [],
             id="Ignore sys.stdout.writelines and stdout.writelines in file",
         ),
         # sys.stderr.writelines
@@ -355,12 +383,267 @@ from .conftest import compare_ast
             "ignored_files/ignore_ppl006.py",
             [],
             [
-                IgnoreFile(
+                IgnoredFile(
                     error_code="PPL006",
                     from_file=INPUT_FILE_PATH / "ignored_files/ignore_ppl006.py",
                 )
             ],
+            [],
             id="Ignore sys.stderr.writelines and stderr.writelines in file",
+        ),
+        # Ignore block of code re enable the linter
+        # print
+        param(
+            "ignored_block/re_enable/ppl001.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL001",
+                    line_from=5,
+                    line_to=8,
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/ppl001.py",
+                )
+            ],
+            id="Ignore block of code: print re enable",
+        ),
+        # pprint
+        param(
+            "ignored_block/re_enable/ppl002.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL002",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/ppl002.py",
+                )
+            ],
+            id="Ignore block of code: pprint re enable",
+        ),
+        # sys.stdout.write
+        param(
+            "ignored_block/re_enable/ppl003.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL003",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/ppl003.py",
+                )
+            ],
+            id="Ignore block of code: sys.stdout.write re enable",
+        ),
+        # sys.stderr.write
+        param(
+            "ignored_block/re_enable/ppl004.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL004",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/ppl004.py",
+                )
+            ],
+            id="Ignore block of code: sys.stderr.write re enable",
+        ),
+        # sys.stdout.writelines
+        param(
+            "ignored_block/re_enable/ppl005.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL005",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/ppl005.py",
+                )
+            ],
+            id="Ignore block of code: sys.stdout.writelines re enable",
+        ),
+        # sys.stderr.writelines
+        param(
+            "ignored_block/re_enable/ppl006.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL006",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/ppl006.py",
+                )
+            ],
+            id="Ignore block of code: sys.stderr.writelines re enable",
+        ),
+        # mixed
+        param(
+            "ignored_block/re_enable/mix.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL002",
+                    line_from=9,
+                    line_to=16,
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/mix.py",
+                ),
+                IgnoredBlock(
+                    error_code="PPL001",
+                    line_from=12,
+                    line_to=15,
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/mix.py",
+                ),
+            ],
+            id="Ignore block of code: mixed re enable",
+        ),
+        # all
+        param(
+            "ignored_block/re_enable/all.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="ALL",
+                    line_from=10,
+                    line_to=17,
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/all.py",
+                )
+            ],
+            id="Ignore block of code: all re enable",
+        ),
+        # Ignore block of code don't re enable the linter
+        # print
+        param(
+            "ignored_block/no_re_enable/ppl001.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL001",
+                    line_from=5,
+                    line_to=8,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/ppl001.py",
+                )
+            ],
+            id="Ignore block of code: print don't re enable",
+        ),
+        # pprint
+        param(
+            "ignored_block/no_re_enable/ppl002.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL002",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/ppl002.py",
+                )
+            ],
+            id="Ignore block of code: pprint don't re enable",
+        ),
+        # sys.stdout.write
+        param(
+            "ignored_block/no_re_enable/ppl003.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL003",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/ppl003.py",
+                )
+            ],
+            id="Ignore block of code: sys.stdout.write don't re enable",
+        ),
+        # sys.stderr.write
+        param(
+            "ignored_block/no_re_enable/ppl004.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL004",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/ppl004.py",
+                )
+            ],
+            id="Ignore block of code: sys.stderr.write don't re enable",
+        ),
+        # sys.stdout.writelines
+        param(
+            "ignored_block/no_re_enable/ppl005.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL005",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/ppl005.py",
+                )
+            ],
+            id="Ignore block of code: sys.stdout.writelines don't re enable",
+        ),
+        # sys.stderr.writelines
+        param(
+            "ignored_block/no_re_enable/ppl006.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL006",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/ppl006.py",
+                )
+            ],
+            id="Ignore block of code: sys.stderr.writelines don't re enable",
+        ),
+        # mixed
+        param(
+            "ignored_block/no_re_enable/mix.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL002",
+                    line_from=9,
+                    line_to=15,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/mix.py",
+                ),
+                IgnoredBlock(
+                    error_code="PPL001",
+                    line_from=12,
+                    line_to=15,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/mix.py",
+                ),
+            ],
+            id="Ignore block of code: mixed don't re enable",
+        ),
+        # all
+        param(
+            "ignored_block/no_re_enable/all.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="ALL",
+                    line_from=10,
+                    line_to=17,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/all.py",
+                )
+            ],
+            id="Ignore block of code: all don't re enable",
         ),
     ],
 )
@@ -370,6 +653,7 @@ def test_parse_file(
     path_file,
     expected_ignored_lines,
     expected_ignored_files,
+    expected_ignored_block,
 ):
     with open(testing_files / path_file, encoding="utf-8") as file:
         expected_tree = ast.parse(
@@ -378,19 +662,28 @@ def test_parse_file(
             feature_version=target_version,
         )
 
-    tree, ignored_lines, ignored_files = parse_file(
+    tree, ignored_lines, ignored_files, ignored_block = parse_file(
         testing_files / path_file,
         target_version,
     )
 
     with soft_assertions():
         assert_that(compare_ast(tree, expected_tree)).is_true()
+
+        # ignored lines
         if not expected_ignored_lines:
             assert_that(ignored_lines).is_equal_to([])
         else:
             assert_that(ignored_lines).contains_only(*expected_ignored_lines)
 
+        # ignored file
         if not expected_ignored_files:
             assert_that(ignored_files).is_equal_to([])
         else:
             assert_that(ignored_files).contains_only(*expected_ignored_files)
+
+        # ignored block
+        if not expected_ignored_block:
+            assert_that(ignored_block).is_equal_to([])
+        else:
+            assert_that(ignored_block).contains_only(*expected_ignored_block)

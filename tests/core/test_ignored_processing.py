@@ -1,9 +1,11 @@
 # First party imports
-from printlinter import IssueEnum, IssueInfo, get_not_ignore_issue
+from printlinter import IssueEnum, IssueInfo, get_not_ignored_issue
 
 
-def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
-    not_ignored_line = get_not_ignore_issue(issues_for_lines, ignored_lines, [], [])
+def test_get_not_ignored_issue__ignore_lines(issues_for_lines, ignored_lines):
+    not_ignored_line = get_not_ignored_issue(
+        issues_for_lines, ignored_lines, [], [], []
+    )
 
     expected = [
         IssueInfo(
@@ -12,7 +14,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="print('toto')",
             from_file="toto1.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRINTDETECT,
@@ -20,7 +22,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="print('toto')",
             from_file="toto1.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRINTDETECT,
@@ -28,7 +30,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="print('toto')",
             from_file="toto1.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRINTDETECT,
@@ -36,7 +38,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="print('toto')",
             from_file="toto1.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRINTDETECT,
@@ -44,7 +46,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="print('toto')",
             from_file="toto1.py",
-            ignore=False,
+            ignored=False,
         ),
         # pprint
         IssueInfo(
@@ -53,7 +55,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="pprint('toto')",
             from_file="toto2.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRETTYPRINTDETECT,
@@ -61,7 +63,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="pprint('toto')",
             from_file="toto2.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRETTYPRINTDETECT,
@@ -69,7 +71,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="pprint('toto')",
             from_file="toto2.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRETTYPRINTDETECT,
@@ -77,7 +79,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="pprint('toto')",
             from_file="toto2.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRETTYPRINTDETECT,
@@ -85,7 +87,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="pprint('toto')",
             from_file="toto2.py",
-            ignore=False,
+            ignored=False,
         ),
         # sys.stdout.write
         IssueInfo(
@@ -94,7 +96,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stdout.write('toto')",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -102,7 +104,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stdout.write('toto')",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -110,7 +112,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stdout.write('toto')",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -118,7 +120,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stdout.write('toto')",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         # sys.stderr.write
         IssueInfo(
@@ -127,7 +129,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stderr.write('toto')",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -135,7 +137,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stderr.write('toto')",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -143,7 +145,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stderr.write('toto')",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -151,7 +153,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stderr.write('toto')",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         # sys.stdout.writelines
         IssueInfo(
@@ -160,7 +162,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stdout.writelines(['toto', 'titi'])",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -168,7 +170,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stdout.writelines(['toto', 'titi'])",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -176,7 +178,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stdout.writelines(['toto', 'titi'])",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
         # sys.stderr.writelines
         IssueInfo(
@@ -185,7 +187,7 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stderr.writelines(['toto', 'titi'])",
             from_file="toto6.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
@@ -193,15 +195,17 @@ def test_get_not_ignore_issue__ignore_lines(issues_for_lines, ignored_lines):
             num_col=12,
             line_as_str="sys.stderr.writelines(['toto', 'titi'])",
             from_file="toto6.py",
-            ignore=False,
+            ignored=False,
         ),
     ]
 
     assert not_ignored_line == expected
 
 
-def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
-    not_ignored_line = get_not_ignore_issue(issues_for_files, [], ignored_files, [])
+def test_get_not_ignored_issue__ignored_files(issues_for_files, ignored_files):
+    not_ignored_line = get_not_ignored_issue(
+        issues_for_files, [], ignored_files, [], []
+    )
 
     expected = [
         IssueInfo(
@@ -210,7 +214,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="print('toto')",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRINTDETECT,
@@ -218,7 +222,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="print('toto')",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRINTDETECT,
@@ -226,7 +230,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="print('toto')",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRETTYPRINTDETECT,
@@ -234,7 +238,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="pprint('toto')",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRETTYPRINTDETECT,
@@ -242,7 +246,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="pprint('toto')",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -250,7 +254,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="sys.stdout.write('toto')",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -258,7 +262,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="sys.stdout.write('toto')",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -266,7 +270,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="sys.stdout.write('toto')",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -274,7 +278,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="sys.stderr.write('toto')",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -282,7 +286,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="sys.stderr.write('toto')",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -290,7 +294,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="sys.stderr.write('toto')",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -298,7 +302,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="sys.stdout.writelines(['toto', 'titi'])",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -306,7 +310,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="sys.stdout.writelines(['toto', 'titi'])",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
@@ -314,7 +318,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="sys.stderr.writelines(['toto', 'titi'])",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
@@ -322,7 +326,7 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="sys.stderr.writelines(['toto', 'titi'])",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
@@ -330,22 +334,23 @@ def test_get_not_ignore_issue__ignore_files(issues_for_files, ignored_files):
             num_col=12,
             line_as_str="sys.stderr.writelines(['toto', 'titi'])",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
     ]
 
     assert not_ignored_line == expected
 
 
-def test_get_not_ignore_issue__ignore_files_and_lines(
+def test_get_not_ignored_issue__ignore_files_and_lines(
     issues_for_files_and_lines,
     ignored_files_and_lines,
 ):
     ignored_lines, ignored_files = ignored_files_and_lines
-    not_ignored_line = get_not_ignore_issue(
+    not_ignored_line = get_not_ignored_issue(
         issues_for_files_and_lines,
         ignored_lines,
         ignored_files,
+        [],
         [],
     )
 
@@ -356,7 +361,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="print('toto')",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRINTDETECT,
@@ -364,7 +369,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="print('toto')",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRETTYPRINTDETECT,
@@ -372,7 +377,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="pprint('toto')",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -380,7 +385,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="sys.stdout.write('toto')",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -388,7 +393,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="sys.stdout.write('toto')",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -396,7 +401,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="sys.stdout.write('toto')",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -404,7 +409,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="sys.stderr.write('toto')",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -412,7 +417,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="sys.stderr.write('toto')",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -420,7 +425,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="sys.stderr.write('toto')",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -428,7 +433,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="sys.stdout.writelines(['toto', 'titi'])",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -436,7 +441,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="sys.stdout.writelines(['toto', 'titi'])",
             from_file="toto4.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -444,7 +449,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="sys.stdout.writelines(['toto', 'titi'])",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
@@ -452,7 +457,7 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="sys.stderr.writelines(['toto', 'titi'])",
             from_file="toto3.py",
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
@@ -460,7 +465,265 @@ def test_get_not_ignore_issue__ignore_files_and_lines(
             num_col=12,
             line_as_str="sys.stderr.writelines(['toto', 'titi'])",
             from_file="toto5.py",
-            ignore=False,
+            ignored=False,
+        ),
+    ]
+
+    assert not_ignored_line == expected
+
+
+def test_get_not_ignored_issue__ignored_block(
+    issues_for_blocks,
+    ignored_blocks,
+):
+    not_ignored_line = get_not_ignored_issue(
+        issues_for_blocks,
+        [],
+        [],
+        ignored_blocks,
+        [],
+    )
+
+    expected = [
+        IssueInfo(
+            issue=IssueEnum.PRINTDETECT,
+            num_line=6,
+            num_col=12,
+            line_as_str="print('toto')",
+            from_file="toto2.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.PRINTDETECT,
+            num_line=6,
+            num_col=12,
+            line_as_str="print('toto')",
+            from_file="toto3.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.PRINTDETECT,
+            num_line=6,
+            num_col=12,
+            line_as_str="print('toto')",
+            from_file="toto4.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.PRINTDETECT,
+            num_line=6,
+            num_col=12,
+            line_as_str="print('toto')",
+            from_file="toto5.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.PRINTDETECT,
+            num_line=6,
+            num_col=12,
+            line_as_str="print('toto')",
+            from_file="toto6.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.PRETTYPRINTDETECT,
+            num_line=7,
+            num_col=12,
+            line_as_str="pprint('toto')",
+            from_file="toto1.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.PRETTYPRINTDETECT,
+            num_line=7,
+            num_col=12,
+            line_as_str="pprint('toto')",
+            from_file="toto3.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.PRETTYPRINTDETECT,
+            num_line=7,
+            num_col=12,
+            line_as_str="pprint('toto')",
+            from_file="toto4.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.PRETTYPRINTDETECT,
+            num_line=7,
+            num_col=12,
+            line_as_str="pprint('toto')",
+            from_file="toto5.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.PRETTYPRINTDETECT,
+            num_line=7,
+            num_col=12,
+            line_as_str="pprint('toto')",
+            from_file="toto6.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+            num_line=8,
+            num_col=12,
+            line_as_str="sys.stdout.write('toto')",
+            from_file="toto1.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+            num_line=8,
+            num_col=12,
+            line_as_str="sys.stdout.write('toto')",
+            from_file="toto2.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+            num_line=8,
+            num_col=12,
+            line_as_str="sys.stdout.write('toto')",
+            from_file="toto4.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+            num_line=8,
+            num_col=12,
+            line_as_str="sys.stdout.write('toto')",
+            from_file="toto5.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITEDETECT,
+            num_line=8,
+            num_col=12,
+            line_as_str="sys.stdout.write('toto')",
+            from_file="toto6.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITEDETECT,
+            num_line=9,
+            num_col=12,
+            line_as_str="sys.stderr.write('toto')",
+            from_file="toto1.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITEDETECT,
+            num_line=9,
+            num_col=12,
+            line_as_str="sys.stderr.write('toto')",
+            from_file="toto2.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITEDETECT,
+            num_line=9,
+            num_col=12,
+            line_as_str="sys.stderr.write('toto')",
+            from_file="toto3.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITEDETECT,
+            num_line=9,
+            num_col=12,
+            line_as_str="sys.stderr.write('toto')",
+            from_file="toto5.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITEDETECT,
+            num_line=9,
+            num_col=12,
+            line_as_str="sys.stderr.write('toto')",
+            from_file="toto6.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
+            num_line=10,
+            num_col=12,
+            line_as_str="sys.stdout.writelines(['toto', 'titi'])",
+            from_file="toto1.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
+            num_line=10,
+            num_col=12,
+            line_as_str="sys.stdout.writelines(['toto', 'titi'])",
+            from_file="toto2.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
+            num_line=10,
+            num_col=12,
+            line_as_str="sys.stdout.writelines(['toto', 'titi'])",
+            from_file="toto3.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
+            num_line=10,
+            num_col=12,
+            line_as_str="sys.stdout.writelines(['toto', 'titi'])",
+            from_file="toto4.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
+            num_line=10,
+            num_col=12,
+            line_as_str="sys.stdout.writelines(['toto', 'titi'])",
+            from_file="toto6.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
+            num_line=11,
+            num_col=12,
+            line_as_str="sys.stderr.writelines(['toto', 'titi'])",
+            from_file="toto1.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
+            num_line=11,
+            num_col=12,
+            line_as_str="sys.stderr.writelines(['toto', 'titi'])",
+            from_file="toto2.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
+            num_line=11,
+            num_col=12,
+            line_as_str="sys.stderr.writelines(['toto', 'titi'])",
+            from_file="toto3.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
+            num_line=11,
+            num_col=12,
+            line_as_str="sys.stderr.writelines(['toto', 'titi'])",
+            from_file="toto4.py",
+            ignored=False,
+        ),
+        IssueInfo(
+            issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
+            num_line=11,
+            num_col=12,
+            line_as_str="sys.stderr.writelines(['toto', 'titi'])",
+            from_file="toto5.py",
+            ignored=False,
         ),
     ]
 

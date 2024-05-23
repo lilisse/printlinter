@@ -29,7 +29,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='print("Hello, world")',
                     from_file=INPUT_FILE_PATH / "print/toto_1.py",
-                    ignore=False,
+                    ignored=False,
                 )
             ],
             id="1 print",
@@ -43,7 +43,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=4,
                     line_as_str='print("toto")  # noqa: PPL001',
                     from_file=INPUT_FILE_PATH / "print/toto2/toto3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
@@ -51,7 +51,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=4,
                     line_as_str='print("tata")',
                     from_file=INPUT_FILE_PATH / "print/toto2/toto3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
             ],
             id="2 print",
@@ -67,7 +67,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='pprint("Hello, world")',
                     from_file=INPUT_FILE_PATH / "pprint/pprint1.py",
-                    ignore=False,
+                    ignored=False,
                 )
             ],
             id="1 pprint",
@@ -81,7 +81,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=4,
                     line_as_str='pprint("toto")  # noqa: PPL002',
                     from_file=INPUT_FILE_PATH / "pprint/pprint2/pprint3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
@@ -89,7 +89,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=4,
                     line_as_str='pprint("tata")',
                     from_file=INPUT_FILE_PATH / "pprint/pprint2/pprint3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
             ],
             id="2 pprint",
@@ -105,7 +105,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='sys.stdout.write("Hello, world")',
                     from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout1.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -113,7 +113,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='stdout.write("Hello, world")',
                     from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout1.py",
-                    ignore=False,
+                    ignored=False,
                 ),
             ],
             id="2 sys.stdout.write",
@@ -127,7 +127,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=4,
                     line_as_str='sys.stdout.write("toto")  # noqa: PPL003',
                     from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -135,7 +135,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=4,
                     line_as_str='stdout.write("toto")  # noqa: PPL003',
                     from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -143,7 +143,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=4,
                     line_as_str='sys.stdout.write("tata")',
                     from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -151,7 +151,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=4,
                     line_as_str='stdout.write("tata")',
                     from_file=INPUT_FILE_PATH / "sys/stdout/write/stdout2/stdout3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
             ],
             id="4 sys.stdout.write",
@@ -167,7 +167,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='sys.stderr.write("Hello, world")',
                     from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr1.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -175,7 +175,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='stderr.write("Hello, world")',
                     from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr1.py",
-                    ignore=False,
+                    ignored=False,
                 ),
             ],
             id="2 sys.stderr.write",
@@ -189,7 +189,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=4,
                     line_as_str='sys.stderr.write("toto")  # noqa: PPL004',
                     from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -197,7 +197,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=4,
                     line_as_str='stderr.write("toto")  # noqa: PPL004',
                     from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -205,7 +205,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=4,
                     line_as_str='sys.stderr.write("tata")',
                     from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -213,7 +213,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=4,
                     line_as_str='stderr.write("tata")',
                     from_file=INPUT_FILE_PATH / "sys/stderr/write/stderr2/stderr3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
             ],
             id="4 sys.stderr.write",
@@ -229,7 +229,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='sys.stdout.writelines(["Hello", "world"])',
                     from_file=INPUT_FILE_PATH / "sys/stdout/writelines/stdout1.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -237,7 +237,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='stdout.writelines(["Hello", "world"])',
                     from_file=INPUT_FILE_PATH / "sys/stdout/writelines/stdout1.py",
-                    ignore=False,
+                    ignored=False,
                 ),
             ],
             id="2 sys.stdout.writelines",
@@ -254,7 +254,7 @@ from ..conftest import INPUT_FILE_PATH
                     ),
                     from_file=INPUT_FILE_PATH
                     / "sys/stdout/writelines/stdout2/stdout3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -263,7 +263,7 @@ from ..conftest import INPUT_FILE_PATH
                     line_as_str='stdout.writelines(["toto", "titi"])  # noqa: PPL005',
                     from_file=INPUT_FILE_PATH
                     / "sys/stdout/writelines/stdout2/stdout3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -272,7 +272,7 @@ from ..conftest import INPUT_FILE_PATH
                     line_as_str='sys.stdout.writelines(["tata", "tutu"])',
                     from_file=INPUT_FILE_PATH
                     / "sys/stdout/writelines/stdout2/stdout3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -281,7 +281,7 @@ from ..conftest import INPUT_FILE_PATH
                     line_as_str='stdout.writelines(["tata", "tutu"])',
                     from_file=INPUT_FILE_PATH
                     / "sys/stdout/writelines/stdout2/stdout3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
             ],
             id="4 sys.stdout.writelines",
@@ -297,7 +297,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='sys.stderr.writelines(["Hello", "world"])',
                     from_file=INPUT_FILE_PATH / "sys/stderr/writelines/stderr1.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
@@ -305,7 +305,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='stderr.writelines(["Hello", "world"])',
                     from_file=INPUT_FILE_PATH / "sys/stderr/writelines/stderr1.py",
-                    ignore=False,
+                    ignored=False,
                 ),
             ],
             id="2 sys.stderr.writelines",
@@ -322,7 +322,7 @@ from ..conftest import INPUT_FILE_PATH
                     ),
                     from_file=INPUT_FILE_PATH
                     / "sys/stderr/writelines/stderr2/stderr3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
@@ -331,7 +331,7 @@ from ..conftest import INPUT_FILE_PATH
                     line_as_str='stderr.writelines(["toto", "titi"])  # noqa: PPL006',
                     from_file=INPUT_FILE_PATH
                     / "sys/stderr/writelines/stderr2/stderr3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
@@ -340,7 +340,7 @@ from ..conftest import INPUT_FILE_PATH
                     line_as_str='sys.stderr.writelines(["tata", "tutu"])',
                     from_file=INPUT_FILE_PATH
                     / "sys/stderr/writelines/stderr2/stderr3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
@@ -349,7 +349,7 @@ from ..conftest import INPUT_FILE_PATH
                     line_as_str='stderr.writelines(["tata", "tutu"])',
                     from_file=INPUT_FILE_PATH
                     / "sys/stderr/writelines/stderr2/stderr3.py",
-                    ignore=False,
+                    ignored=False,
                 ),
             ],
             id="4 sys.stderr.writelines",
@@ -364,7 +364,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='print("toto")',
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
@@ -372,7 +372,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='pprint("titi")',
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
@@ -380,7 +380,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='print("tata")  # noqa: PPL001',
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
@@ -388,7 +388,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='pprint("tutu")  # noqa: PPL002',
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
@@ -396,7 +396,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='print("foo")  # noqa: PPL002',
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
@@ -404,7 +404,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='pprint("bar")  # noqa: PPL001',
                     from_file=INPUT_FILE_PATH / "mixed/mixed0.py",
-                    ignore=False,
+                    ignored=False,
                 ),
             ],
             id="not in a folder: 2 print, 2 prettyprint",
@@ -418,7 +418,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='print("toto")',
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
@@ -426,7 +426,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='pprint("titi")',
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
@@ -434,7 +434,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='print("tata")  # noqa: PPL001',
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
@@ -442,7 +442,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='pprint("tutu")  # noqa: PPL002',
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRINTDETECT,
@@ -450,7 +450,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='print("foo")  # noqa: PPL002',
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
-                    ignore=False,
+                    ignored=False,
                 ),
                 IssueInfo(
                     issue=IssueEnum.PRETTYPRINTDETECT,
@@ -458,7 +458,7 @@ from ..conftest import INPUT_FILE_PATH
                     num_col=0,
                     line_as_str='pprint("bar")  # noqa: PPL001',
                     from_file=INPUT_FILE_PATH / "mixed/mixed1/mixed2.py",
-                    ignore=False,
+                    ignored=False,
                 ),
             ],
             id="in a folder: 2 print, 2 prettyprint",
@@ -558,7 +558,7 @@ def test_contains_print_with_files_with_ignore_files(
             num_col=0,
             line_as_str='print("toto")',
             from_file=INPUT_FILE_PATH / file_path,
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.PRETTYPRINTDETECT,
@@ -566,7 +566,7 @@ def test_contains_print_with_files_with_ignore_files(
             num_col=0,
             line_as_str='pprint("toto")',
             from_file=INPUT_FILE_PATH / file_path,
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -574,7 +574,7 @@ def test_contains_print_with_files_with_ignore_files(
             num_col=0,
             line_as_str='sys.stdout.write("toto")',
             from_file=INPUT_FILE_PATH / file_path,
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITEDETECT,
@@ -582,7 +582,7 @@ def test_contains_print_with_files_with_ignore_files(
             num_col=0,
             line_as_str='stdout.write("toto")',
             from_file=INPUT_FILE_PATH / file_path,
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -590,7 +590,7 @@ def test_contains_print_with_files_with_ignore_files(
             num_col=0,
             line_as_str='sys.stderr.write("toto")',
             from_file=INPUT_FILE_PATH / file_path,
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITEDETECT,
@@ -598,7 +598,7 @@ def test_contains_print_with_files_with_ignore_files(
             num_col=0,
             line_as_str='stderr.write("toto")',
             from_file=INPUT_FILE_PATH / file_path,
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -606,7 +606,7 @@ def test_contains_print_with_files_with_ignore_files(
             num_col=0,
             line_as_str='sys.stdout.writelines("toto")',
             from_file=INPUT_FILE_PATH / file_path,
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
@@ -614,7 +614,7 @@ def test_contains_print_with_files_with_ignore_files(
             num_col=0,
             line_as_str='stdout.writelines("toto")',
             from_file=INPUT_FILE_PATH / file_path,
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
@@ -622,7 +622,7 @@ def test_contains_print_with_files_with_ignore_files(
             num_col=0,
             line_as_str='sys.stderr.writelines("toto")',
             from_file=INPUT_FILE_PATH / file_path,
-            ignore=False,
+            ignored=False,
         ),
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
@@ -630,7 +630,7 @@ def test_contains_print_with_files_with_ignore_files(
             num_col=0,
             line_as_str='stderr.writelines("toto")',
             from_file=INPUT_FILE_PATH / file_path,
-            ignore=False,
+            ignored=False,
         ),
     ]
 

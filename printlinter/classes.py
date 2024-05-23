@@ -43,8 +43,8 @@ class IssueInfo:
     from_file: Path | None
     "File who contain the line with the issue."
 
-    ignore: bool
-    "If this issue is ignore or not."
+    ignored: bool
+    "If this issue is ignored or not."
 
     def __str__(self) -> str:
         """
@@ -61,25 +61,72 @@ class IssueInfo:
 
 
 @dataclass
-class IgnoreLine:
-    """Ignore line class."""
+class IgnoredLine:
+    """Ignored line class."""
 
     line_num: int
     "Line number of the ignored line."
 
     error_code: str
-    "Code of the ignore issue."
+    "Code of the ignored issue."
 
     from_file: Path | None
     "File who contains the ignored line."
 
 
 @dataclass
-class IgnoreFile:
-    """Ignore file class."""
+class IgnoredFile:
+    """Ignored file class."""
 
     error_code: str
-    "Code of the ignore issue."
+    "Code of the ignored issue."
 
     from_file: Path | None
     "File who contains the ignored line."
+
+
+@dataclass
+class IgnoredBlock:
+    """Ignored block of code class."""
+
+    error_code: str
+    "Code of the ignored issue."
+
+    line_from: int
+    "Begin of ignored block."
+
+    line_to: int
+    "End of ignored block."
+
+    from_file: Path | None
+    "File who contains the ignored line."
+
+    def __init__(
+        self,
+        error_code: str,
+        line_from: int,
+        line_to: int,
+        from_file: Path | None,
+    ) -> None:
+        """
+        Initialize an IngoredBlock class.
+
+        Args:
+            error_code: Given error code.
+            line_from: Given line from.
+            line_to: Given line to.
+            from_file: Given from file.
+
+        Raise:
+            ValueError: If `g_line_from` <= `g_line_to`.
+        """
+        if line_to <= line_from:
+            raise ValueError(
+                f"Given line to ({line_to}) must be strictly greater then given line "
+                f"from ({line_from})"
+            )
+
+        self.error_code = error_code
+        self.line_from = line_from
+        self.line_to = line_to
+        self.from_file = from_file

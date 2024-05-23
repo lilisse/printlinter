@@ -20,15 +20,22 @@ du code python.
 - [Ignorer des erreurs](#ignorer-des-erreurs)
   - [Ignorer une erreur sur une ligne](#ignorer-une-erreur-sur-une-ligne)
     - [Exemple](#exemple-1)
-  - [Ignorer sur un fichier entier](#ignorer-sur-un-fichier-entier)
+  - [Ignorer une erreur sur la ligne suivante](#ignorer-une-erreur-sur-la-ligne-suivante)
     - [Exemples](#exemples)
-      - [Une seul erreur](#une-seul-erreur)
+  - [Ignorer sur un fichier entier](#ignorer-sur-un-fichier-entier)
+    - [Exemples](#exemples-1)
+      - [Une seule erreur](#une-seule-erreur)
       - [Toutes les erreurs d'une librairie](#toutes-les-erreurs-dune-librairie)
       - [Toutes les erreurs](#toutes-les-erreurs)
+  - [Ignorer un bloque de code](#ignorer-un-bloque-de-code)
+    - [Exemples](#exemples-2)
+      - [Une seule erreur](#une-seule-erreur-1)
+      - [Toutes les erreurs](#toutes-les-erreurs-1)
 - [Configuration](#configuration)
   - [Target version](#target-version)
   - [Ignored files](#ignored-files)
   - [Disabled rules](#disabled-rules)
+  - [Color](#color)
   - [Exemples de fichier configuration](#exemples-de-fichier-configuration)
     - [Fichier de configuration Yaml/Yml](#fichier-de-configuration-yamlyml)
     - [Fichier de configuration Json](#fichier-de-configuration-json)
@@ -71,6 +78,43 @@ printlinter lint <file|folder>
 Le résultat produit resemble à ça.
 
 `file_path:line:column error_code display_function_detected error_name`
+
+Par défaut nous avons désactiver le linter sur certains dossiers.
+
+- `node_modules`
+- `.vscode/`
+- `__pycache__/`
+- `build/`
+- `develop-eggs/`
+- `dist/`
+- `downloads/`
+- `eggs/`
+- `.eggs/`
+- `lib/`
+- `lib64/`
+- `parts/`
+- `sdist/`
+- `var/`
+- `wheels/`
+- `pip-wheel-metadata/`
+- `share/python-wheels/`
+- `htmlcov/`
+- `.tox/`
+- `.nox/`
+- `.hypothesis/`
+- `.pytest_cache/`
+- `docs/_build/`
+- `__pypackages__/`
+- `.mypy_cache/`
+- `.ruff_cache`
+- `.pyre/`
+- `env/`
+- `venv/`
+- `ENV/`
+- `env.bak/`
+- `venv.bak/`
+- `.venv/`
+- `.env/`
 
 #### Exemple
 
@@ -150,20 +194,36 @@ titi = 2
 print (toto + titi) # noqa: PPL001
 ```
 
+## Ignorer une erreur sur la ligne suivante
+
+Pour ignorer une rêgle sur la ligne suivant, ajoutez un commentaire à la ligne précédente.
+`<printlinter disable-next (error_code)>`.
+
+<!-- markdownlint-disable-next-line MD024 -->
+### Exemples
+
+```python
+toto = 1
+titi = 2
+# <printlinter disable-next PPL001>
+print (toto + titi) # erreur ignorée
+```
+
 ## Ignorer sur un fichier entier
 
 Pour ignorer une rêgle, les rêgles d'une librairie ou toutes les rêgles, ajoutez un
-commentaire au début du fichier. `# <py-printlinter disable-file <error_code>`.
+commentaire au début du fichier. `# <printlinter disable-file <error_code>`.
 
 <!-- markdownlint-disable-next-line MD036 -->
 **Le commentaire DOIT être avant tout code dans le fichier.**
 
+<!-- markdownlint-disable-next-line MD024 -->
 ### Exemples
 
-#### Une seul erreur
+#### Une seule erreur
 
 ```python
-# <py-printlinter disable-file PPL002>
+# <printlinter disable-file PPL002>
 from pprint import pprint
 toto = 1
 titi = 2
@@ -174,7 +234,7 @@ pprint(titi + toto)  # ignored error
 #### Toutes les erreurs d'une librairie
 
 ```python
-# <py-printlinter disable-file PPL000>
+# <printlinter disable-file PPL000>
 import sys
 toto = 1
 titi = 2
@@ -186,7 +246,7 @@ sys.stdout.write(titi + toto)  # ignored error
 #### Toutes les erreurs
 
 ```python
-# <py-printlinter disable-file ALL>
+# <printlinter disable-file ALL>
 from sys import stdout, stderr
 from pprint import pprint
 toto = 1
@@ -197,6 +257,79 @@ stdout.write(titi + toto)  # ignored error
 stderr.write(titi + toto)  # ignored error
 stdout.writelines(titi + toto)  # ignored error
 stderr.writelines(titi + toto)  # ignored error
+...
+```
+
+## Ignorer un bloque de code
+
+Pour ignorer un bloque de code (désactiver le linteur) sur une ou toutes rêgles (pour
+les librairies ça arrivera plus tard), ajoutez un commentaire avant le bloque de code que
+vous voulez ignorer: `<printlinter disable (error_code)`. Pour réactiver le linteur
+ajoutez un autre commentaire après  le bloque de code: `<printlinter enable (error_code)>`.
+Vous n'etes pas obligé de réactiver le linter après l'avoir désactivé.
+
+<!-- markdownlint-disable-next-line MD024 -->
+### Exemples
+
+<!-- markdownlint-disable-next-line MD024 -->
+#### Une seule erreur
+
+```python
+from pprint import pprint
+# <printlinter disable PPL001>
+print("toto") # ignored error
+pprint("titit")
+# <printlinter enable PPL001>
+...
+```
+
+Vous pouvez ignorer des bloque de code imbriqués.
+
+```python
+from pprint import pprint
+
+# <printlinter disable PPL002>
+
+pprint("titi") # ignored error
+
+# <printlinter disable PPL001>
+print("toto") # ignored error
+# <printlinter enable PPL001>
+
+print("tutu") # NOT IGNORED ERROR
+pprint("tata") # ignored error
+
+# <printlinter enable PPL002>
+...
+```
+
+Sans réactiver le linteur.
+
+```python
+from pprint import pprint
+# <printlinter disable PPL001>
+print("toto") # ignored error
+pprint("titit")
+...
+print('toto') # ignored error
+```
+
+<!-- markdownlint-disable-next-line MD024 -->
+#### Toutes les erreurs
+
+```python
+from sys import stdout, stderr
+from pprint import pprint
+toto = 1
+titi = 2
+# <printlinter disable ALL>
+print(titi + toto)  # ignored error
+pprint(titi + toto)  # ignored error
+stdout.write(titi + toto)  # ignored error
+stderr.write(titi + toto)  # ignored error
+stdout.writelines(titi + toto)  # ignored error
+stderr.writelines(titi + toto)  # ignored error
+# <printlinter enable ALL>
 ...
 ```
 
@@ -250,6 +383,13 @@ Le fichier de configuration permet de désactiver des rêgles dans tout les fich
 
 Vous pouvez voir des exemples de configuration [ici](#exemples-de-fichier-configuration).
 
+## Color
+
+Le fichier de configuration permet d'activer ou de désactiver la sortie colorisée. Par
+défaut l'option `color` est sur `True`.
+
+Vous pouvez voir des exemples de configuration [ici](#exemples-de-fichier-configuration).
+
 ## Exemples de fichier configuration
 
 ### Fichier de configuration Yaml/Yml
@@ -259,6 +399,7 @@ printlinter:
   target_version: "3.10"
   ignored_files: [toto.py]
   disabled_rules: [PPL001]
+  color: true
 ```
 
 ### Fichier de configuration Json
@@ -269,6 +410,7 @@ printlinter:
     "target_version": "3.10",
     "ignored_files": ["toto.py"],
     "disabled_rules": ["PPL001"]
+    "color": false
   }
 }
 
@@ -281,6 +423,7 @@ printlinter:
 target_version = "3.10"
 ignored_files = ["toto.py"]
 disabled_rules = ["PPL001"]
+color = true
 ```
 
 ### Fichier de configuration Pyproject
@@ -290,6 +433,7 @@ disabled_rules = ["PPL001"]
 target_version = "3.10"
 ignored_files = ["toto.py"]
 disabled_rules = ["PPL001"]
+color = false
 ```
 
 # Pour la suite
@@ -297,8 +441,5 @@ disabled_rules = ["PPL001"]
 Pour voir les prochaines fonctionnalités qui seront développées regarder [TODO](TOTO.md).
 Voici une petite, liste non exhaustive de ce qui est prévu dans les versions futures.
 
-- Ignorer un bloque de code.
-- Ignorer la ligne suivante
 - Linter les fonctions d'affichage de d'autres librairies
 - Ajouter d'autre option de configuration.
-- Ajouter d'autres traductions.

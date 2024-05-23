@@ -1,0 +1,4 @@
+printlinter:
+  target_version: "3.9"
+  ignored_files: [titi.py]
+  color: false

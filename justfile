@@ -1,6 +1,6 @@
 # Remove python cache files
 clean:
-    find . \( -name __pycache__ -o -name "*.pyc" \) -delete
+    -find . \( -name __pycache__ -o -name "*.pyc" \) -delete
 
 # Clear and display pwd
 clear:
@@ -9,13 +9,14 @@ clear:
 
 # Install no-dev dependencies with poetry
 install: clean clear
-    poetry install --no-dev --remove-untracked
+    poetry install --no-dev --sync
 
 # install all dependencies with poetry and npm
-install-all: clean clear
-    poetry install --remove-untracked
-    npm install
-    sudo npm install markdownlint-cli2 --global
+install-dev: clean clear
+    poetry install --sync
+
+create_rep_for_test:
+    ./create_ignored_rep_for_test.sh
 
 # Do a clean install of pre-commit dependencies
 preinstall: clean clear
@@ -43,10 +44,6 @@ mypy-cli: clean clear
     mypy --pretty -p cli_app --config-file pyproject.toml
 
 
-# Run markdownlint
-lintmd path='"**/*.md" "#node_modules"': clean clear
-    markdownlint-cli2-config ".markdownlint-cli2.yaml" {{ path }}
-
 # Run ruff
 ruff path="printlinter cli_app": clean clear
     ruff {{path}}
@@ -57,7 +54,7 @@ onmy31 path ="printlinter cli_app tests": clean clear
     isort {{path}}
 
 # Run all linter
-lint : clean clear onmy31 mypy-linter mypy-cli ruff lintmd
+lint : clean clear onmy31 mypy-linter mypy-cli ruff
 
 # auto interactive rebase
 autorebase: clean clear

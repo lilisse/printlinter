@@ -3,7 +3,6 @@ import pytest
 from pytest import param
 
 # Standard imports
-from os import getcwd
 from pathlib import Path
 
 # Third party imports
@@ -14,9 +13,6 @@ from typer.testing import CliRunner
 from cli_app import APP
 from printlinter import __app_name__ as ppl_name
 from printlinter import __version__ as ppl_version
-
-# Local imports
-from ..config.conftest import change_cwd
 
 runner = CliRunner()
 
@@ -36,9 +32,11 @@ def test_cli_version():
         param("README.md", 1, id="not a python file"),
         param("print/toto0.py", 1, id="file"),
         param("print/toto4", 0, id="no errors, no print"),
-        param("print/toto2", 0, id="print detected"),
+        param("print/toto2", 0, id="print detected on folder"),
+        param("print/toto2/toto3.py", 0, id="print detected on file"),
         param("pprint/pprint2", 0, id="pprint detected with ignored file in config"),
         param("ignored_files", 0, id="ignore file with warning"),
+        param("ignored_block", 0, id="ignore block"),
     ],
 )
 def test_cli_command_lint_w_path(
@@ -57,5 +55,12 @@ def test_cli_command_lint_w_path(
         ],
     )
 
+    assert_that(result.exit_code).is_equal_to(expected_exit_code)
+
+
+def test_cli_on_default_ignored_rep(pnv_soft_reset, testing_files):
+    result = runner.invoke(APP, ["lint", f"{testing_files}/config/ignored_rep"])
+
     with soft_assertions():
-        assert_that(result.exit_code).is_equal_to(expected_exit_code)
+        assert_that(result.exit_code).is_equal_to(0)
+        assert_that(result.stdout).contains("Found 1 errors")
