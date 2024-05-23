@@ -521,7 +521,6 @@ def test_get_not_ignore_issue__ignore_block(
             from_file="toto6.py",
             ignore=False,
         ),
-        #
         IssueInfo(
             issue=IssueEnum.PRETTYPRINTDETECT,
             num_line=7,
@@ -562,7 +561,6 @@ def test_get_not_ignore_issue__ignore_block(
             from_file="toto6.py",
             ignore=False,
         ),
-        #
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITEDETECT,
             num_line=8,
@@ -603,7 +601,6 @@ def test_get_not_ignore_issue__ignore_block(
             from_file="toto6.py",
             ignore=False,
         ),
-        #
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITEDETECT,
             num_line=9,
@@ -644,7 +641,6 @@ def test_get_not_ignore_issue__ignore_block(
             from_file="toto6.py",
             ignore=False,
         ),
-        #
         IssueInfo(
             issue=IssueEnum.SYSSTDOUTWRITELINESDETECT,
             num_line=10,
@@ -685,7 +681,6 @@ def test_get_not_ignore_issue__ignore_block(
             from_file="toto6.py",
             ignore=False,
         ),
-        #
         IssueInfo(
             issue=IssueEnum.SYSSTDERRWRITELINESDETECT,
             num_line=11,

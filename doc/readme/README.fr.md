@@ -266,6 +266,7 @@ Pour ignorer un bloque de code (désactiver le linteur) sur une ou toutes rêgle
 les librairies ça arrivera plus tard), ajoutez un commentaire avant le bloque de code que
 vous voulez ignorer: `<py-printlinter disable (error_code)`. Pour réactiver le linteur
 ajoutez un autre commentaire après  le bloque de code: `<py-printlinter enable (error_code)>`.
+Vous n'etes pas obligé de réactiver le linter après l'avoir désactivé.
 
 <!-- markdownlint-disable-next-line MD024 -->
 ### Exemples
@@ -300,6 +301,17 @@ pprint("tata") # ignored error
 
 # <py-printlinter enable PPL002>
 ...
+```
+
+Sans réactiver le linteur.
+
+```python
+from pprint import pprint
+# <py-printlinter disable PPL001>
+print("toto") # ignored error
+pprint("titit")
+...
+print('toto') # ignored error
 ```
 
 <!-- markdownlint-disable-next-line MD024 -->

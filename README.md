@@ -262,7 +262,8 @@ stderr.writelines(titi + toto)  # ignored error
 To ignore a block of code (disable the linter) on a rules or all rules (disable library
 rules come later), add a comment before the block you want ignore:
 `<py-printlinter disable (error_code)`. To re enable the linter add an other comment after
-the block of code: `<py-printlinter enable (error_code)>`.
+the block of code: `<py-printlinter enable (error_code)>`. You are don't have to re enable
+the linter after disabled it.
 
 <!-- markdownlint-disable-next-line MD024 -->
 ### Examples
@@ -297,6 +298,17 @@ pprint("tata") # ignored error
 
 # <py-printlinter enable PPL002>
 ...
+```
+
+without re enable the linter.
+
+```python
+from pprint import pprint
+# <py-printlinter disable PPL001>
+print("toto") # ignored error
+pprint("titit")
+...
+print('toto') # ignored error
 ```
 
 <!-- markdownlint-disable-next-line MD024 -->

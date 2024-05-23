@@ -98,7 +98,6 @@ class IgnoredBlock:
     line_from: int
     "Begin of ignored block."
 
-    # TODO: Enable None to ignore all rest of file (5 to end of file for example)
     line_to: int
     "End of ignored block."
 

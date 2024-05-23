@@ -119,6 +119,7 @@ def _match_block(
     begin: list[tuple[int, str]],
     end: list[tuple[int, str]],
     file_path: Path,
+    nb_lines: int,
 ) -> list[IgnoredBlock]:
     """
     Match ignored block of code.
@@ -127,6 +128,7 @@ def _match_block(
         begin: Start of ignored block of code.
         end: End of ignored block of code.
         file_path: Path of the given file.
+        nb_lines: Number of lines in the file.
 
     Returns:
         Ignored Block of code in given file.
@@ -134,6 +136,7 @@ def _match_block(
     result = []
 
     for begin_element in begin:
+        find_end = False
         for end_element in end:
             if begin_element[1] == end_element[1]:
                 result.append(
@@ -141,18 +144,28 @@ def _match_block(
                         begin_element[1], begin_element[0], end_element[0], file_path
                     )
                 )
+                find_end = True
                 break
+        if not find_end:
+            result.append(
+                IgnoredBlock(begin_element[1], begin_element[0], nb_lines, file_path)
+            )
 
     return result
 
 
-def get_ignored_block(file: TextIOWrapper, file_path: Path) -> list[IgnoredBlock]:
+def get_ignored_block(
+    file: TextIOWrapper,
+    file_path: Path,
+    nb_lines: int,
+) -> list[IgnoredBlock]:
     """
     Get ignored block in a file.
 
     Args:
         file: File to analyze.
         file_path: Path of the given file.
+        nb_lines: Number of lines in the file.
 
     Returns:
         Ignored Block in given file.
@@ -171,7 +184,7 @@ def get_ignored_block(file: TextIOWrapper, file_path: Path) -> list[IgnoredBlock
                 lineo, _ = start
                 end.append((lineo, match.group("code")))
 
-    return _match_block(begin, end, file_path)
+    return _match_block(begin, end, file_path, nb_lines)
 
 
 def parse_file(
@@ -196,6 +209,8 @@ def parse_file(
             feature_version=target_version,
         )
         file.seek(0)
+        nb_lines = len(file.readlines()) + 1
+        file.seek(0)
 
         ignore_lines = get_ignore_lines(file, Path(file_path))
         file.seek(0)
@@ -203,7 +218,7 @@ def parse_file(
         ignore_files = get_ignore_files(file, Path(file_path))
         file.seek(0)
 
-        ignored_block = get_ignored_block(file, Path(file_path))
+        ignored_block = get_ignored_block(file, Path(file_path), nb_lines)
         file.seek(0)
 
     return tree, ignore_lines, ignore_files, ignored_block

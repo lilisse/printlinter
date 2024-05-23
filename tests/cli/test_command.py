@@ -3,7 +3,6 @@ import pytest
 from pytest import param
 
 # Standard imports
-from os import getcwd
 from pathlib import Path
 
 # Third party imports
@@ -14,9 +13,6 @@ from typer.testing import CliRunner
 from cli_app import APP
 from printlinter import __app_name__ as ppl_name
 from printlinter import __version__ as ppl_version
-
-# Local imports
-from ..config.conftest import change_cwd
 
 runner = CliRunner()
 
@@ -40,6 +36,7 @@ def test_cli_version():
         param("print/toto2/toto3.py", 0, id="print detected on file"),
         param("pprint/pprint2", 0, id="pprint detected with ignored file in config"),
         param("ignored_files", 0, id="ignore file with warning"),
+        param("ignored_block", 0, id="ignore block"),
     ],
 )
 def test_cli_command_lint_w_path(

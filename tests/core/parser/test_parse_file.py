@@ -391,10 +391,10 @@ from .conftest import compare_ast
             [],
             id="Ignore sys.stderr.writelines and stderr.writelines in file",
         ),
-        # Ignore block of code
+        # Ignore block of code re enable the linter
         # print
         param(
-            "ignored_block/ppl001.py",
+            "ignored_block/re_enable/ppl001.py",
             [],
             [],
             [
@@ -402,14 +402,14 @@ from .conftest import compare_ast
                     error_code="PPL001",
                     line_from=5,
                     line_to=8,
-                    from_file=INPUT_FILE_PATH / "ignored_block/ppl001.py",
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/ppl001.py",
                 )
             ],
-            id="Ignore block of code: print",
+            id="Ignore block of code: print re enable",
         ),
         # pprint
         param(
-            "ignored_block/ppl002.py",
+            "ignored_block/re_enable/ppl002.py",
             [],
             [],
             [
@@ -417,14 +417,14 @@ from .conftest import compare_ast
                     error_code="PPL002",
                     line_from=9,
                     line_to=12,
-                    from_file=INPUT_FILE_PATH / "ignored_block/ppl002.py",
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/ppl002.py",
                 )
             ],
-            id="Ignore block of code: pprint",
+            id="Ignore block of code: pprint re enable",
         ),
         # sys.stdout.write
         param(
-            "ignored_block/ppl003.py",
+            "ignored_block/re_enable/ppl003.py",
             [],
             [],
             [
@@ -432,14 +432,14 @@ from .conftest import compare_ast
                     error_code="PPL003",
                     line_from=9,
                     line_to=12,
-                    from_file=INPUT_FILE_PATH / "ignored_block/ppl003.py",
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/ppl003.py",
                 )
             ],
-            id="Ignore block of code: sys.stdout.write",
+            id="Ignore block of code: sys.stdout.write re enable",
         ),
         # sys.stderr.write
         param(
-            "ignored_block/ppl004.py",
+            "ignored_block/re_enable/ppl004.py",
             [],
             [],
             [
@@ -447,14 +447,14 @@ from .conftest import compare_ast
                     error_code="PPL004",
                     line_from=9,
                     line_to=12,
-                    from_file=INPUT_FILE_PATH / "ignored_block/ppl004.py",
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/ppl004.py",
                 )
             ],
-            id="Ignore block of code: sys.stderr.write",
+            id="Ignore block of code: sys.stderr.write re enable",
         ),
         # sys.stdout.writelines
         param(
-            "ignored_block/ppl005.py",
+            "ignored_block/re_enable/ppl005.py",
             [],
             [],
             [
@@ -462,14 +462,14 @@ from .conftest import compare_ast
                     error_code="PPL005",
                     line_from=9,
                     line_to=12,
-                    from_file=INPUT_FILE_PATH / "ignored_block/ppl005.py",
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/ppl005.py",
                 )
             ],
-            id="Ignore block of code: sys.stdout.writelines",
+            id="Ignore block of code: sys.stdout.writelines re enable",
         ),
         # sys.stderr.writelines
         param(
-            "ignored_block/ppl006.py",
+            "ignored_block/re_enable/ppl006.py",
             [],
             [],
             [
@@ -477,14 +477,14 @@ from .conftest import compare_ast
                     error_code="PPL006",
                     line_from=9,
                     line_to=12,
-                    from_file=INPUT_FILE_PATH / "ignored_block/ppl006.py",
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/ppl006.py",
                 )
             ],
-            id="Ignore block of code: sys.stderr.writelines",
+            id="Ignore block of code: sys.stderr.writelines re enable",
         ),
         # mixed
         param(
-            "ignored_block/mix.py",
+            "ignored_block/re_enable/mix.py",
             [],
             [],
             [
@@ -492,20 +492,20 @@ from .conftest import compare_ast
                     error_code="PPL002",
                     line_from=9,
                     line_to=16,
-                    from_file=INPUT_FILE_PATH / "ignored_block/mix.py",
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/mix.py",
                 ),
                 IgnoredBlock(
                     error_code="PPL001",
                     line_from=12,
                     line_to=15,
-                    from_file=INPUT_FILE_PATH / "ignored_block/mix.py",
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/mix.py",
                 ),
             ],
-            id="Ignore block of code: sys.stderr.writelines",
+            id="Ignore block of code: mixed re enable",
         ),
         # all
         param(
-            "ignored_block/all.py",
+            "ignored_block/re_enable/all.py",
             [],
             [],
             [
@@ -513,10 +513,137 @@ from .conftest import compare_ast
                     error_code="ALL",
                     line_from=10,
                     line_to=17,
-                    from_file=INPUT_FILE_PATH / "ignored_block/all.py",
+                    from_file=INPUT_FILE_PATH / "ignored_block/re_enable/all.py",
                 )
             ],
-            id="Ignore block of code: sys.stderr.writelines",
+            id="Ignore block of code: all re enable",
+        ),
+        # Ignore block of code don't re enable the linter
+        # print
+        param(
+            "ignored_block/no_re_enable/ppl001.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL001",
+                    line_from=5,
+                    line_to=8,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/ppl001.py",
+                )
+            ],
+            id="Ignore block of code: print don't re enable",
+        ),
+        # pprint
+        param(
+            "ignored_block/no_re_enable/ppl002.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL002",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/ppl002.py",
+                )
+            ],
+            id="Ignore block of code: pprint don't re enable",
+        ),
+        # sys.stdout.write
+        param(
+            "ignored_block/no_re_enable/ppl003.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL003",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/ppl003.py",
+                )
+            ],
+            id="Ignore block of code: sys.stdout.write don't re enable",
+        ),
+        # sys.stderr.write
+        param(
+            "ignored_block/no_re_enable/ppl004.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL004",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/ppl004.py",
+                )
+            ],
+            id="Ignore block of code: sys.stderr.write don't re enable",
+        ),
+        # sys.stdout.writelines
+        param(
+            "ignored_block/no_re_enable/ppl005.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL005",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/ppl005.py",
+                )
+            ],
+            id="Ignore block of code: sys.stdout.writelines don't re enable",
+        ),
+        # sys.stderr.writelines
+        param(
+            "ignored_block/no_re_enable/ppl006.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL006",
+                    line_from=9,
+                    line_to=12,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/ppl006.py",
+                )
+            ],
+            id="Ignore block of code: sys.stderr.writelines don't re enable",
+        ),
+        # mixed
+        param(
+            "ignored_block/no_re_enable/mix.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="PPL002",
+                    line_from=9,
+                    line_to=15,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/mix.py",
+                ),
+                IgnoredBlock(
+                    error_code="PPL001",
+                    line_from=12,
+                    line_to=15,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/mix.py",
+                ),
+            ],
+            id="Ignore block of code: mixed don't re enable",
+        ),
+        # all
+        param(
+            "ignored_block/no_re_enable/all.py",
+            [],
+            [],
+            [
+                IgnoredBlock(
+                    error_code="ALL",
+                    line_from=10,
+                    line_to=17,
+                    from_file=INPUT_FILE_PATH / "ignored_block/no_re_enable/all.py",
+                )
+            ],
+            id="Ignore block of code: all don't re enable",
         ),
     ],
 )

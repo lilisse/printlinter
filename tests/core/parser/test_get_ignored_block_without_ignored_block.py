@@ -13,5 +13,6 @@ def test_get_ignored_block_without_ignored_block(
         get_ignored_block(
             file_with_ignored_block_nothing,
             testing_files / "ignored_block/ignore_nothing.py",
+            6,
         )
     ).is_equal_to([])
