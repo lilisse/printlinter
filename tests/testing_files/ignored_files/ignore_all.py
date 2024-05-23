@@ -1,4 +1,4 @@
-# <py-printlinter disable-file ALL>
+# <printlinter disable-file ALL>
 # Standard imports
 import sys
 from pprint import pprint

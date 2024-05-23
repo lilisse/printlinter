@@ -3,5 +3,5 @@ def toto():
 
 
 print(toto())
-# <py-printlinter disable-next PPL001>
+# <printlinter disable-next PPL001>
 print(toto())

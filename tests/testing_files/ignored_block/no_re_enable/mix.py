@@ -6,9 +6,9 @@ def toto():
     return 1 + 2
 
 
-# <py-printlinter disable PPL002>
+# <printlinter disable PPL002>
 pprint(toto())
 pprint(toto() + toto())
-# <py-printlinter disable PPL001>
+# <printlinter disable PPL001>
 print(toto())
 print(toto() + toto())

@@ -7,5 +7,5 @@ def toto():
 
 
 stdout.writelines(toto())
-# <py-printlinter disable-next PPL005>
+# <printlinter disable-next PPL005>
 stdout.writelines(toto())

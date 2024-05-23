@@ -197,7 +197,7 @@ print (toto + titi) # noqa: PPL001
 ## Ignorer une erreur sur la ligne suivante
 
 Pour ignorer une rêgle sur la ligne suivant, ajoutez un commentaire à la ligne précédente.
-`<py-printlinter disable-next (error_code)>`.
+`<printlinter disable-next (error_code)>`.
 
 <!-- markdownlint-disable-next-line MD024 -->
 ### Exemples
@@ -205,14 +205,14 @@ Pour ignorer une rêgle sur la ligne suivant, ajoutez un commentaire à la ligne
 ```python
 toto = 1
 titi = 2
-# <py-printlinter disable-next PPL001>
+# <printlinter disable-next PPL001>
 print (toto + titi) # erreur ignorée
 ```
 
 ## Ignorer sur un fichier entier
 
 Pour ignorer une rêgle, les rêgles d'une librairie ou toutes les rêgles, ajoutez un
-commentaire au début du fichier. `# <py-printlinter disable-file <error_code>`.
+commentaire au début du fichier. `# <printlinter disable-file <error_code>`.
 
 <!-- markdownlint-disable-next-line MD036 -->
 **Le commentaire DOIT être avant tout code dans le fichier.**
@@ -223,7 +223,7 @@ commentaire au début du fichier. `# <py-printlinter disable-file <error_code>`.
 #### Une seule erreur
 
 ```python
-# <py-printlinter disable-file PPL002>
+# <printlinter disable-file PPL002>
 from pprint import pprint
 toto = 1
 titi = 2
@@ -234,7 +234,7 @@ pprint(titi + toto)  # ignored error
 #### Toutes les erreurs d'une librairie
 
 ```python
-# <py-printlinter disable-file PPL000>
+# <printlinter disable-file PPL000>
 import sys
 toto = 1
 titi = 2
@@ -246,7 +246,7 @@ sys.stdout.write(titi + toto)  # ignored error
 #### Toutes les erreurs
 
 ```python
-# <py-printlinter disable-file ALL>
+# <printlinter disable-file ALL>
 from sys import stdout, stderr
 from pprint import pprint
 toto = 1
@@ -264,8 +264,8 @@ stderr.writelines(titi + toto)  # ignored error
 
 Pour ignorer un bloque de code (désactiver le linteur) sur une ou toutes rêgles (pour
 les librairies ça arrivera plus tard), ajoutez un commentaire avant le bloque de code que
-vous voulez ignorer: `<py-printlinter disable (error_code)`. Pour réactiver le linteur
-ajoutez un autre commentaire après  le bloque de code: `<py-printlinter enable (error_code)>`.
+vous voulez ignorer: `<printlinter disable (error_code)`. Pour réactiver le linteur
+ajoutez un autre commentaire après  le bloque de code: `<printlinter enable (error_code)>`.
 Vous n'etes pas obligé de réactiver le linter après l'avoir désactivé.
 
 <!-- markdownlint-disable-next-line MD024 -->
@@ -276,10 +276,10 @@ Vous n'etes pas obligé de réactiver le linter après l'avoir désactivé.
 
 ```python
 from pprint import pprint
-# <py-printlinter disable PPL001>
+# <printlinter disable PPL001>
 print("toto") # ignored error
 pprint("titit")
-# <py-printlinter enable PPL001>
+# <printlinter enable PPL001>
 ...
 ```
 
@@ -288,18 +288,18 @@ Vous pouvez ignorer des bloque de code imbriqués.
 ```python
 from pprint import pprint
 
-# <py-printlinter disable PPL002>
+# <printlinter disable PPL002>
 
 pprint("titi") # ignored error
 
-# <py-printlinter disable PPL001>
+# <printlinter disable PPL001>
 print("toto") # ignored error
-# <py-printlinter enable PPL001>
+# <printlinter enable PPL001>
 
 print("tutu") # NOT IGNORED ERROR
 pprint("tata") # ignored error
 
-# <py-printlinter enable PPL002>
+# <printlinter enable PPL002>
 ...
 ```
 
@@ -307,7 +307,7 @@ Sans réactiver le linteur.
 
 ```python
 from pprint import pprint
-# <py-printlinter disable PPL001>
+# <printlinter disable PPL001>
 print("toto") # ignored error
 pprint("titit")
 ...
@@ -322,14 +322,14 @@ from sys import stdout, stderr
 from pprint import pprint
 toto = 1
 titi = 2
-# <py-printlinter disable ALL>
+# <printlinter disable ALL>
 print(titi + toto)  # ignored error
 pprint(titi + toto)  # ignored error
 stdout.write(titi + toto)  # ignored error
 stderr.write(titi + toto)  # ignored error
 stdout.writelines(titi + toto)  # ignored error
 stderr.writelines(titi + toto)  # ignored error
-# <py-printlinter enable ALL>
+# <printlinter enable ALL>
 ...
 ```
 
