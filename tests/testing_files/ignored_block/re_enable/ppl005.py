@@ -6,7 +6,7 @@ def toto():
     return 1 + 2
 
 
-# <py-printlinter disable PPL005>
+# <printlinter disable PPL005>
 stdout.writelines(toto())
 stdout.writelines(toto() + toto())
-# <py-printlinter enable PPL005>
+# <printlinter enable PPL005>

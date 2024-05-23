@@ -194,7 +194,7 @@ print (toto + titi) # noqa: PPL001
 ## Ignore error on the next line
 
 To ignore a rule on the next line, add a comment at the line before code to ignore.
-`<py-printlinter disable-next (error_code)>`.
+`<printlinter disable-next (error_code)>`.
 
 <!-- markdownlint-disable-next-line MD024 -->
 ### Examples
@@ -202,14 +202,14 @@ To ignore a rule on the next line, add a comment at the line before code to igno
 ```python
 toto = 1
 titi = 2
-# <py-printlinter disable-next PPL001>
+# <printlinter disable-next PPL001>
 print (toto + titi) # ignored error
 ```
 
 ## Ignore a whole file
 
 To ignore a rule, library rules or all rules, add a comment at the beging of the file.
-`# <py-printlinter disable-file (error_code)>`.
+`# <printlinter disable-file (error_code)>`.
 
 <!-- markdownlint-disable-next-line MD036 -->
 **The comment must be before any code in a file.**
@@ -220,7 +220,7 @@ To ignore a rule, library rules or all rules, add a comment at the beging of the
 #### Simple error
 
 ```python
-# <py-printlinter disable-file PPL002>
+# <printlinter disable-file PPL002>
 from pprint import pprint
 toto = 1
 titi = 2
@@ -231,7 +231,7 @@ pprint(titi + toto)  # ignored error
 #### library errors
 
 ```python
-# <py-printlinter disable-file PPL000>
+# <printlinter disable-file PPL000>
 import sys
 toto = 1
 titi = 2
@@ -243,7 +243,7 @@ sys.stdout.write(titi + toto)  # ignored error
 #### All errors
 
 ```python
-# <py-printlinter disable-file ALL>
+# <printlinter disable-file ALL>
 from sys import stdout, stderr
 from pprint import pprint
 toto = 1
@@ -261,8 +261,8 @@ stderr.writelines(titi + toto)  # ignored error
 
 To ignore a block of code (disable the linter) on a rules or all rules (disable library
 rules come later), add a comment before the block you want ignore:
-`<py-printlinter disable (error_code)`. To re enable the linter add an other comment after
-the block of code: `<py-printlinter enable (error_code)>`. You are don't have to re enable
+`<printlinter disable (error_code)`. To re enable the linter add an other comment after
+the block of code: `<printlinter enable (error_code)>`. You are don't have to re enable
 the linter after disabled it.
 
 <!-- markdownlint-disable-next-line MD024 -->
@@ -273,10 +273,10 @@ the linter after disabled it.
 
 ```python
 from pprint import pprint
-# <py-printlinter disable PPL001>
+# <printlinter disable PPL001>
 print("toto") # ignored error
 pprint("titit")
-# <py-printlinter enable PPL001>
+# <printlinter enable PPL001>
 ...
 ```
 
@@ -285,18 +285,18 @@ You can nested ignored block.
 ```python
 from pprint import pprint
 
-# <py-printlinter disable PPL002>
+# <printlinter disable PPL002>
 
 pprint("titi") # ignored error
 
-# <py-printlinter disable PPL001>
+# <printlinter disable PPL001>
 print("toto") # ignored error
-# <py-printlinter enable PPL001>
+# <printlinter enable PPL001>
 
 print("tutu") # NOT IGNORED ERROR
 pprint("tata") # ignored error
 
-# <py-printlinter enable PPL002>
+# <printlinter enable PPL002>
 ...
 ```
 
@@ -304,7 +304,7 @@ without re enable the linter.
 
 ```python
 from pprint import pprint
-# <py-printlinter disable PPL001>
+# <printlinter disable PPL001>
 print("toto") # ignored error
 pprint("titit")
 ...
@@ -319,14 +319,14 @@ from sys import stdout, stderr
 from pprint import pprint
 toto = 1
 titi = 2
-# <py-printlinter disable ALL>
+# <printlinter disable ALL>
 print(titi + toto)  # ignored error
 pprint(titi + toto)  # ignored error
 stdout.write(titi + toto)  # ignored error
 stderr.write(titi + toto)  # ignored error
 stdout.writelines(titi + toto)  # ignored error
 stderr.writelines(titi + toto)  # ignored error
-# <py-printlinter enable ALL>
+# <printlinter enable ALL>
 ...
 ```
 

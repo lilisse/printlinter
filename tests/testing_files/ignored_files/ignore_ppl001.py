@@ -1,4 +1,4 @@
-# <py-printlinter disable-file PPL001>
+# <printlinter disable-file PPL001>
 # Standard imports
 import sys
 from pprint import pprint

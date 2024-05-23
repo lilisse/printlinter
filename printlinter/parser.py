@@ -11,11 +11,10 @@ from pathlib import Path
 from .classes import IgnoredBlock, IgnoredFile, IgnoredLine
 
 IGNORE_LINE_TOKEN_REGEX = r"noqa:[ ]?(?P<code>PPL[0-9]{3})"
-# TODO: REMOVE py-, py-printlinter becomoe printlinter
-IGNORE_NEXT_LINE_TOKEN_REGEX = r"<py-printlinter disable-next (?P<code>PPL[0-9]{3})>"
-IGNORE_FILE_TOKEN_REGEX = r"<py-printlinter disable-file (?P<code>ALL|PPL[0-9]{3})>"
-IGNORE_BLOCK_BEGIN_TOKEN_REGEX = r"<py-printlinter disable (?P<code>ALL|PPL[0-9]{3})>"
-IGNORE_BLOCK_END_TOKEN_REGEX = r"<py-printlinter enable (?P<code>ALL|PPL[0-9]{3})>"
+IGNORE_NEXT_LINE_TOKEN_REGEX = r"<printlinter disable-next (?P<code>PPL[0-9]{3})>"
+IGNORE_FILE_TOKEN_REGEX = r"<printlinter disable-file (?P<code>ALL|PPL[0-9]{3})>"
+IGNORE_BLOCK_BEGIN_TOKEN_REGEX = r"<printlinter disable (?P<code>ALL|PPL[0-9]{3})>"
+IGNORE_BLOCK_END_TOKEN_REGEX = r"<printlinter enable (?P<code>ALL|PPL[0-9]{3})>"
 
 
 def enumerate_file(folder: Path) -> list[Path]:
