@@ -15,7 +15,7 @@ from .parser import (  # noqa: F401
     enumerate_file,
     get_ignore_files,
     get_ignore_lines,
-    get_ignored_block,
+    get_ignored_blocks,
     parse_file,
 )
 from .visitor import PrintNodeVisitor, contains_print  # noqa: F401

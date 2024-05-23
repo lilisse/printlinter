@@ -148,7 +148,7 @@ def lint(
 
     all_ignored_lines = []
     all_ignored_files = []
-    all_ignored_block = []
+    all_ignored_blocks = []
     issues = []
     for file_path in track(files_path, description="Processing..."):
         if (
@@ -173,13 +173,13 @@ def lint(
         else:
             all_ignored_files.extend(ignored_files)
 
-        all_ignored_block.extend(ignored_blocks)
+        all_ignored_blocks.extend(ignored_blocks)
 
     not_ignored_issues = get_not_ignore_issue(
         issues,
         all_ignored_lines,
         all_ignored_files,
-        all_ignored_block,
+        all_ignored_blocks,
         config.disabled_rules,
     )
 

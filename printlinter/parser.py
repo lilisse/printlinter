@@ -115,14 +115,14 @@ def get_ignore_files(file: TextIOWrapper, file_path: Path) -> list[IgnoreFile] |
     return []
 
 
-def _match_block(
+def _match_blocks(
     begin: list[tuple[int, str]],
     end: list[tuple[int, str]],
     file_path: Path,
     nb_lines: int,
 ) -> list[IgnoredBlock]:
     """
-    Match ignored block of code.
+    Match ignored blocks of code.
 
     Args:
         begin: Start of ignored block of code.
@@ -131,7 +131,7 @@ def _match_block(
         nb_lines: Number of lines in the file.
 
     Returns:
-        Ignored Block of code in given file.
+        Ignored Blocks of code in given file.
     """
     result = []
 
@@ -154,13 +154,13 @@ def _match_block(
     return result
 
 
-def get_ignored_block(
+def get_ignored_blocks(
     file: TextIOWrapper,
     file_path: Path,
     nb_lines: int,
 ) -> list[IgnoredBlock]:
     """
-    Get ignored block in a file.
+    Get ignored blocks in a file.
 
     Args:
         file: File to analyze.
@@ -184,7 +184,7 @@ def get_ignored_block(
                 lineo, _ = start
                 end.append((lineo, match.group("code")))
 
-    return _match_block(begin, end, file_path, nb_lines)
+    return _match_blocks(begin, end, file_path, nb_lines)
 
 
 def parse_file(
@@ -218,7 +218,7 @@ def parse_file(
         ignore_files = get_ignore_files(file, Path(file_path))
         file.seek(0)
 
-        ignored_block = get_ignored_block(file, Path(file_path), nb_lines)
+        ignored_block = get_ignored_blocks(file, Path(file_path), nb_lines)
         file.seek(0)
 
     return tree, ignore_lines, ignore_files, ignored_block
