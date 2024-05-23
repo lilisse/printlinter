@@ -12,7 +12,12 @@ from rich.progress import track
 from printlinter import Config
 from printlinter import __app_name__ as ppl_app_name
 from printlinter import __version__ as ppl_version
-from printlinter import contains_print, enumerate_file, get_not_ignore_issue, parse_file
+from printlinter import (
+    contains_print,
+    enumerate_file,
+    get_not_ignored_issue,
+    parse_file,
+)
 
 APP = typer.Typer(help="Print linter", rich_markup_mode="rich")
 
@@ -175,7 +180,7 @@ def lint(
 
         all_ignored_blocks.extend(ignored_blocks)
 
-    not_ignored_issues = get_not_ignore_issue(
+    not_ignored_issues = get_not_ignored_issue(
         issues,
         all_ignored_lines,
         all_ignored_files,

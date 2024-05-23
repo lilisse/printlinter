@@ -1,7 +1,7 @@
 """Processing ingoed lines functions."""
 
 # Local imports
-from .classes import IgnoredBlock, IgnoreFile, IgnoreLine, IssueInfo
+from .classes import IgnoredBlock, IgnoredFile, IgnoredLine, IssueInfo
 
 FAMILIRY_ERR_CODE = [
     "PPL000",
@@ -17,10 +17,10 @@ FAMILIRY_ERR_CODE = [
 ]
 
 
-def get_not_ignore_issue(
+def get_not_ignored_issue(
     issues: list[IssueInfo],
-    ignore_lines: list[IgnoreLine],
-    ignore_files: list[IgnoreFile],
+    ignored_lines: list[IgnoredLine],
+    ignored_files: list[IgnoredFile],
     ignored_blocks: list[IgnoredBlock],
     disabled_rules: list[str],
 ) -> list[IssueInfo]:
@@ -29,8 +29,8 @@ def get_not_ignore_issue(
 
     Args:
         issues: All issue found.
-        ignore_lines: All ignored lines.
-        ignore_files: All ignored files.
+        ignored_lines: All ignored lines.
+        ignored_files: All ignored files.
         ignored_blocks: All ignored blocks of code.
         disabled_rules: All disabled rules.
 
@@ -43,11 +43,11 @@ def get_not_ignore_issue(
         if issue.issue.err_code in disabled_rules:
             continue
 
-        ignore_all_file_equivalence = IgnoreFile(
+        ignored_all_file_equivalence = IgnoredFile(
             error_code="ALL",
             from_file=issue.from_file,
         )
-        if ignore_all_file_equivalence in ignore_files:
+        if ignored_all_file_equivalence in ignored_files:
             continue
 
         # Ignore a file with a family of code (like PPL000, PPL100, ...)
@@ -57,28 +57,28 @@ def get_not_ignore_issue(
             if err_code_min < issue.issue.err_code < err_code_max:
                 ignored_err_code = err_code_min
 
-        ignore_family_file_equivalence = IgnoreFile(
+        ignored_family_file_equivalence = IgnoredFile(
             error_code=ignored_err_code,
             from_file=issue.from_file,
         )
-        if ignore_family_file_equivalence in ignore_files:
+        if ignored_family_file_equivalence in ignored_files:
             continue
 
         # Files with specific code (like PPL001, PPL005, ...)
-        ignore_file_equivalence = IgnoreFile(
+        ignored_file_equivalence = IgnoredFile(
             error_code=issue.issue.err_code,
             from_file=issue.from_file,
         )
-        if ignore_file_equivalence in ignore_files:
+        if ignored_file_equivalence in ignored_files:
             continue
 
         # Ignored lines
-        ignore_line_equivalence = IgnoreLine(
+        ignored_line_equivalence = IgnoredLine(
             issue.num_line,
             error_code=issue.issue.err_code,
             from_file=issue.from_file,
         )
-        if ignore_line_equivalence in ignore_lines:
+        if ignored_line_equivalence in ignored_lines:
             continue
 
         # Ignored blocks

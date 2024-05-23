@@ -2,7 +2,7 @@
 import pytest
 
 # First party imports
-from printlinter import IgnoredBlock, IgnoreFile, IgnoreLine, IssueEnum, IssueInfo
+from printlinter import IgnoredBlock, IgnoredFile, IgnoredLine, IssueEnum, IssueInfo
 
 
 @pytest.fixture(scope="function")
@@ -198,7 +198,7 @@ def issues_for_blocks() -> list[IssueInfo]:
 
 
 @pytest.fixture(scope="function")
-def ignored_lines() -> list[IgnoreLine]:
+def ignored_lines() -> list[IgnoredLine]:
     """
     Get a list of ignored lines.
 
@@ -212,18 +212,18 @@ def ignored_lines() -> list[IgnoreLine]:
     ppl005_lines = [33, 34]
     ppl006_lines = [36, 37, 40]
 
-    res = [IgnoreLine(line, "PPL001", "toto1.py") for line in ppl001_lines]
-    res.extend([IgnoreLine(line, "PPL002", "toto2.py") for line in ppl002_lines])
-    res.extend([IgnoreLine(line, "PPL003", "toto3.py") for line in ppl003_lines])
-    res.extend([IgnoreLine(line, "PPL004", "toto4.py") for line in ppl004_lines])
-    res.extend([IgnoreLine(line, "PPL005", "toto5.py") for line in ppl005_lines])
-    res.extend([IgnoreLine(line, "PPL006", "toto6.py") for line in ppl006_lines])
+    res = [IgnoredLine(line, "PPL001", "toto1.py") for line in ppl001_lines]
+    res.extend([IgnoredLine(line, "PPL002", "toto2.py") for line in ppl002_lines])
+    res.extend([IgnoredLine(line, "PPL003", "toto3.py") for line in ppl003_lines])
+    res.extend([IgnoredLine(line, "PPL004", "toto4.py") for line in ppl004_lines])
+    res.extend([IgnoredLine(line, "PPL005", "toto5.py") for line in ppl005_lines])
+    res.extend([IgnoredLine(line, "PPL006", "toto6.py") for line in ppl006_lines])
 
     return res
 
 
 @pytest.fixture(scope="function")
-def ignored_files() -> list[IgnoreFile]:
+def ignored_files() -> list[IgnoredFile]:
     """
     Get a list of ignored files.
 
@@ -231,16 +231,16 @@ def ignored_files() -> list[IgnoreFile]:
         Ignored files.
     """
     return [
-        IgnoreFile("ALL", "toto1.py"),
-        IgnoreFile("PPL000", "toto2.py"),
-        IgnoreFile("PPL100", "toto3.py"),
-        IgnoreFile("PPL002", "toto4.py"),
-        IgnoreFile("PPL005", "toto5.py"),
+        IgnoredFile("ALL", "toto1.py"),
+        IgnoredFile("PPL000", "toto2.py"),
+        IgnoredFile("PPL100", "toto3.py"),
+        IgnoredFile("PPL002", "toto4.py"),
+        IgnoredFile("PPL005", "toto5.py"),
     ]
 
 
 @pytest.fixture(scope="function")
-def ignored_files_and_lines() -> tuple[list[IgnoreLine], list[IgnoreFile]]:
+def ignored_files_and_lines() -> tuple[list[IgnoredLine], list[IgnoredFile]]:
     """
     Get a list of ignored files and lines.
 
@@ -248,33 +248,33 @@ def ignored_files_and_lines() -> tuple[list[IgnoreLine], list[IgnoreFile]]:
         Ignored files and lines.
     """
     files = [
-        IgnoreFile("ALL", "toto1.py"),
-        IgnoreFile("PPL000", "toto2.py"),
-        IgnoreFile("PPL100", "toto3.py"),
-        IgnoreFile("PPL002", "toto4.py"),
+        IgnoredFile("ALL", "toto1.py"),
+        IgnoredFile("PPL000", "toto2.py"),
+        IgnoredFile("PPL100", "toto3.py"),
+        IgnoredFile("PPL002", "toto4.py"),
     ]
     lines = [
-        IgnoreLine(
+        IgnoredLine(
             1,
             "PPL001",
             "toto1.py",
         ),
-        IgnoreLine(
+        IgnoredLine(
             1,
             "PPL001",
             "toto2.py",
         ),
-        IgnoreLine(
+        IgnoredLine(
             1,
             "PPL001",
             "toto3.py",
         ),
-        IgnoreLine(
+        IgnoredLine(
             2,
             "PPL002",
             "toto3.py",
         ),
-        IgnoreLine(
+        IgnoredLine(
             6,
             "PPL006",
             "toto4.py",
