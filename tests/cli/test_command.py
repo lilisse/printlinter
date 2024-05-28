@@ -14,11 +14,11 @@ from cli_app import APP
 from printlinter import __app_name__ as ppl_name
 from printlinter import __version__ as ppl_version
 
-runner = CliRunner()
+RUNNER = CliRunner()
 
 
 def test_cli_version():
-    result = runner.invoke(APP, ["--version"])
+    result = RUNNER.invoke(APP, ["--version"])
     print(result)
     with soft_assertions():
         assert_that(result.exit_code).is_equal_to(0)
@@ -45,7 +45,7 @@ def test_cli_command_lint_w_path(
     path,
     expected_exit_code,
 ):
-    result = runner.invoke(
+    result = RUNNER.invoke(
         APP,
         [
             "lint",
@@ -59,7 +59,7 @@ def test_cli_command_lint_w_path(
 
 
 def test_cli_on_default_ignored_rep(pnv_soft_reset, testing_files):
-    result = runner.invoke(APP, ["lint", f"{testing_files}/config/ignored_rep"])
+    result = RUNNER.invoke(APP, ["lint", f"{testing_files}/config/ignored_rep"])
 
     with soft_assertions():
         assert_that(result.exit_code).is_equal_to(0)

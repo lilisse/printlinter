@@ -1,0 +1,3 @@
+printlinter:
+  ignored_files:
+    [django-5.0.6/tests/test_runner_apps/tagged/tests_syntax_error.py]

@@ -40,6 +40,9 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 addopts = "--xdoctest"
+markers = [
+    "slow", # A particulary slow test
+]
 
 [tool.coverage.run]
 omit = ["tests/*"]
