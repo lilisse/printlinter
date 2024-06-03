@@ -68,9 +68,17 @@ repos:
         pass_filenames: true
   - repo: local
     hooks:
-      - id: alltest
+      - id: fast tests
         name: pytest and xdoctest
-        entry: pytest
+        entry: pytest -n auto -m "not slow"
+        language: system
+        types: [python]
+        pass_filenames: false
+  - repo: local
+    hooks:
+      - id: slow tests
+        name: pytest and xdoctest
+        entry: pytest -n auto -m slow
         language: system
         types: [python]
         pass_filenames: false
