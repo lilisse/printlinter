@@ -1,4 +1,3 @@
-# Local imports
 """Print-Linter project's code."""
 
 # Local imports
@@ -8,6 +7,7 @@ from .classes import (  # noqa: F401
     IgnoredLine,
     IssueEnum,
     IssueInfo,
+    OutputLevel,
 )
 from .config import DEFAULT_IGNORED_REP, Config  # noqa: F401
 from .ignored_processing import get_not_ignored_issue  # noqa: F401

@@ -64,7 +64,6 @@ autorebase: clean clear
 coverage: clean clear
     pytest --cov-report term-missing:skip-covered --cov
 
-
 # rebase on main
 rebaseM: clean clear
     git checkout main

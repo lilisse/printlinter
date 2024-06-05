@@ -3,3 +3,4 @@ printlinter:
   ignored_files: [titi.py]
   disabled_rules: [PPL002]
   color: false
+  output_level: 2

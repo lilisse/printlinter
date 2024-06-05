@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add a configuration option for a minimize output: `output_level`.
+  Possible values:
+
+  - 1 for a really short output with just the number of errors
+  - 2 for a short output with number of errors by files
+  - 3 for a medium output with number of errors by files and which error and at which lines
+
 ## [0.3.0] - 09-08-2024
 
 ### Added

@@ -2,7 +2,7 @@
 name = "printlinter"
 version = "0.3.0"
 description = "print linter to know where is the test print"
-authors = ["ulysse <ulysse.chosson@obspm.fr>"]
+authors = ["ulysse <u.chosson@proton.me>"]
 license = "EUPL v1.2"
 readme = "README.md"
 packages = [{ include = "cli_app" }, { include = "printlinter" }]
@@ -41,9 +41,10 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-addopts = "--xdoctest -n auto"
+addopts = "--xdoctest -n auto -m 'not very_slow'"
 markers = [
-    "slow", # A particulary slow test
+    "slow",      # A particulary slow test
+    "very_slow", # Realy REALY slow tests
 ]
 
 [tool.coverage.run]
@@ -168,3 +169,6 @@ max-complexity = 10
 
 [tool.ruff.flake8-annotations]
 suppress-none-returning = true
+
+[tool.printlinter]
+output_level = 3
