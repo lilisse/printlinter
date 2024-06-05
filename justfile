@@ -62,9 +62,7 @@ autorebase: clean clear
 
 # Launch coverage on all
 coverage: clean clear
-    coverage run -m pytest
-    clear
-    coverage report -m --skip-covered --precision=3
+    pytest --cov-report term-missing:skip-covered --cov
 
 
 # rebase on main
