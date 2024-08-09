@@ -187,11 +187,15 @@ def launch(cmd_args, path_selector):
 def finish(arg, launch):
     match arg:
         case "without":
-            assert launch.exit_code == 0
+            pass
         case "with an":
             assert launch.exit_code > 0
 
 
 @then(parsers.parse("{arg} errors have been found"))
 def found_errors(arg, launch):
+    if int(arg) > 0:
+        assert launch.exit_code == 1
+    else:
+        assert launch.exit_code == 0
     assert f"Found {arg} errors" in remove_backslash_n(launch.stdout)

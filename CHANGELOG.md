@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 09-08-2024
+
+### Fixed
+
+- Fix exit code when we find print. Now we exit with exit_code 1 when we find some print.
+- Fix version and name of app.
+
 ## [0.3.0] - 09-08-2024
 
 ### Added

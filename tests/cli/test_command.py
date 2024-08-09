@@ -32,11 +32,11 @@ def test_cli_version():
         param("README.md", 1, id="not a python file"),
         param("print/toto0.py", 1, id="file"),
         param("print/toto4", 0, id="no errors, no print"),
-        param("print/toto2", 0, id="print detected on folder"),
-        param("print/toto2/toto3.py", 0, id="print detected on file"),
+        param("print/toto2", 1, id="print detected on folder"),
+        param("print/toto2/toto3.py", 1, id="print detected on file"),
         param("pprint/pprint2", 0, id="pprint detected with ignored file in config"),
-        param("ignored_files", 0, id="ignore file with warning"),
-        param("ignored_block", 0, id="ignore block"),
+        param("ignored_files", 1, id="ignore file with warning"),
+        param("ignored_block", 1, id="ignore block"),
     ],
 )
 def test_cli_command_lint_w_path(
@@ -62,5 +62,5 @@ def test_cli_on_default_ignored_rep(pnv_soft_reset, testing_files):
     result = RUNNER.invoke(APP, ["lint", f"{testing_files}/config/ignored_rep"])
 
     with soft_assertions():
-        assert_that(result.exit_code).is_equal_to(0)
+        assert_that(result.exit_code).is_equal_to(1)
         assert_that(result.stdout).contains("Found 1 errors")
