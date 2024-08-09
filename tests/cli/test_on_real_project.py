@@ -123,7 +123,7 @@ def test_on_real_projects(
     )
 
     with soft_assertions():
-        assert_that(result.exit_code).is_equal_to(0)
+        assert_that(result.exit_code).is_equal_to(0 if nb_errors == 0 else 1)
         assert_that(remove_backslash_n(result.stdout)).contains(
             f"Found {nb_errors} errors",
             a_contained_error,
