@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 09-08-2024
+
 ### Added
 
 - Add bdd test with [pytest-bdd](https://pytest-bdd.readthedocs.io/en/stable/).
