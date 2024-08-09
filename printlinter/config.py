@@ -11,7 +11,7 @@ from typing import TypeAlias, cast
 from yaml import safe_load as yaml_load
 
 # Local imports
-from .classes import OutputLevel
+from .classes import OutputLevel, SortedOutput
 
 # In python 3.11, tomllib was added,
 # https://docs.python.org/3/whatsnew/3.11.html#new-modules, so that printlinter is
@@ -107,9 +107,13 @@ class Config:
     "Disabled rules."
 
     color: bool
-    "Colorized output. Default True"
+    "Colorized output. Default: True"
 
     output_level: OutputLevel
+    "Output level. Default: DEFAULT"
+
+    sorted_output: SortedOutput
+    "Sorted output. Default: DEFAULT (Not sorted)"
 
     def __init__(self, path: Path | None = None) -> None:
         """
@@ -133,6 +137,7 @@ class Config:
         self.disabled_rules = cast(list[str], config.get("disabled_rules", []))
         self.color = cast(bool, config.get("color", True))
         self.output_level = self._fix_output_level(config)
+        self.sorted_output = self._fix_sorted_output(config)
 
         # TODO: Add this in user config and merge list give by user and default list
         self.ignored_rep = DEFAULT_IGNORED_REP
@@ -284,3 +289,15 @@ class Config:
                     f"{MIN_OUTPUT_LEVEL} and {MAX_OUTPUT_LEVEL} "
                     f"({', '.join(avaible_values)})."
                 )
+
+    def _fix_sorted_output(self, config: CONFIG_TYPE) -> SortedOutput:
+        sorted_level_from_file = str(config.get("sorted_by", "default"))
+        match sorted_level_from_file:
+            case "default":
+                return SortedOutput.DEFAULT
+            case "files":
+                return SortedOutput.BY_FILES
+            case "errors":
+                return SortedOutput.BY_ERRORS
+            case _:
+                raise ValueError("sorted_by must be a 'files' or 'errors'.")

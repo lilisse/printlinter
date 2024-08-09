@@ -171,4 +171,5 @@ max-complexity = 10
 suppress-none-returning = true
 
 [tool.printlinter]
-output_level = 3
+output_level = 1
+sorted_by = "files"

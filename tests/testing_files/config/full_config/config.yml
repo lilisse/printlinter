@@ -4,3 +4,4 @@ printlinter:
   disabled_rules: [PPL001]
   color: true
   output_level: 1
+  sorted_by: "files"

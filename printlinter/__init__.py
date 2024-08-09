@@ -8,6 +8,7 @@ from .classes import (  # noqa: F401
     IssueEnum,
     IssueInfo,
     OutputLevel,
+    SortedOutput,
 )
 from .config import DEFAULT_IGNORED_REP, Config  # noqa: F401
 from .ignored_processing import get_not_ignored_issue  # noqa: F401

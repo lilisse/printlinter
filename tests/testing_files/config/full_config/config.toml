@@ -4,3 +4,4 @@ disabled_rules = ["PPL004"]
 target_version = "3.7"
 color = false
 output_level = 3
+sorted_by = "files"
