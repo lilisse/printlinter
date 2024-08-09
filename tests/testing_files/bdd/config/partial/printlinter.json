@@ -1,0 +1,6 @@
+{
+  "printlinter": {
+    "target_version": "3.10",
+    "color": true
+  }
+}

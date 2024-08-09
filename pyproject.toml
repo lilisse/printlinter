@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "printlinter"
-version = "0.2.0"
+version = "0.3.0"
 description = "print linter to know where is the test print"
 authors = ["ulysse <ulysse.chosson@obspm.fr>"]
 license = "EUPL v1.2"
@@ -33,13 +33,19 @@ pytest-icdiff = "^0.9"
 types-toml = "^0.10.8.20240310"
 types-pyyaml = "^6.0.12.20240311"
 black = "^24.3.0"
+pytest-bdd = "^7.1.2"
+pytest-xdist = "^3.6.1"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-addopts = "--xdoctest"
+addopts = "--xdoctest -n auto"
+markers = [
+    "slow", # A particulary slow test
+]
 
 [tool.coverage.run]
 omit = ["tests/*"]

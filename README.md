@@ -438,4 +438,3 @@ Too see the next features to be developed see [TODO](TODO.md). Here's a small,
 non-exhaustive list of what's comming in the future versions.
 
 - Lint display functions from other libraries.
-- Add other configuration options.

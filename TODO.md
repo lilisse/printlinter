@@ -6,34 +6,67 @@ Todo list of the project.
 
 - [Summary](#summary)
 - [Next version](#next-version)
-  - [Tests](#tests)
-    - [BDD tests](#bdd-tests)
-    - [On big projects](#on-big-projects)
+  - [Configuration](#configuration)
+    - [Minimized output](#minimized-output)
+    - [Pretty mode](#pretty-mode)
+    - [Sortable output](#sortable-output)
+    - [Add regex management for ignored\_files](#add-regex-management-for-ignored_files)
+    - [Configuration options in command line](#configuration-options-in-command-line)
 - [For the future](#for-the-future)
   - [Other libraries](#other-libraries)
-  - [Configuration](#configuration)
+  - [Configuration](#configuration-1)
     - [Add configuration option](#add-configuration-option)
-    - [Add configuration in command line](#add-configuration-in-command-line)
+    - [Add pre-commi hook](#add-pre-commi-hook)
   - [Documentation](#documentation)
 
 ## Next version
 
-[Version 0.3.0](https://github.com/lilisse/printlinter/milestone/2)
+[Version 0.4.0](https://github.com/lilisse/printlinter/milestone/3)
 
 <!-- markdownlint-disable-next-line MD024 -->
-### Tests
+### Configuration
 
-#### BDD tests
+#### Minimized output
 
-[Issue](https://github.com/lilisse/printlinter/issues/20)
+[Issue](https://github.com/lilisse/printlinter/issues/40)
 
-Add user tests with [pytest-bdd](https://github.com/pytest-dev/pytest-bdd).
+Add minimized output with 3 level:
 
-#### On big projects
+- 1, just the number of errors.
+- 2, Number of errors and all files which contains errors (with the number by file).
+- 3, Number of errors, files which contain errors, lines and error codes.
 
-[Issue](https://github.com/lilisse/printlinter/issues/7)
+By default this option isn't activated.
 
-Add tests on "big project" like py-linq-sql, django, etc...
+#### Pretty mode
+
+[Issue](https://github.com/lilisse/printlinter/issues/39)
+
+Add a pretty mode for the output.
+
+By default this option isn't activated.
+
+#### Sortable output
+
+[Issue](https://github.com/lilisse/printlinter/issues/35)
+
+Add configuration to sort the output by files or by errors.
+
+By default the output is sorted by files.
+
+#### Add regex management for ignored_files
+
+[Issue](https://github.com/lilisse/printlinter/issues/10)
+
+Manage regex in ignored_files configuration option.
+
+Examples: ignored_files: [toto/toto.py, toto/*, toto/*.py]
+
+#### Configuration options in command line
+
+[Issue](https://github.com/lilisse/printlinter/issues/11)
+
+Add all configu options usable in command line.
 
 ## For the future
 
@@ -48,14 +81,9 @@ Add tests on "big project" like py-linq-sql, django, etc...
 
 - [ ] ignored_file_with_regex [Issue](https://github.com/lilisse/printlinter/issues/10)
 
-#### Add configuration in command line
+#### Add pre-commi hook
 
-[Issue](https://github.com/lilisse/printlinter/issues/11)
-
-- [ ] target version
-- [ ] ignored files
-- [ ] disabled rules
-- [ ] colorized output
+[Issue](https://github.com/lilisse/printlinter/issues/33)
 
 ### Documentation
 
