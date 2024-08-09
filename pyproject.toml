@@ -33,6 +33,7 @@ pytest-icdiff = "^0.9"
 types-toml = "^0.10.8.20240310"
 types-pyyaml = "^6.0.12.20240311"
 black = "^24.3.0"
+pytest-bdd = "^7.1.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
