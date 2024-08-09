@@ -21,3 +21,16 @@ def pnv_soft_reset():
 @pytest.fixture(scope="session")
 def testing_files():
     return INPUT_FILE_PATH
+
+
+def remove_backslash_n(input: str) -> str:
+    """
+    Remove all '\n' in an input.
+
+    Args:
+        input: Input to clean.
+
+    Returns:
+        Cleanned input.
+    """
+    return input.replace("\n", "")

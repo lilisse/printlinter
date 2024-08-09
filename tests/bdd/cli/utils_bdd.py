@@ -13,7 +13,7 @@ from typer.testing import CliRunner
 from cli_app import APP
 
 # Local imports
-from ...conftest import INPUT_FILE_PATH
+from ...conftest import INPUT_FILE_PATH, remove_backslash_n
 from .conftest import ConfigContent as cC
 from .conftest import ConfigType as cT
 from .conftest import IgnoreType as iT
@@ -194,4 +194,4 @@ def finish(arg, launch):
 
 @then(parsers.parse("{arg} errors have been found"))
 def found_errors(arg, launch):
-    assert f"Found {arg} errors" in launch.stdout
+    assert f"Found {arg} errors" in remove_backslash_n(launch.stdout)
