@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "printlinter"
-version = "0.3.1"
+version = "0.3.2"
 description = "print linter to know where is the test print"
 authors = ["ulysse <ulysse.chosson@obspm.fr>"]
 license = "EUPL v1.2"

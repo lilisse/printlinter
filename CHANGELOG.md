@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2] - 21-08-2024
+
+### Fixed
+
+- Fix version accepted to accept 3.11 and 3.12.
+- Fix open toml config file for python version > 3.10.
+
 ## [0.3.1] - 09-08-2024
 
 ### Fixed

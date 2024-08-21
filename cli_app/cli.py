@@ -200,7 +200,6 @@ def lint(
     console.print(f"Found [bold red]{len(not_ignored_issues)}[/bold red] errors")
 
     if len(not_ignored_issues) != 0:
-        print("je passe ici")
         raise typer.Exit(1)
 
 
