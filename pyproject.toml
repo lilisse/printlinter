@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "printlinter"
-version = "0.3.1"
+version = "0.3.2"
 description = "print linter to know where is the test print"
 authors = ["ulysse <ulysse.chosson@obspm.fr>"]
 license = "EUPL v1.2"
@@ -160,7 +160,7 @@ per-file-ignores = {}
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
-# Assume Python 3.11.
+# Assume Python 3.10.
 target-version = "py310"
 
 [tool.ruff.mccabe]

@@ -499,17 +499,20 @@ def test_config_from_file_error_on_given_file(given_file, error):
         param(
             "errors/target_version_36.yml",
             ValueError,
-            id="target version is not between 3.7 and 3.11. target_version = 3.6",
+            id="target version is not between 3.7 and max target version. "
+            "Target_version = 3.6",
         ),
         param(
             "errors/target_version_27.yml",
             ValueError,
-            id="target version is not between 3.7 and 3.11. target_version = 2.7",
+            id="target version is not between 3.7 and max target version. "
+            "Target_version = 2.7",
         ),
         param(
-            "errors/target_version_312.yml",
+            "errors/target_version_313.yml",
             ValueError,
-            id="target version is not between 3.7 and 3.11. target_version = 3.12",
+            id="target version is not between 3.7 and max target version. "
+            "Target_version = 3.13",
         ),
     ],
 )

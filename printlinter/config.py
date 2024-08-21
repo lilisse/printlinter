@@ -2,6 +2,8 @@
 
 # Standard imports
 import sys
+from collections.abc import Generator
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
@@ -33,7 +35,7 @@ CONFIG_DEFAULT_FILES = [
 ]
 
 MAX_MAJOR = 3
-MAX_MINOR = 11
+MAX_MINOR = 12
 DEFAULT_IGNORED_REP = [
     # npm
     Path("node_modules/"),
@@ -184,9 +186,28 @@ class Config:
         Returns:
             All config from the given file.
         """
+
+        @contextmanager
+        def _open_depending_py_version() -> Generator:
+            """
+            Open a file dependending python version.
+
+            If python version is 3.11 or more we open in binary else we open with
+            default arguments.
+
+            Returns:
+                Opened file.
+            """
+            if sys.version_info < (3, 11):
+                with open(path) as my_file:
+                    yield my_file
+            else:
+                with open(path, "rb") as my_file:
+                    yield my_file
+
         match path.suffix:
             case ".toml":
-                with open(path) as toml_file:
+                with _open_depending_py_version() as toml_file:
                     if path.stem == "pyproject":
                         loaded = toml_load(toml_file)["tool"]
                     else:
