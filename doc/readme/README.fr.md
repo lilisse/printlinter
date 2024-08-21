@@ -365,7 +365,7 @@ Le fichier de configuration permet de spécifer la version de python utilisé pa
 Utilisez un string qui formater comme `3.10` ou `3.7` pour spécifier la version,
 
 <!-- markdownlint-disable-next-line MD036 -->
-**La version ciblé de python DOIT être entre 3.7 et 3.10**
+**La version ciblé de python DOIT être entre 3.7 et 3.12**
 
 Vous pouvez voir des exemples de configuration [ici](#exemples-de-fichier-configuration).
 

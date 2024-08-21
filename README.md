@@ -362,7 +362,7 @@ The config file allows to specify the python target version for the parser. Use 
 string like this `3.10` or `3.7` to specify the version.
 
 <!-- markdownlint-disable-next-line MD036 -->
-**The python target version MUST be contains between 3.7 and 3.10**
+**The python target version MUST be contains between 3.7 and 3.12**
 
 You can see examples of this config [here](#examples-of-configuration-files).
 
