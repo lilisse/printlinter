@@ -10,7 +10,7 @@ from pathlib import Path
 from assertpy import assert_that, soft_assertions
 
 # First party imports
-from printlinter import DEFAULT_IGNORED_REP, Config
+from printlinter import DEFAULT_IGNORED_REP, Config, OutputLevel
 
 # Local imports
 from ..conftest import INPUT_FILE_PATH
@@ -19,8 +19,10 @@ from .conftest import change_cwd
 TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
 
 
+# TODO: Create a config generator and generate X (100?) tests with it.
 @pytest.mark.parametrize(
-    "given_file, expect_target_version, expect_ignored_files, expect_disabled_rules, expect_color",
+    "given_file, expect_target_version, expect_ignored_files, expect_disabled_rules, "
+    "expect_color, expect_output_level",
     [
         # full config
         param(
@@ -29,6 +31,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["toto.py"],
             ["PPL001"],
             True,
+            OutputLevel.L1,
             id="yml file",
         ),
         param(
@@ -37,6 +40,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["titi.py"],
             ["PPL002"],
             False,
+            OutputLevel.L2,
             id="yaml file",
         ),
         param(
@@ -45,6 +49,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["tutu.py"],
             ["PPL003"],
             True,
+            OutputLevel.L1,
             id="json file",
         ),
         param(
@@ -53,6 +58,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["tata.py"],
             ["PPL004"],
             False,
+            OutputLevel.L3,
             id="toml file",
         ),
         # partial config
@@ -62,6 +68,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             [],
             True,
+            OutputLevel.DEFAULT,
             id="partial yml file, only target_version",
         ),
         param(
@@ -70,6 +77,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["toto.py"],
             [],
             True,
+            OutputLevel.DEFAULT,
             id="partial yml file, only ignored_files",
         ),
         param(
@@ -78,6 +86,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             ["PPL001"],
             True,
+            OutputLevel.DEFAULT,
             id="partial yml file, only disabled_rules",
         ),
         param(
@@ -86,6 +95,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             [],
             False,
+            OutputLevel.DEFAULT,
             id="partial yml file, only color",
         ),
         param(
@@ -94,6 +104,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["toto.py"],
             [],
             True,
+            OutputLevel.DEFAULT,
             id="partial yml file, target_version and ignored_files",
         ),
         param(
@@ -102,6 +113,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             ["PPL001"],
             True,
+            OutputLevel.DEFAULT,
             id="partial yml file, target_version and disabled rules",
         ),
         param(
@@ -110,6 +122,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["toto.py"],
             ["PPL001"],
             True,
+            OutputLevel.DEFAULT,
             id="partial yml file, ignored_files and disabled_rules",
         ),
         param(
@@ -118,6 +131,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             [],
             False,
+            OutputLevel.DEFAULT,
             id="partial yml file, target_version and color",
         ),
         param(
@@ -126,6 +140,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["toto.py"],
             [],
             False,
+            OutputLevel.DEFAULT,
             id="partial yml file, target_version, ignored_files and color",
         ),
         param(
@@ -134,6 +149,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             [],
             True,
+            OutputLevel.DEFAULT,
             id="partial yaml file, only target_version",
         ),
         param(
@@ -142,6 +158,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["titi.py"],
             [],
             True,
+            OutputLevel.DEFAULT,
             id="partial yaml file, only ignored_files",
         ),
         param(
@@ -150,6 +167,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             ["PPL002"],
             True,
+            OutputLevel.DEFAULT,
             id="partial yaml file, only disabled_rules",
         ),
         param(
@@ -158,6 +176,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             [],
             False,
+            OutputLevel.DEFAULT,
             id="partial yaml file, only color",
         ),
         param(
@@ -166,6 +185,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["titi.py"],
             [],
             True,
+            OutputLevel.DEFAULT,
             id="partial yaml file, target_version and ignored_files",
         ),
         param(
@@ -174,6 +194,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             ["PPL002"],
             True,
+            OutputLevel.DEFAULT,
             id="partial yaml file, target_version and disabled rules",
         ),
         param(
@@ -182,6 +203,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["titi.py"],
             ["PPL002"],
             True,
+            OutputLevel.DEFAULT,
             id="partial yaml file, ignored_files and disabled_rules",
         ),
         param(
@@ -190,6 +212,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             [],
             False,
+            OutputLevel.DEFAULT,
             id="partial yaml file, target_version and color",
         ),
         param(
@@ -198,6 +221,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["titi.py"],
             [],
             False,
+            OutputLevel.DEFAULT,
             id="partial yaml file, target_version, ignored_files and color",
         ),
         param(
@@ -206,6 +230,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             [],
             True,
+            OutputLevel.DEFAULT,
             id="partial json file, only target_version",
         ),
         param(
@@ -214,6 +239,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["tutu.py"],
             [],
             True,
+            OutputLevel.DEFAULT,
             id="partial json file, only ignored_files",
         ),
         param(
@@ -222,6 +248,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             ["PPL003"],
             True,
+            OutputLevel.DEFAULT,
             id="partial json file, only disabled_rules",
         ),
         param(
@@ -230,6 +257,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             [],
             False,
+            OutputLevel.DEFAULT,
             id="partial json file, only color",
         ),
         param(
@@ -238,6 +266,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["tutu.py"],
             [],
             True,
+            OutputLevel.DEFAULT,
             id="partial json file, target_version and ignored_files",
         ),
         param(
@@ -246,6 +275,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             ["PPL003"],
             True,
+            OutputLevel.DEFAULT,
             id="partial json file, target_version and disabled rules",
         ),
         param(
@@ -254,6 +284,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["tutu.py"],
             ["PPL003"],
             True,
+            OutputLevel.DEFAULT,
             id="partial json file, ignored_files and disabled_rules",
         ),
         param(
@@ -262,6 +293,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             [],
             False,
+            OutputLevel.DEFAULT,
             id="partial json file, target_version and color",
         ),
         param(
@@ -270,6 +302,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["tutu.py"],
             [],
             False,
+            OutputLevel.DEFAULT,
             id="partial json file, target_version, ignored_files and color",
         ),
         param(
@@ -278,6 +311,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             [],
             True,
+            OutputLevel.DEFAULT,
             id="partial toml file, only target_version",
         ),
         param(
@@ -286,6 +320,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["tata.py"],
             [],
             True,
+            OutputLevel.DEFAULT,
             id="partial toml file, only ignored_files",
         ),
         param(
@@ -294,6 +329,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             ["PPL004"],
             True,
+            OutputLevel.DEFAULT,
             id="partial toml file, only disabled_rules",
         ),
         param(
@@ -302,6 +338,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             [],
             False,
+            OutputLevel.DEFAULT,
             id="partial toml file, only color",
         ),
         param(
@@ -310,6 +347,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["tata.py"],
             [],
             True,
+            OutputLevel.DEFAULT,
             id="partial toml file, only target_version and ignored_files",
         ),
         param(
@@ -318,6 +356,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             ["PPL004"],
             True,
+            OutputLevel.DEFAULT,
             id="partial toml file, only target_version and disabled rules",
         ),
         param(
@@ -326,6 +365,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["tata.py"],
             ["PPL004"],
             True,
+            OutputLevel.DEFAULT,
             id="partial toml file, only ignored_files and disabled_rules",
         ),
         param(
@@ -334,6 +374,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             [],
             [],
             False,
+            OutputLevel.DEFAULT,
             id="partial toml file, target_version and color",
         ),
         param(
@@ -342,6 +383,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
             ["tata.py"],
             [],
             False,
+            OutputLevel.DEFAULT,
             id="partial toml file, target_version, ignored_files and color",
         ),
     ],
@@ -352,6 +394,7 @@ def test_config_from_given_file(
     expect_ignored_files,
     expect_disabled_rules,
     expect_color,
+    expect_output_level,
 ):
     conf = Config(TESTING_FILES_PATH / given_file)
     with soft_assertions():
@@ -359,6 +402,7 @@ def test_config_from_given_file(
         assert_that(conf.ignored_files).is_equal_to(expect_ignored_files)
         assert_that(conf.disabled_rules).is_equal_to(expect_disabled_rules)
         assert_that(conf.color).is_equal_to(expect_color)
+        assert_that(conf.output_level).is_equal_to(expect_output_level)
         assert_that(conf.ignored_rep).is_equal_to(DEFAULT_IGNORED_REP)
 
 
@@ -516,3 +560,8 @@ def test_config_from_file_error_on_given_file(given_file, error):
 def test_config_from_file_error_on_target_version(given_file, error):
     with pytest.raises(error):
         Config(TESTING_FILES_PATH / given_file)
+
+
+def test_config_from_file_error_on_output_level():
+    with pytest.raises(ValueError):
+        Config(TESTING_FILES_PATH / "errors/output_level_4.yml")

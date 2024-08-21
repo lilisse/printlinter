@@ -1,6 +1,7 @@
 """App for typoer to interact with a user in command line."""
 
 # Standard imports
+import operator
 from pathlib import Path
 
 # Third party imports
@@ -9,7 +10,7 @@ from rich.console import Console
 from rich.progress import track
 
 # First party imports
-from printlinter import Config
+from printlinter import Config, IssueInfo, OutputLevel
 from printlinter import __app_name__ as ppl_app_name
 from printlinter import __version__ as ppl_version
 from printlinter import (
@@ -80,6 +81,13 @@ def _is_a_file(file_name: Path) -> Path | None:
         ... except FileNotFoundError:
         ...     False
         False
+
+        >>> try:
+        ...     _is_a_file(Path("printlinter/toto.py"))
+        ... except FileNotFoundError:
+        ...     False
+        False
+
     """
     if file_name == Path("."):
         return None
@@ -104,6 +112,60 @@ def _is_ignored_rep(ignored_rep: list[Path], path: Path) -> bool:
             return True
 
     return False
+
+
+def _get_errors_msg_by_file(
+    issues: list[IssueInfo],
+    with_number_and_lines: bool,
+) -> str:
+    """
+    Get the message for errors grouped by files.
+
+    Args:
+        issues: All issues to generate message.
+        with_number_and_lines: True for error code and line, False otherwise.
+
+    Returns:
+        A message to resume all issues grouped by files.
+    """
+    issues_by_files: dict = {}
+    for issue in sorted(issues, key=operator.attrgetter("from_file")):
+        if str(issue.from_file) in issues_by_files.keys():
+            if not with_number_and_lines:
+                issues_by_files[str(issue.from_file)] += 1
+            else:
+                issues_by_files[str(issue.from_file)]["nb_errors"] += 1
+                issues_by_files[str(issue.from_file)]["errors_code"].append(
+                    issue.issue.err_code
+                )
+                issues_by_files[str(issue.from_file)]["lines"].append(
+                    str(issue.num_line)
+                )
+        else:
+            if not with_number_and_lines:  # noqa: PLR5501
+                issues_by_files[str(issue.from_file)] = 1
+            else:
+                issues_by_files[str(issue.from_file)] = {}
+                issues_by_files[str(issue.from_file)]["nb_errors"] = 1
+                issues_by_files[str(issue.from_file)]["errors_code"] = [
+                    issue.issue.err_code
+                ]
+                issues_by_files[str(issue.from_file)]["lines"] = [str(issue.num_line)]
+
+    if not with_number_and_lines:
+        res_list = [
+            f"[bold]{key}[/bold] - {value} errors detected"
+            for key, value in issues_by_files.items()
+        ]
+    else:
+        res_list = [
+            f"[bold]{key}[/bold] - {value['nb_errors']} errors detected ("
+            f"[bold red]{'[/bold red], [bold red]'.join(set(value['errors_code']))}"
+            f"[/bold red]) at lines {', '.join(set(value['lines']))}"
+            for key, value in issues_by_files.items()
+        ]
+
+    return "\n".join(res_list)
 
 
 def version_callback(value: bool) -> None:
@@ -170,11 +232,6 @@ def lint(
 
         if ignored_files is None:
             warning = True
-            console.print(
-                f"[bold][orange3]Warning ⚠️ [/orange3] {file_path}[/bold]: The ignore "
-                "file comment must be before code and docstring, we skip this ignore "
-                "comment. The file will be lint as if the file were not ignored."
-            )
         else:
             all_ignored_files.extend(ignored_files)
 
@@ -189,13 +246,29 @@ def lint(
     )
 
     # TODO: pass ignored value of issue at true when it is ignored. it's usful to get a
-    # list of ignred issues.
+    # list of ignored issues.
     # console.print(f"[bold]ISSUES:\n{issues}\n[/bold]") # noqa: ERA001
 
     if warning:
-        print()
-    for issue in not_ignored_issues:
-        console.print(str(issue))
+        console.print(
+            f"[bold][orange3]Warning ⚠️ [/orange3] {file_path}[/bold]: The ignore "
+            "file comment must be before code and docstring, we skip this ignore "
+            "comment. The file will be lint as if the file were not ignored.\n"
+        )
+
+    if config.output_level == OutputLevel.L1:
+        pass
+    elif config.output_level == OutputLevel.L2:
+        console.print(
+            _get_errors_msg_by_file(not_ignored_issues, with_number_and_lines=False)
+        )
+    elif config.output_level == OutputLevel.L3:
+        console.print(
+            _get_errors_msg_by_file(not_ignored_issues, with_number_and_lines=True)
+        )
+    else:
+        for issue in not_ignored_issues:
+            console.print(str(issue))
 
     console.print(f"Found [bold red]{len(not_ignored_issues)}[/bold red] errors")
 

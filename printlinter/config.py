@@ -3,8 +3,15 @@
 # Standard imports
 import sys
 from dataclasses import dataclass
+from json import loads as json_load
 from pathlib import Path
-from typing import cast
+from typing import TypeAlias, cast
+
+# Third party imports
+from yaml import safe_load as yaml_load
+
+# Local imports
+from .classes import OutputLevel
 
 # In python 3.11, tomllib was added,
 # https://docs.python.org/3/whatsnew/3.11.html#new-modules, so that printlinter is
@@ -15,14 +22,10 @@ if sys.version_info < (3, 11):
     # Third party imports
     from toml import load as toml_load  # pragma: no cover
 else:
-    # Standard imports
+    # Third party imports
     from tomllib import load as toml_load  # pragma: no cover
 
-# Standard imports
-from json import loads as json_load
-
-# Third party imports
-from yaml import safe_load as yaml_load
+CONFIG_TYPE: TypeAlias = dict[str, tuple[int, int] | list[str] | str | bool]
 
 CONFIG_DEFAULT_FILES = [
     Path("printlinter.yaml"),
@@ -34,6 +37,10 @@ CONFIG_DEFAULT_FILES = [
 
 MAX_MAJOR = 3
 MAX_MINOR = 11
+
+MIN_OUTPUT_LEVEL = 1
+MAX_OUTPUT_LEVEL = 3
+
 DEFAULT_IGNORED_REP = [
     # npm
     Path("node_modules/"),
@@ -102,6 +109,8 @@ class Config:
     color: bool
     "Colorized output. Default True"
 
+    output_level: OutputLevel
+
     def __init__(self, path: Path | None = None) -> None:
         """
         Initialize a configuration.
@@ -123,6 +132,7 @@ class Config:
         self.ignored_files = cast(list[str], config.get("ignored_files", []))
         self.disabled_rules = cast(list[str], config.get("disabled_rules", []))
         self.color = cast(bool, config.get("color", True))
+        self.output_level = self._fix_output_level(config)
 
         # TODO: Add this in user config and merge list give by user and default list
         self.ignored_rep = DEFAULT_IGNORED_REP
@@ -130,7 +140,7 @@ class Config:
     def _read_config(
         self,
         path: Path | None,
-    ) -> dict[str, tuple[int, int] | list[str] | str | bool]:
+    ) -> CONFIG_TYPE:
         """
         Read the correct config file to produce a config dict.
 
@@ -174,7 +184,7 @@ class Config:
     def _load_config(
         self,
         path: Path,
-    ) -> dict[str, tuple[int, int] | list[str] | str | bool] | None:
+    ) -> CONFIG_TYPE | None:
         """
         Load config from a config file.
 
@@ -211,7 +221,7 @@ class Config:
 
     def _fix_target_version(
         self,
-        config: dict[str, tuple[int, int] | list[str] | str | bool],
+        config: CONFIG_TYPE,
     ) -> tuple[int, int]:
         """
         Fix `target_version` info.
@@ -242,3 +252,35 @@ class Config:
             )
 
         return cast(tuple[int, int], tuple(res))
+
+    def _fix_output_level(self, config: CONFIG_TYPE) -> OutputLevel:
+        """
+        Fix `output_level` info.
+
+        output_level configuration value must be between 1 and 3 (1, 2, 3).
+
+        Args:
+            config: Configuration values.
+
+        Returns:
+            Minimize level value for configuration.
+        """
+        output_level_from_file = str(config.get("output_level", "default"))
+        match output_level_from_file:
+            case "default":
+                return OutputLevel.DEFAULT
+            case "1":
+                return OutputLevel.L1
+            case "2":
+                return OutputLevel.L2
+            case "3":
+                return OutputLevel.L3
+            case _:
+                avaible_values = [
+                    str(i) for i in range(MIN_OUTPUT_LEVEL, MAX_OUTPUT_LEVEL + 1)
+                ]
+                raise ValueError(
+                    "output_level must be a number between "
+                    f"{MIN_OUTPUT_LEVEL} and {MAX_OUTPUT_LEVEL} "
+                    f"({', '.join(avaible_values)})."
+                )

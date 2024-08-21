@@ -14,6 +14,9 @@ from cli_app import APP
 from printlinter import __app_name__ as ppl_name
 from printlinter import __version__ as ppl_version
 
+# Local imports
+from ..conftest import remove_backslash_n
+
 RUNNER = CliRunner()
 
 
@@ -64,3 +67,50 @@ def test_cli_on_default_ignored_rep(pnv_soft_reset, testing_files):
     with soft_assertions():
         assert_that(result.exit_code).is_equal_to(0)
         assert_that(result.stdout).contains("Found 1 errors")
+
+
+@pytest.mark.parametrize(
+    "config_file, expected",
+    [
+        param(
+            "config/cli/output_level_1.yml", ["Found 8 errors"], id="output level = 1"
+        ),
+        param(
+            "config/cli/output_level_2.yml",
+            [
+                "tests/testing_files/mixed/mixed0.py -4 errors detected",
+                "tests/testing_files/mixed/mixed1/mixed2.py - 4 errors detected",
+                "Found 8 errors",
+            ],
+            id="output level = 2",
+        ),
+        param(
+            "config/cli/output_level_3.yml",
+            [
+                "tests/testing_files/mixed/mixed0.py -4 errors detected",
+                "PPL001",
+                "PPL002",
+                "at lines",
+                "tests/testing_files/mixed/mixed1/mixed2.py - 4 errors detected",
+                "Found 8 errors",
+            ],
+            id="output level = 3",
+        ),
+    ],
+)
+def test_cli_output_level(pnv_soft_reset, testing_files, config_file, expected):
+    result = RUNNER.invoke(
+        APP,
+        [
+            "lint",
+            "--config-file",
+            f"{testing_files}/{config_file}",
+            f"{testing_files}/mixed",
+        ],
+    )
+
+    with soft_assertions():
+        assert_that(result.exit_code).is_equal_to(0)
+        stdout = remove_backslash_n(result.stdout)
+        for exp in expected:
+            assert_that(stdout).contains(exp)
