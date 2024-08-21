@@ -3,8 +3,6 @@
 <!-- TODO: Add badge -->
 ![logo](logo.png)
 
-[English readme](README.md) **·** [Français readme](doc/readme/README.fr.md)
-
 PrintLinter is a python linter to detect and signals display functions in python code.
 
 ## Summary
@@ -40,6 +38,7 @@ PrintLinter is a python linter to detect and signals display functions in python
     - [Json configuration file](#json-configuration-file)
     - [Toml configuration file](#toml-configuration-file)
     - [Pyproject configuration file](#pyproject-configuration-file)
+- [Pre-commit hook](#pre-commit-hook)
 - [But then](#but-then)
 
 # Installing
@@ -432,9 +431,25 @@ disabled_rules = ["PPL001"]
 color = false
 ```
 
+# Pre-commit hook
+
+For the moment we havn't write a pre-commit hook but you can create a local hook to run
+printlinter in your pre-commit.
+
+```yaml
+- repo: local
+  hooks:
+    - id: printlinter
+      name: printlinter
+      entry: printlinter lint
+      language: system
+      types: [python]
+```
+
 # But then
 
 Too see the next features to be developed see [TODO](TODO.md). Here's a small,
 non-exhaustive list of what's comming in the future versions.
 
 - Lint display functions from other libraries.
+- Precommit-hook
