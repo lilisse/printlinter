@@ -6,6 +6,24 @@ from dataclasses import dataclass
 from enum import Enum, auto
 from pathlib import Path
 
+
+class OutputLevel(Enum):
+    """Minimize level enum."""
+
+    DEFAULT = auto()
+    L1 = auto()
+    L2 = auto()
+    L3 = auto()
+
+
+class SortedOutput(Enum):
+    """Sorted output enum."""
+
+    DEFAULT = auto()
+    BY_FILES = auto()
+    BY_ERRORS = auto()
+
+
 Issue = namedtuple("Issue", ["err_code", "name"])
 
 
@@ -22,15 +40,6 @@ class IssueEnum(Issue, Enum):
     SYSSTDERRWRITELINESDETECT = Issue(
         err_code="PPL006", name="sys.stderr.writelines-detected"
     )
-
-
-class OutputLevel(Enum):
-    """Minimize level enum."""
-
-    DEFAULT = auto()
-    L1 = auto()
-    L2 = auto()
-    L3 = auto()
 
 
 @dataclass

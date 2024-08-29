@@ -4,6 +4,7 @@
     "ignored_files": ["tutu.py"],
     "disabled_rules": ["PPL003"],
     "color": true,
-    "output_level": 1
+    "output_level": 1,
+    "sorted_by": "errors"
   }
 }

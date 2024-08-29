@@ -10,7 +10,7 @@ from rich.console import Console
 from rich.progress import track
 
 # First party imports
-from printlinter import Config, IssueInfo, OutputLevel
+from printlinter import Config, IssueInfo, OutputLevel, SortedOutput
 from printlinter import __app_name__ as ppl_app_name
 from printlinter import __version__ as ppl_version
 from printlinter import (
@@ -168,6 +168,57 @@ def _get_errors_msg_by_file(
     return "\n".join(res_list)
 
 
+def _get_issues_depending_sorted_config(
+    not_ignored_issues: list[IssueInfo],
+    sorted_output: SortedOutput,
+) -> list[IssueInfo]:
+    """
+    Get sorted issues depending configuration.
+
+    Args:
+        not_ignored_issues: Issues to sort.
+        sorted_output: Sorted configuration.
+
+    Returns:
+        Given issues but sorted if configuration ask a sorting order.
+    """
+    if sorted_output == SortedOutput.BY_FILES:
+        return sorted(not_ignored_issues, key=operator.attrgetter("from_file"))
+
+    if sorted_output == SortedOutput.BY_ERRORS:
+        return sorted(not_ignored_issues, key=operator.attrgetter("issue"))
+
+    return not_ignored_issues
+
+
+def _display_issues(
+    issues_to_display: list[IssueInfo],
+    output_level: OutputLevel,
+    console: Console,
+) -> None:
+    """
+    Display issues depending output level configuration.
+
+    Args:
+        issues_to_display: Issues to display.
+        output_level: Output level from configuration.
+        console: Console to display issues.
+    """
+    if output_level == OutputLevel.L1:
+        pass
+    elif output_level == OutputLevel.L2:
+        console.print(
+            _get_errors_msg_by_file(issues_to_display, with_number_and_lines=False)
+        )
+    elif output_level == OutputLevel.L3:
+        console.print(
+            _get_errors_msg_by_file(issues_to_display, with_number_and_lines=True)
+        )
+    else:
+        for issue in issues_to_display:
+            console.print(str(issue))
+
+
 def version_callback(value: bool) -> None:
     """
     Get the version, display the version if `--version` was used.
@@ -256,21 +307,14 @@ def lint(
             "comment. The file will be lint as if the file were not ignored.\n"
         )
 
-    if config.output_level == OutputLevel.L1:
-        pass
-    elif config.output_level == OutputLevel.L2:
-        console.print(
-            _get_errors_msg_by_file(not_ignored_issues, with_number_and_lines=False)
-        )
-    elif config.output_level == OutputLevel.L3:
-        console.print(
-            _get_errors_msg_by_file(not_ignored_issues, with_number_and_lines=True)
-        )
-    else:
-        for issue in not_ignored_issues:
-            console.print(str(issue))
+    issues_to_display = _get_issues_depending_sorted_config(
+        not_ignored_issues,
+        config.sorted_output,
+    )
 
-    console.print(f"Found [bold red]{len(not_ignored_issues)}[/bold red] errors")
+    _display_issues(issues_to_display, config.output_level, console)
+
+    console.print(f"Found [bold red]{len(issues_to_display)}[/bold red] errors")
 
 
 @APP.callback()

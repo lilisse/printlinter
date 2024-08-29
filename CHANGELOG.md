@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add a configuration option to sort the output: `sorted_by`.
+  Possible values:
+
+  - files to sort by files name.
+  - errors to sort by errors code.
+
 - Add a configuration option for a minimize output: `output_level`.
   Possible values:
 
