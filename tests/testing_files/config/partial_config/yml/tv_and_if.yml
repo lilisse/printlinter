@@ -1,3 +1,3 @@
 printlinter:
   target_version: "3.10"
-  ignored_files: [toto.py]
+  ignored_files: [tests/testing_files/**/toto_1.py]

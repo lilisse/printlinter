@@ -1,2 +1,2 @@
 printlinter:
-  ignored_files: [toto.py]
+  ignored_files: [tests/testing_files/**/toto_1.py]

@@ -1,2 +1,2 @@
 [printlinter]
-ignored_files = ["tata.py"]
+ignored_files = ["tests/testing_files/**/**/mixed*.py"]

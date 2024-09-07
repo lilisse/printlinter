@@ -3,6 +3,7 @@
 # Standard imports
 import sys
 from dataclasses import dataclass
+from glob import glob
 from json import loads as json_load
 from pathlib import Path
 from typing import TypeAlias, cast
@@ -12,6 +13,7 @@ from yaml import safe_load as yaml_load
 
 # Local imports
 from .classes import OutputLevel, SortedOutput
+from .parser import enumerate_file
 
 # In python 3.11, tomllib was added,
 # https://docs.python.org/3/whatsnew/3.11.html#new-modules, so that printlinter is
@@ -133,11 +135,12 @@ class Config:
         config = self._read_config(path)
 
         self.target_version = self._fix_target_version(config)
-        self.ignored_files = cast(list[str], config.get("ignored_files", []))
         self.disabled_rules = cast(list[str], config.get("disabled_rules", []))
         self.color = cast(bool, config.get("color", True))
         self.output_level = self._fix_output_level(config)
         self.sorted_output = self._fix_sorted_output(config)
+        # self.ignored_files = cast(list[str], config.get("ignored_files", []))
+        self.ignored_files = self._fix_ignored_files(config)
 
         # TODO: Add this in user config and merge list give by user and default list
         self.ignored_rep = DEFAULT_IGNORED_REP
@@ -290,6 +293,7 @@ class Config:
                     f"({', '.join(avaible_values)})."
                 )
 
+    # TODO: Documenter cette fonction
     def _fix_sorted_output(self, config: CONFIG_TYPE) -> SortedOutput:
         sorted_level_from_file = str(config.get("sorted_by", "default"))
         match sorted_level_from_file:
@@ -301,3 +305,19 @@ class Config:
                 return SortedOutput.BY_ERRORS
             case _:
                 raise ValueError("sorted_by must be a 'files' or 'errors'.")
+
+    def _fix_ignored_files(self, config: CONFIG_TYPE) -> list[Path]:
+        """
+        blabla
+        """
+        result = []
+
+        for ignore in config.get("ignored_files", []):
+            res = glob(ignore)
+            for item in res:
+                if Path(item).is_dir():
+                    result.extend(enumerate_file(Path(item)))
+                else:
+                    result.append(Path(item))
+
+        return result

@@ -1,7 +1,7 @@
 {
   "printlinter": {
     "target_version": "3.8",
-    "ignored_files": ["tutu.py"],
+    "ignored_files": ["tests/testing_files/**/mixed*.py"],
     "disabled_rules": ["PPL003"],
     "color": true,
     "output_level": 1,

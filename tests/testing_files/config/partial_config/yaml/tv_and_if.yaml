@@ -1,3 +1,3 @@
 printlinter:
   target_version: "3.9"
-  ignored_files: [titi.py]
+  ignored_files: [tests/testing_files/print/*.py]

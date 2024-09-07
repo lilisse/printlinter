@@ -1,12 +1,8 @@
 {
   "printlinter": {
     "target_version": "3.8",
-    "ignored_files": [
-      "tutu.py"
-    ],
-    "disabled_rules": [
-      "PPL003"
-    ],
+    "ignored_files": ["../../../**/mixed*.py"],
+    "disabled_rules": ["PPL003"],
     "color": false
   }
 }

@@ -1,5 +1,5 @@
 {
   "printlinter": {
-    "ignored_files": ["tutu.py"]
+    "ignored_files": ["tests/testing_files/**/mixed*.py"]
   }
 }

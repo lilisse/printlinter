@@ -1,5 +1,5 @@
 [tool.printlinter]
-ignored_files = ["tyty.py"]
+ignored_files = ["../../../**/**/pprint3.py"]
 disabled_rules = ["PPL005"]
 target_version = "3.11"
 color = false

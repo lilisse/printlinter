@@ -28,7 +28,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "full_config/config.yml",
             (3, 10),
-            ["toto.py"],
+            [Path("tests/testing_files/print/toto_1.py")],
             ["PPL001"],
             True,
             OutputLevel.L1,
@@ -38,7 +38,10 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "full_config/config.yaml",
             (3, 9),
-            ["titi.py"],
+            [
+                Path("tests/testing_files/print/toto_0.py"),
+                Path("tests/testing_files/print/toto_1.py"),
+            ],
             ["PPL002"],
             False,
             OutputLevel.L2,
@@ -48,7 +51,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "full_config/config.json",
             (3, 8),
-            ["tutu.py"],
+            [Path("tests/testing_files/mixed/mixed0.py")],
             ["PPL003"],
             True,
             OutputLevel.L1,
@@ -58,7 +61,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "full_config/config.toml",
             (3, 7),
-            ["tata.py"],
+            [Path("tests/testing_files/mixed/mixed1/mixed2.py")],
             ["PPL004"],
             False,
             OutputLevel.L3,
@@ -79,7 +82,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/yml/only_ig.yml",
             (3, 10),
-            ["toto.py"],
+            [Path("tests/testing_files/print/toto_1.py")],
             [],
             True,
             OutputLevel.DEFAULT,
@@ -109,7 +112,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/yml/tv_and_if.yml",
             (3, 10),
-            ["toto.py"],
+            [Path("tests/testing_files/print/toto_1.py")],
             [],
             True,
             OutputLevel.DEFAULT,
@@ -129,7 +132,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/yml/if_and_dr.yml",
             (3, 10),
-            ["toto.py"],
+            [Path("tests/testing_files/print/toto_1.py")],
             ["PPL001"],
             True,
             OutputLevel.DEFAULT,
@@ -149,7 +152,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/yml/tv_if_and_col.yml",
             (3, 10),
-            ["toto.py"],
+            [Path("tests/testing_files/print/toto_1.py")],
             [],
             False,
             OutputLevel.DEFAULT,
@@ -169,7 +172,10 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/yaml/only_ig.yaml",
             (3, 10),
-            ["titi.py"],
+            [
+                Path("tests/testing_files/print/toto_0.py"),
+                Path("tests/testing_files/print/toto_1.py"),
+            ],
             [],
             True,
             OutputLevel.DEFAULT,
@@ -199,7 +205,10 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/yaml/tv_and_if.yaml",
             (3, 9),
-            ["titi.py"],
+            [
+                Path("tests/testing_files/print/toto_0.py"),
+                Path("tests/testing_files/print/toto_1.py"),
+            ],
             [],
             True,
             OutputLevel.DEFAULT,
@@ -219,7 +228,10 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/yaml/if_and_dr.yaml",
             (3, 10),
-            ["titi.py"],
+            [
+                Path("tests/testing_files/print/toto_0.py"),
+                Path("tests/testing_files/print/toto_1.py"),
+            ],
             ["PPL002"],
             True,
             OutputLevel.DEFAULT,
@@ -239,7 +251,10 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/yaml/tv_if_and_col.yaml",
             (3, 9),
-            ["titi.py"],
+            [
+                Path("tests/testing_files/print/toto_0.py"),
+                Path("tests/testing_files/print/toto_1.py"),
+            ],
             [],
             False,
             OutputLevel.DEFAULT,
@@ -259,7 +274,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/json/only_ig.json",
             (3, 10),
-            ["tutu.py"],
+            [Path("tests/testing_files/mixed/mixed0.py")],
             [],
             True,
             OutputLevel.DEFAULT,
@@ -289,7 +304,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/json/tv_and_if.json",
             (3, 8),
-            ["tutu.py"],
+            [Path("tests/testing_files/mixed/mixed0.py")],
             [],
             True,
             OutputLevel.DEFAULT,
@@ -309,7 +324,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/json/if_and_dr.json",
             (3, 10),
-            ["tutu.py"],
+            [Path("tests/testing_files/mixed/mixed0.py")],
             ["PPL003"],
             True,
             OutputLevel.DEFAULT,
@@ -329,7 +344,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/json/tv_if_and_col.json",
             (3, 8),
-            ["tutu.py"],
+            [Path("tests/testing_files/mixed/mixed0.py")],
             [],
             False,
             OutputLevel.DEFAULT,
@@ -349,7 +364,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/toml/only_ig.toml",
             (3, 10),
-            ["tata.py"],
+            [Path("tests/testing_files/mixed/mixed1/mixed2.py")],
             [],
             True,
             OutputLevel.DEFAULT,
@@ -379,7 +394,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/toml/tv_and_if.toml",
             (3, 7),
-            ["tata.py"],
+            [Path("tests/testing_files/mixed/mixed1/mixed2.py")],
             [],
             True,
             OutputLevel.DEFAULT,
@@ -399,7 +414,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/toml/if_and_dr.toml",
             (3, 10),
-            ["tata.py"],
+            [Path("tests/testing_files/mixed/mixed1/mixed2.py")],
             ["PPL004"],
             True,
             OutputLevel.DEFAULT,
@@ -419,7 +434,7 @@ TESTING_FILES_PATH = INPUT_FILE_PATH / "config/"
         param(
             "partial_config/toml/tv_if_and_col.toml",
             (3, 7),
-            ["tata.py"],
+            [Path("tests/testing_files/mixed/mixed1/mixed2.py")],
             [],
             False,
             OutputLevel.DEFAULT,
@@ -440,7 +455,10 @@ def test_config_from_given_file(
     conf = Config(TESTING_FILES_PATH / given_file)
     with soft_assertions():
         assert_that(conf.target_version).is_equal_to(expect_target_version)
-        assert_that(conf.ignored_files).is_equal_to(expect_ignored_files)
+        if expect_ignored_files:
+            assert_that(conf.ignored_files).contains_only(*expect_ignored_files)
+        else:
+            assert_that(conf.ignored_files).is_empty()
         assert_that(conf.disabled_rules).is_equal_to(expect_disabled_rules)
         assert_that(conf.color).is_equal_to(expect_color)
         assert_that(conf.output_level).is_equal_to(expect_output_level)
@@ -454,7 +472,7 @@ def test_config_from_given_file(
         param(
             "auto/take_yml",
             (3, 10),
-            ["toto.py"],
+            [Path("../../../print/toto_1.py")],
             ["PPL001"],
             False,
             id="printlinter.yml file",
@@ -462,7 +480,10 @@ def test_config_from_given_file(
         param(
             "auto/take_yaml",
             (3, 9),
-            ["titi.py"],
+            [
+                Path("../../../print/toto_0.py"),
+                Path("../../../print/toto_1.py"),
+            ],
             ["PPL002"],
             False,
             id="printlinter.yaml file",
@@ -470,7 +491,7 @@ def test_config_from_given_file(
         param(
             "auto/take_json",
             (3, 8),
-            ["tutu.py"],
+            [Path("../../../mixed/mixed0.py")],
             ["PPL003"],
             False,
             id="printlinter.json file",
@@ -478,7 +499,7 @@ def test_config_from_given_file(
         param(
             "auto/take_toml",
             (3, 7),
-            ["tata.py"],
+            [Path("../../../mixed/mixed1/mixed2.py")],
             ["PPL004"],
             False,
             id="printlinter.toml file",
@@ -486,7 +507,7 @@ def test_config_from_given_file(
         param(
             "auto/take_pyproject",
             (3, 11),
-            ["tyty.py"],
+            [Path("../../../pprint/pprint2/pprint3.py")],
             ["PPL005"],
             False,
             id="pyproject.toml file",
@@ -555,6 +576,77 @@ def test_config_default_because_no_config_file():
         assert_that(conf.disabled_rules).is_empty()
         assert_that(conf.color).is_true()
         assert_that(conf.ignored_rep).is_equal_to(DEFAULT_IGNORED_REP)
+
+
+@pytest.mark.parametrize(
+    "given_ignored_files, expected",
+    [
+        param({}, [], id="empty"),
+        param(
+            {"ignored_files": ["tests/testing_files/**/toto_1.py"]},
+            [Path("tests/testing_files/print/toto_1.py")],
+            id="1 glob for one file",
+        ),
+        param(
+            {"ignored_files": ["tests/testing_files/**/pprint*.py"]},
+            [
+                Path("tests/testing_files/pprint/pprint0.py"),
+                Path("tests/testing_files/pprint/pprint1.py"),
+            ],
+            id="1 glob for multi file",
+        ),
+        param(
+            {"ignored_files": ["tests/testing_files/print/"]},
+            [
+                Path("tests/testing_files/print/toto_1.py"),
+                Path("tests/testing_files/print/toto_0.py"),
+                Path("tests/testing_files/print/toto4/toto5.py"),
+                Path("tests/testing_files/print/toto2/toto3.py"),
+            ],
+            id="1 glob for folder contains many files",
+        ),
+        param(
+            {
+                "ignored_files": [
+                    "tests/testing_files/**/pprint*.py",
+                    "tests/testing_files/**/toto_1.py",
+                ]
+            },
+            [
+                Path("tests/testing_files/pprint/pprint0.py"),
+                Path("tests/testing_files/pprint/pprint1.py"),
+                Path("tests/testing_files/print/toto_1.py"),
+            ],
+            id="many glob for multi file",
+        ),
+        param(
+            {
+                "ignored_files": [
+                    "tests/testing_files/print/",
+                    "tests/testing_files/pprint",
+                ]
+            },
+            [
+                Path("tests/testing_files/print/toto_1.py"),
+                Path("tests/testing_files/print/toto_0.py"),
+                Path("tests/testing_files/print/toto4/toto5.py"),
+                Path("tests/testing_files/print/toto2/toto3.py"),
+                Path("tests/testing_files/pprint/pprint1.py"),
+                Path("tests/testing_files/pprint/pprint0.py"),
+                Path("tests/testing_files/pprint/pprint4/pprint5.py"),
+                Path("tests/testing_files/pprint/pprint2/pprint3.py"),
+            ],
+            id="many glob for folder contains many files",
+        ),
+    ],
+)
+def test_config_fix_ignored_files(given_ignored_files, expected):
+    res = Config()._fix_ignored_files(given_ignored_files)
+
+    if expected:
+        assert_that(res).contains_only(*expected)
+    else:
+        assert_that(res).is_empty()
 
 
 @pytest.mark.parametrize(

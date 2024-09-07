@@ -1,5 +1,5 @@
 [printlinter]
-ignored_files = ["tata.py"]
+ignored_files = ["../../../**/**/mixed*.py"]
 disabled_rules = ["PPL004"]
 target_version = "3.7"
 color = false

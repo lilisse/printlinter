@@ -1,9 +1,7 @@
 {
-    "printlinter": {
-        "target_version": "3.8",
-        "ignored_files": [
-            "tutu.py"
-        ],
-        "color": false
-    }
+  "printlinter": {
+    "target_version": "3.8",
+    "ignored_files": ["tests/testing_files/**/mixed*.py"],
+    "color": false
+  }
 }

@@ -22,7 +22,7 @@ def enumerate_file(folder: Path) -> list[Path]:
     Enumerate all files in a folder.
 
     Args:
-        folder: Path of the folder to enumerate
+        folder: Path of the folder to enumerate.
 
     Returns:
         All file in the given folder.
